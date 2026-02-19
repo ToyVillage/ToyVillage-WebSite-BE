@@ -1,6 +1,7 @@
 package com.command.toyvillage_server.global.error;
 
 import com.command.toyvillage_server.global.error.exception.ErrorCode;
+import com.command.toyvillage_server.global.error.exception.ToyVillageException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -32,7 +33,7 @@ public class GlobalExceptionFilter extends OncePerRequestFilter {
 
         try {
             filterChain.doFilter(request,response);
-        } catch (ToyVillageExceptioon e){
+        } catch (ToyVillageException e){
             ErrorCode errorCode = e.getErrorCode();
             writerErrorResponse(response, errorCode.getStatusCode(), ErrorResponse.of(errorCode, errorCode.getErrorMessage()));
         } catch (Exception e){
