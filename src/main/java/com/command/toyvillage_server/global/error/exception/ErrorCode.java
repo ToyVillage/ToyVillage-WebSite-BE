@@ -1,0 +1,23 @@
+package com.command.toyvillage_server.global.error.exception;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
+@JsonFormat(shape = JsonFormat.Shape.OBJECT)
+public enum ErrorCode {
+    //user
+    USER_NOT_FOUND(404, "해당 유저가 존재 하지 않습니다."),
+    USER_MISMATCH(401, "유저가 일치 하지 않습니다."),
+    PASSWORD_MISMATCH(401, "비밀 번호가 일치 하지 않습니다."),
+    USER_EXIST(401, "유저가 이미 존재합니다."),
+
+    // general
+    BAD_REQUEST(400, "잘못된 요청입니다."),
+    INTERNAL_SERVER_ERROR(500, "내부 서버 오류가 발생했습니다.");
+
+    private final int statusCode;
+    private final String errorMessage;
+}
