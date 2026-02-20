@@ -1,0 +1,21 @@
+language: "ko-KR"
+early_access: false
+
+reviews:
+  profile: "chill"
+  request_changes_workflow: true
+  high_level_summary: true
+  poem: true
+  review_status: true
+  collapse_walkthrough: true
+  auto_review:
+    enabled: true
+    drafts: false
+  
+  indent_style: "tab"
+  tools:
+    shellcheck:
+      enabled: true
+
+chat:
+  auto_reply: true
