@@ -13,3 +13,7 @@ cors:
     local: http://localhost:8080
     dev: ${DEV_URL}
     main: ${MAIN_URL}
+
+redis:
+  host: ${REDIS_HOST}
+  port: ${REDIS_PORT}
