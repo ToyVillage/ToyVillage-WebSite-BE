@@ -5,6 +5,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Getter
 @NoArgsConstructor
 public class EventRequest {
@@ -16,10 +18,10 @@ public class EventRequest {
     private String event_description;
 
     @NotBlank
-    private String event_start_date;
+    private LocalDateTime event_start_date;
 
     @NotBlank
-    private String event_end_date;
+    private LocalDateTime event_end_date;
 
     @NotBlank
     @Size(max = 100)
