@@ -27,5 +27,4 @@ public class EventRequest {
     @NotBlank
     @Size(max = 100)
     private String event_subjects;
-
 }
