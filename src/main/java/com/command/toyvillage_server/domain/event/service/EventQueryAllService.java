@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -17,19 +18,9 @@ public class EventQueryAllService {
 
     @Transactional(readOnly = true)
     public List<EventResponse> execute() {
-        List<Event> events = eventRepository.findAll();
-
-        List<EventResponse> EventAllResponses = events.stream()
-                .map(event ->
-                        EventResponse.builder()
-                                .event_id(event.getId())
-                                .event_name(event.getTitle())
-                                .event_description(event.getDescription())
-                                .event_start_date(event.getCreatedAt())
-                                .event_end_date(event.getEndedAt())
-                                .event_subjects(event.getSubjects())
-                                .build()
-                ).toList();
-    return EventAllResponses;
+        return eventRepository.findAll()
+                .stream()
+                .map(EventResponse::new)
+                .collect(Collectors.toList());
     }
 }
