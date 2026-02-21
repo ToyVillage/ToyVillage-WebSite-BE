@@ -15,7 +15,7 @@ public class EventResponse {
     private Long event_id;
     private String event_name;
     private String event_description;
-    private String event_start_date;
+    private LocalDateTime event_start_date;
     private LocalDateTime event_end_date;
-    private LocalDateTime event_subjects;
+    private String event_subjects;
 }
