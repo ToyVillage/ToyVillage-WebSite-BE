@@ -12,7 +12,7 @@ public enum ErrorCode {
     USER_NOT_FOUND(404, "해당 유저가 존재 하지 않습니다."),
     USER_MISMATCH(401, "유저가 일치 하지 않습니다."),
     PASSWORD_MISMATCH(401, "비밀 번호가 일치 하지 않습니다."),
-    USER_EXIST(401, "유저가 이미 존재합니다."),
+    USER_EXIST(409, "유저가 이미 존재합니다."),
 
     // general
     BAD_REQUEST(400, "잘못된 요청입니다."),
