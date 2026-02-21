@@ -1,6 +1,5 @@
 package com.command.toyvillage_server.domain.event.service;
 
-import com.command.toyvillage_server.domain.event.domain.Event;
 import com.command.toyvillage_server.domain.event.domain.repository.EventRepository;
 import com.command.toyvillage_server.domain.event.presentation.dto.response.EventResponse;
 import lombok.RequiredArgsConstructor;
