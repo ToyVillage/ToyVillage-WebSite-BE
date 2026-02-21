@@ -11,8 +11,6 @@ reviews:
   auto_review:
     enabled: true
     drafts: false
-  
-  indent_style: "tab"
   tools:
     shellcheck:
       enabled: true
