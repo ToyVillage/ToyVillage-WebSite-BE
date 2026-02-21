@@ -34,7 +34,7 @@ public class GlobalExceptionFilter extends OncePerRequestFilter {
             filterChain.doFilter(request,response);
         } catch (ToyVillageException e){
             ErrorCode errorCode = e.getErrorCode();
-            writerErrorResponse(response, errorCode.getStatusCode(), ErrorResponse.of(errorCode, errorCode.getErrorMessage()));
+            writerErrorResponse(response, errorCode.getStatusCode(), ErrorResponse.of(errorCode, e.getMessage()));
         } catch (Exception e){
             log.error("예상하지 못한 에러", e);
             writerErrorResponse(
