@@ -1,6 +1,7 @@
 package com.command.toyvillage_server.domain.event.presentation.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,10 +18,10 @@ public class EventRequest {
     @NotBlank
     private String event_description;
 
-    @NotBlank
+    @NotNull
     private LocalDateTime event_start_date;
 
-    @NotBlank
+    @NotNull
     private LocalDateTime event_end_date;
 
     @NotBlank
