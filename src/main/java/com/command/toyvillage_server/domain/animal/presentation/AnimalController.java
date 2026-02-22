@@ -2,6 +2,7 @@ package com.command.toyvillage_server.domain.animal.presentation;
 
 import com.command.toyvillage_server.domain.animal.presentation.dto.request.AnimalRequest;
 import com.command.toyvillage_server.domain.animal.presentation.dto.response.AnimalResponse;
+import com.command.toyvillage_server.domain.animal.presentation.dto.response.MessageResponse;
 import com.command.toyvillage_server.domain.animal.service.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -20,30 +21,27 @@ public class AnimalController {
     private final QueryAllAnimalService queryAllAnimalService;
 
     @PostMapping
-    public ResponseEntity<String> create(@RequestBody AnimalRequest request) {
+    public ResponseEntity<MessageResponse> create(@RequestBody AnimalRequest request) {
         createAnimalService.execute(request);
 
         return ResponseEntity
-                .ok()
-                .body("동물소개가 추가되었습니다.");
+                .ok(MessageResponse.of("동물소개가 생성되었습니다."));
     }
 
     @PutMapping("/{animal_id}")
-    public ResponseEntity<String> update(@RequestBody AnimalRequest request,  @PathVariable Long animal_id) {
+    public ResponseEntity<MessageResponse> update(@RequestBody AnimalRequest request,  @PathVariable Long animal_id) {
         updateAnimalService.execute(request, animal_id);
 
         return ResponseEntity
-                .ok()
-                .body("동물소개가 수정되었습니다.");
+                .ok(MessageResponse.of("동물소개가 생성되었습니다."));
     }
 
     @DeleteMapping("/{animal_id}")
-    public ResponseEntity<String> delete(@PathVariable Long animal_id) {
+    public ResponseEntity<MessageResponse> delete(@PathVariable Long animal_id) {
         deleteAnimalService.execute(animal_id);
 
         return ResponseEntity
-                .ok()
-                .body("동물소개가 삭제되었습니다.");
+                .ok(MessageResponse.of("동물소개가 생성되었습니다."));
     }
 
     @GetMapping("/{animal_id}")
