@@ -28,10 +28,6 @@ public class UpdateAnimalService {
 
         animalRepository.save(animal);
 
-        return new AnimalResponse(
-                animal.getAnimalKind(),
-                animal.getAnimalDescription()
-        );
+        return AnimalResponse.from(animal);
     }
-
 }
