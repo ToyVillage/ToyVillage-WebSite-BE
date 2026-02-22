@@ -1,5 +1,7 @@
 package com.command.toyvillage_server.domain.animal.domain;
 
+import com.command.toyvillage_server.domain.animal.presentation.dto.request.AnimalRequest;
+import com.command.toyvillage_server.domain.animal.presentation.dto.response.AnimalResponse;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,4 +22,9 @@ public class Animal {
 
     @Column(nullable = false, name = "animal_discription")
     private String animalDescription;
+
+    public void update(String animalKind, String animalDescription) {
+        this.animalKind = animalKind;
+        this.animalDescription = animalDescription;
+    }
 }
