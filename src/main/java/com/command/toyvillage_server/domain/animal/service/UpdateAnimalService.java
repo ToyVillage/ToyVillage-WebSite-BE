@@ -28,6 +28,8 @@ public class UpdateAnimalService {
 
         animalRepository.save(animal);
 
+        log.info("동물 소개 수정 / Id : {}", animalId);
+
         return AnimalResponse.from(animal);
     }
 }
