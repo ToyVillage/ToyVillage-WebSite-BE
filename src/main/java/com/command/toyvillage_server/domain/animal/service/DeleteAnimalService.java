@@ -2,20 +2,23 @@ package com.command.toyvillage_server.domain.animal.service;
 
 import com.command.toyvillage_server.domain.animal.domain.Animal;
 import com.command.toyvillage_server.domain.animal.domain.repository.AnimalRepository;
-import com.command.toyvillage_server.domain.animal.presentation.dto.response.AnimalResponse;
+import com.command.toyvillage_server.domain.animal.exception.AnimalNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class UpdateAnimalService {
+public class DeleteAnimalService {
     private final AnimalRepository animalRepository;
 
-    public AnimalResponse execute(Long animalId) {
-        animalRepository.findById(animalId)
-                .orElseThrow(() -> );
-    }
+    @Transactional
+    public void execute(Long animalId) {
+        Animal animal = animalRepository.findById(animalId)
+                .orElseThrow(() -> AnimalNotFoundException.EXCEPTION);
 
+        animalRepository.delete(animal);
+    }
 }
