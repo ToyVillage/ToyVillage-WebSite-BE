@@ -29,8 +29,8 @@ public class AnimalController {
     }
 
     @PutMapping("/{animal_id}")
-    public ResponseEntity<String> update(@RequestBody AnimalRequest request,  @PathVariable Long animalId) {
-        updateAnimalService.execute(request, animalId);
+    public ResponseEntity<String> update(@RequestBody AnimalRequest request,  @PathVariable Long animal_id) {
+        updateAnimalService.execute(request, animal_id);
 
         return ResponseEntity
                 .ok()
@@ -38,8 +38,8 @@ public class AnimalController {
     }
 
     @DeleteMapping("/{animal_id}")
-    public ResponseEntity<String> delete(@PathVariable Long animalId) {
-        deleteAnimalService.execute(animalId);
+    public ResponseEntity<String> delete(@PathVariable Long animal_id) {
+        deleteAnimalService.execute(animal_id);
 
         return ResponseEntity
                 .ok()
@@ -47,8 +47,8 @@ public class AnimalController {
     }
 
     @GetMapping("/{animal_id}")
-    public AnimalResponse Query(@PathVariable Long animalId) {
-        return queryAnimalService.execute(animalId);
+    public AnimalResponse Query(@PathVariable Long animal_id) {
+        return queryAnimalService.execute(animal_id);
     }
 
     @GetMapping
