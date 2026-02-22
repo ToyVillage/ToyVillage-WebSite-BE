@@ -20,7 +20,7 @@ public class Animal {
     @Column(nullable = false, length = 50, name = "animal_kind")
     private String animalKind;
 
-    @Column(nullable = false, name = "animal_discription")
+    @Column(nullable = false, name = "animal_description")
     private String animalDescription;
 
     public void update(String animalKind, String animalDescription) {
