@@ -48,7 +48,7 @@ public class AnimalController {
     }
 
     @GetMapping("/{animal_id}")
-    public AnimalResponse Query(@PathVariable Long animal_id) {
+    public AnimalResponse query(@PathVariable Long animal_id) {
         return queryAnimalService.execute(animal_id);
     }
 
