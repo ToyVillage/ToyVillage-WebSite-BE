@@ -5,10 +5,10 @@ import com.command.toyvillage_server.domain.animal.domain.repository.AnimalRepos
 import com.command.toyvillage_server.domain.animal.exception.AnimalNotFoundException;
 import com.command.toyvillage_server.domain.animal.presentation.dto.request.AnimalRequest;
 import com.command.toyvillage_server.domain.animal.presentation.dto.response.AnimalResponse;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
