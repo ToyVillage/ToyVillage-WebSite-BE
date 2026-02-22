@@ -39,6 +39,4 @@ public class Event {
         this.endedAt = eventRequest.getEvent_end_date();
         this.subjects = eventRequest.getEvent_subjects();
     }
-
-
 }
