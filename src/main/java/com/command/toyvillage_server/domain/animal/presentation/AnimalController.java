@@ -5,6 +5,7 @@ import com.command.toyvillage_server.domain.animal.presentation.dto.response.Ani
 import com.command.toyvillage_server.domain.animal.presentation.dto.response.MessageResponse;
 import com.command.toyvillage_server.domain.animal.service.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +26,8 @@ public class AnimalController {
         createAnimalService.execute(request);
 
         return ResponseEntity
-                .ok(MessageResponse.of("동물소개가 생성되었습니다."));
+                .status(HttpStatus.CREATED)
+                .body(MessageResponse.of("동물소개가 생성되었습니다."));
     }
 
     @PutMapping("/{animal_id}")
