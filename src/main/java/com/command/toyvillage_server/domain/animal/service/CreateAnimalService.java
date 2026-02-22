@@ -21,6 +21,8 @@ public class CreateAnimalService {
                 .animalDescription(request.animalDescription())
                 .build();
 
+        log.info("동물 소개 생성 / Id : {}", animal.getId());
+
         animalRepository.save(animal);
     }
 }
