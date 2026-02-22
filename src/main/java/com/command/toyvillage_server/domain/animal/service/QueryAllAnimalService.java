@@ -4,7 +4,6 @@ import com.command.toyvillage_server.domain.animal.domain.Animal;
 import com.command.toyvillage_server.domain.animal.domain.repository.AnimalRepository;
 import com.command.toyvillage_server.domain.animal.presentation.dto.response.AnimalResponse;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
