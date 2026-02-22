@@ -33,7 +33,7 @@ public class AnimalController {
         updateAnimalService.execute(request, animal_id);
 
         return ResponseEntity
-                .ok(MessageResponse.of("동물소개가 생성되었습니다."));
+                .ok(MessageResponse.of("동물소개가 수정되었습니다."));
     }
 
     @DeleteMapping("/{animal_id}")
@@ -41,7 +41,7 @@ public class AnimalController {
         deleteAnimalService.execute(animal_id);
 
         return ResponseEntity
-                .ok(MessageResponse.of("동물소개가 생성되었습니다."));
+                .ok(MessageResponse.of("동물소개가 삭제되었습니다."));
     }
 
     @GetMapping("/{animal_id}")
