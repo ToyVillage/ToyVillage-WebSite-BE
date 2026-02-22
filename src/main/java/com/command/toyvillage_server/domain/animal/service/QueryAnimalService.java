@@ -2,27 +2,22 @@ package com.command.toyvillage_server.domain.animal.service;
 
 import com.command.toyvillage_server.domain.animal.domain.Animal;
 import com.command.toyvillage_server.domain.animal.domain.repository.AnimalRepository;
+import com.command.toyvillage_server.domain.animal.exception.AnimalNotFoundException;
 import com.command.toyvillage_server.domain.animal.presentation.dto.response.AnimalResponse;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
 @RequiredArgsConstructor
-public class QueryAllAnimalService {
+public class QueryAnimalService {
     private final AnimalRepository animalRepository;
 
     @Transactional(readOnly = true)
-    public List<AnimalResponse> execute() {
-        List<Animal> animals = animalRepository.findAll();
+    public AnimalResponse execute(Long animalId) {
+        Animal animal = animalRepository.findById(animalId)
+                .orElseThrow(() -> AnimalNotFoundException.EXCEPTION);
 
-        return animals
-                .stream()
-                .map(AnimalResponse::from)
-                .collect(Collectors.toList());
+        return AnimalResponse.from(animal);
     }
 }
