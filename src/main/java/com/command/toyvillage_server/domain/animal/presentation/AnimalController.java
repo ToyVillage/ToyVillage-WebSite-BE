@@ -4,6 +4,7 @@ import com.command.toyvillage_server.domain.animal.presentation.dto.request.Anim
 import com.command.toyvillage_server.domain.animal.presentation.dto.response.AnimalResponse;
 import com.command.toyvillage_server.domain.animal.presentation.dto.response.MessageResponse;
 import com.command.toyvillage_server.domain.animal.service.*;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class AnimalController {
     private final QueryAllAnimalService queryAllAnimalService;
 
     @PostMapping
-    public ResponseEntity<MessageResponse> create(@RequestBody AnimalRequest request) {
+    public ResponseEntity<MessageResponse> create(@RequestBody @Valid AnimalRequest request) {
         createAnimalService.execute(request);
 
         return ResponseEntity
@@ -31,7 +32,7 @@ public class AnimalController {
     }
 
     @PutMapping("/{animal_id}")
-    public ResponseEntity<MessageResponse> update(@RequestBody AnimalRequest request,  @PathVariable Long animal_id) {
+    public ResponseEntity<MessageResponse> update(@RequestBody @Valid AnimalRequest request,  @PathVariable Long animal_id) {
         updateAnimalService.execute(request, animal_id);
 
         return ResponseEntity
