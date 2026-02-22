@@ -20,5 +20,7 @@ public class DeleteAnimalService {
                 .orElseThrow(() -> AnimalNotFoundException.EXCEPTION);
 
         animalRepository.delete(animal);
+
+        log.info("동물 소개 삭제 /  id : {}", animalId);
     }
 }
