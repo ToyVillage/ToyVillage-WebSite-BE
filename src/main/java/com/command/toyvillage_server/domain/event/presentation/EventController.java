@@ -48,7 +48,7 @@ public class EventController {
         eventDeleteService.execute(id);
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity updateEvent(@PathVariable Long id, @RequestBody @Valid EventRequest eventRequest) {
         eventUpdateService.execute(id, eventRequest);

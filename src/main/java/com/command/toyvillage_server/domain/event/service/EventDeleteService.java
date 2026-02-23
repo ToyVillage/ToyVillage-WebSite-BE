@@ -2,6 +2,7 @@ package com.command.toyvillage_server.domain.event.service;
 
 import com.command.toyvillage_server.domain.event.domain.Event;
 import com.command.toyvillage_server.domain.event.domain.repository.EventRepository;
+import com.command.toyvillage_server.domain.event.exception.EventNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ public class EventDeleteService {
     @Transactional
     public void execute(Long id) {
         Event event = eventRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("삭제할 이벤트를 찾을수 없습니다."));
+                .orElseThrow(() -> EventNotFoundException.EXCEPTION);
         log.info("이벤트 삭제: {}", event);
         eventRepository.delete(event);
     }
