@@ -2,10 +2,12 @@ package com.command.toyvillage_server.domain.event.presentation;
 
 import com.command.toyvillage_server.domain.event.presentation.dto.request.EventRequest;
 import com.command.toyvillage_server.domain.event.presentation.dto.response.EventResponse;
+import com.command.toyvillage_server.domain.event.presentation.dto.response.MessageResponse;
 import com.command.toyvillage_server.domain.event.service.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -33,8 +35,11 @@ public class EventController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createEvent(@RequestBody @Valid EventRequest eventRequest) {
+    public ResponseEntity<MessageResponse> createEvent(@RequestBody @Valid EventRequest eventRequest) {
         eventCreateService.execute(eventRequest);
+        return ResponseEntity.ok(
+                new MessageResponse("이벤트가 생성되었습니다")
+        );
     }
 
     @DeleteMapping("/{id}")
@@ -45,7 +50,10 @@ public class EventController {
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void updateEvent(@PathVariable Long id, @RequestBody @Valid EventRequest eventRequest) {
+    public ResponseEntity updateEvent(@PathVariable Long id, @RequestBody @Valid EventRequest eventRequest) {
         eventUpdateService.execute(id, eventRequest);
+        return ResponseEntity.ok(
+                new MessageResponse("이벤트가 변경되었습니다")
+        );
     }
 }
