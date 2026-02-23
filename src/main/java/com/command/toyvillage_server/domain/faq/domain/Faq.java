@@ -1,12 +1,13 @@
 package com.command.toyvillage_server.domain.faq.domain;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "tbl_faq")
 @Entity
 public class Faq {
