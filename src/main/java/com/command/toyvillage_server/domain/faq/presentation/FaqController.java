@@ -2,14 +2,15 @@ package com.command.toyvillage_server.domain.faq.presentation;
 
 import com.command.toyvillage_server.domain.faq.presentation.dto.request.FaqCreateRequest;
 import com.command.toyvillage_server.domain.faq.presentation.dto.request.FaqUpdateRequest;
-import com.command.toyvillage_server.domain.faq.presentation.dto.response.FaqDetailResponse;
-import com.command.toyvillage_server.domain.faq.presentation.dto.response.FaqListResponse;
+import com.command.toyvillage_server.domain.faq.presentation.dto.response.FaqResponse;
 import com.command.toyvillage_server.domain.faq.service.*;
-import com.command.toyvillage_server.global.dto.response.MessageResponse;
+import com.command.toyvillage_server.domain.faq.presentation.dto.response.MessageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/faq")
@@ -24,16 +25,17 @@ public class FaqController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public MessageResponse create(@Valid @RequestBody FaqCreateRequest faqCreateRequest) {
-        return createFaqService.execute(faqCreateRequest);
+        createFaqService.execute(faqCreateRequest);
+        return MessageResponse.of("자주묻는 질문이 추가되었습니다.");
     }
 
     @GetMapping
-    public FaqListResponse getFaqList() {
+    public List<FaqResponse> getList() {
         return queryFaqListService.execute();
     }
 
     @GetMapping("/{faq_id}")
-    public FaqDetailResponse get(@PathVariable(name = "faq_id") Long faqId) {
+    public FaqResponse get(@PathVariable(name = "faq_id") Long faqId) {
         return queryFaqDetailService.execute(faqId);
     }
 
@@ -42,7 +44,8 @@ public class FaqController {
         @PathVariable(name = "faq_id") Long faqId,
         @Valid @RequestBody FaqUpdateRequest faqUpdateRequest
     ) {
-        return updateFaqService.execute(faqUpdateRequest, faqId);
+        updateFaqService.execute(faqUpdateRequest, faqId);
+        return MessageResponse.of("자주묻는 질문이 수정되었습니다.");
     }
 
     @ResponseStatus(HttpStatus.NO_CONTENT)
