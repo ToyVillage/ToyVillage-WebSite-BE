@@ -8,8 +8,10 @@ import com.command.toyvillage_server.domain.faq.presentation.dto.response.Messag
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -23,10 +25,10 @@ public class FaqController {
     private final DeleteFaqService deleteFaqService;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public MessageResponse create(@Valid @RequestBody FaqCreateRequest faqCreateRequest) {
-        createFaqService.execute(faqCreateRequest);
-        return MessageResponse.of("자주묻는 질문이 추가되었습니다.");
+    public ResponseEntity<MessageResponse> create(@Valid @RequestBody FaqCreateRequest faqCreateRequest) {
+        Long id = createFaqService.execute(faqCreateRequest);
+        return ResponseEntity.created(URI.create("/faq/" + id))
+            .body(MessageResponse.of("자주묻는 질문이 추가되었습니다."));
     }
 
     @GetMapping

@@ -13,11 +13,12 @@ public class CreateFaqService {
     private final FaqRepository faqRepository;
 
     @Transactional
-    public void execute(FaqCreateRequest request) {
+    public Long execute(FaqCreateRequest request) {
         Faq faq = Faq.builder()
             .content(request.getQuestionContent())
             .answer(request.getQuestionAnswer())
             .build();
         faqRepository.save(faq);
+        return faq.getId();
     }
 }
