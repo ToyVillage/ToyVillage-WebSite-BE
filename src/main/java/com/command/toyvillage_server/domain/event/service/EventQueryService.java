@@ -18,6 +18,6 @@ public class EventQueryService {
     public EventResponse execute(Long id) {
         Event event = eventRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("해당 이벤트를 찾을수 없습니다."));
-        return new EventResponse(event);
+        return EventResponse.from(event);
     }
 }

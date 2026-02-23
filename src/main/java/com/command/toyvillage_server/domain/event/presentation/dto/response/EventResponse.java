@@ -1,26 +1,29 @@
     package com.command.toyvillage_server.domain.event.presentation.dto.response;
 
     import com.command.toyvillage_server.domain.event.domain.Event;
+    import lombok.AllArgsConstructor;
     import lombok.Getter;
 
     import java.time.LocalDateTime;
 
     @Getter
+    @AllArgsConstructor
     public class EventResponse {
-        private final Long event_id;
-        private final String event_name;
-        private final String event_description;
-        private final LocalDateTime event_start_date;
-        private final LocalDateTime event_end_date;
-        private final String event_subjects;
+        private Long eventId;
+        private String eventName;
+        private String eventDescription;
+        private LocalDateTime eventStartDate;
+        private LocalDateTime eventEndDate;
+        private String eventSubjects;
 
-
-        public EventResponse(Event event) {
-            this.event_id = event.getId();
-            this.event_name = event.getTitle();
-            this.event_description = event.getDescription();
-            this.event_start_date = event.getStartDate();
-            this.event_end_date = event.getEndDate();
-            this.event_subjects = event.getSubjects();
+        public static EventResponse from(Event event) {
+            return new EventResponse(
+                event.getId(),
+                event.getTitle(),
+                event.getDescription(),
+                event.getStartDate(),
+                event.getEndDate(),
+                event.getSubjects()
+            );
         }
     }

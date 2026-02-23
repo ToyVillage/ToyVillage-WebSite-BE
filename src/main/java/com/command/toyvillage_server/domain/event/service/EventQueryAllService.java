@@ -20,7 +20,7 @@ public class EventQueryAllService {
     public List<EventResponse> execute() {
         return eventRepository.findAll()
                 .stream()
-                .map(EventResponse::new)
+                .map(EventResponse::from)
                 .collect(Collectors.toList());
     }
 }
