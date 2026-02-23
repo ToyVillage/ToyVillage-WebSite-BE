@@ -19,8 +19,8 @@ public class EventCreateService {
         Event event = Event.builder()
                 .title(eventRequest.getEventName())
                 .description(eventRequest.getEventDescription())
-                .createdAt(eventRequest.getEventStartDate())
-                .endedAt(eventRequest.getEventEndDate())
+                .startDate(eventRequest.getEventStartDate())
+                .endDate(eventRequest.getEventEndDate())
                 .subjects(eventRequest.getEventSubjects())
                 .build();
 

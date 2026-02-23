@@ -24,10 +24,10 @@ public class Event {
     private String description;
 
     @Column(name = "event_start_date", nullable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime startDate;
 
     @Column(name = "event_end_date", nullable = false)
-    private LocalDateTime endedAt;
+    private LocalDateTime endDate;
 
     @Column(name = "event_subjects", nullable = false)
     private String subjects;
@@ -35,8 +35,8 @@ public class Event {
     public void update(EventRequest eventRequest) {
         this.title = eventRequest.getEventName();
         this.description = eventRequest.getEventDescription();
-        this.createdAt = eventRequest.getEventStartDate();
-        this.endedAt = eventRequest.getEventEndDate();
+        this.startDate = eventRequest.getEventStartDate();
+        this.endDate = eventRequest.getEventEndDate();
         this.subjects = eventRequest.getEventSubjects();
     }
 }

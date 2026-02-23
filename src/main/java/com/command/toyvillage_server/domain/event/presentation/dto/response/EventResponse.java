@@ -19,8 +19,8 @@
             this.event_id = event.getId();
             this.event_name = event.getTitle();
             this.event_description = event.getDescription();
-            this.event_start_date = event.getCreatedAt();
-            this.event_end_date = event.getEndedAt();
+            this.event_start_date = event.getStartDate();
+            this.event_end_date = event.getEndDate();
             this.event_subjects = event.getSubjects();
         }
     }
