@@ -27,5 +27,6 @@ public class EventUpdateService {
                 eventRequest.getEventEndDate(),
                 eventRequest.getEventSubjects()
         );
+        log.info("이벤트 수정 /id : {}",event.getId());
     }
 }

@@ -24,6 +24,7 @@ public class EventCreateService {
                 .subjects(eventRequest.getEventSubjects())
                 .build();
 
+        log.info("이벤트 생성  {}", event.getId());
         eventRepository.save(event);
     }
 }

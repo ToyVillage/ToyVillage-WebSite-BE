@@ -17,6 +17,7 @@ public class EventDeleteService {
     public void execute(Long id) {
         Event event = eventRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("삭제할 이벤트를 찾을수 없습니다."));
+        log.info("이벤트 삭제: {}", event);
         eventRepository.delete(event);
     }
 }
