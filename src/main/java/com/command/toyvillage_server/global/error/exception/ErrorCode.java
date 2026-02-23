@@ -10,6 +10,9 @@ import lombok.Getter;
 public enum ErrorCode {
     METHOD_NOT_ALLOWED(405, "지원하지 않는 메서드 형식입니다."),
 
+    // animal
+    ANIMAL_NOT_FOUND(404, "존재하지 않는 동물소개 입니다."),
+
     //user
     USER_NOT_FOUND(404, "해당 유저가 존재하지 않습니다."),
     USER_MISMATCH(401, "유저가 일치하지 않습니다."),
