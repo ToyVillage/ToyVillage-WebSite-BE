@@ -1,5 +1,6 @@
 package com.command.toyvillage_server.domain.faq.service;
 
+import com.command.toyvillage_server.domain.faq.domain.Faq;
 import com.command.toyvillage_server.domain.faq.domain.repository.FaqRepository;
 import com.command.toyvillage_server.domain.faq.exception.FaqNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +14,8 @@ public class DeleteFaqService {
 
     @Transactional
     public void execute(Long faqId) {
-        faqRepository.findById(faqId).orElseThrow(() -> FaqNotFoundException.EXCEPTION);
+        Faq faq = faqRepository.findById(faqId).orElseThrow(() -> FaqNotFoundException.EXCEPTION);
 
-        faqRepository.deleteById(faqId);
+        faqRepository.delete(faq);
     }
 }
