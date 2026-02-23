@@ -7,12 +7,12 @@
 
     @Getter
     public class EventResponse {
-        private Long event_id;
-        private String event_name;
-        private String event_description;
-        private LocalDateTime event_start_date;
-        private LocalDateTime event_end_date;
-        private String event_subjects;
+        private final Long event_id;
+        private final String event_name;
+        private final String event_description;
+        private final LocalDateTime event_start_date;
+        private final LocalDateTime event_end_date;
+        private final String event_subjects;
 
 
         public EventResponse(Event event) {

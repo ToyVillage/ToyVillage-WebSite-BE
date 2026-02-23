@@ -33,10 +33,10 @@ public class Event {
     private String subjects;
 
     public void update(EventRequest eventRequest) {
-        this.title = eventRequest.getEvent_name();
-        this.description = eventRequest.getEvent_description();
-        this.createdAt = eventRequest.getEvent_start_date();
-        this.endedAt = eventRequest.getEvent_end_date();
-        this.subjects = eventRequest.getEvent_subjects();
+        this.title = eventRequest.getEventName();
+        this.description = eventRequest.getEventDescription();
+        this.createdAt = eventRequest.getEventStartDate();
+        this.endedAt = eventRequest.getEventEndDate();
+        this.subjects = eventRequest.getEventSubjects();
     }
 }

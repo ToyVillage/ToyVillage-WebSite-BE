@@ -1,5 +1,6 @@
 package com.command.toyvillage_server.domain.event.presentation.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -13,18 +14,23 @@ import java.time.LocalDateTime;
 public class EventRequest {
     @NotBlank
     @Size(max = 50)
-    private String event_name;
+    @JsonProperty("event_name")
+    private String eventName;
 
     @NotBlank
-    private String event_description;
+    @JsonProperty("event_description")
+    private String eventDescription;
 
     @NotNull
-    private LocalDateTime event_start_date;
+    @JsonProperty("event_start_date")
+    private LocalDateTime eventStartDate;
 
     @NotNull
-    private LocalDateTime event_end_date;
+    @JsonProperty("event_end_date")
+    private LocalDateTime eventEndDate;
 
     @NotBlank
     @Size(max = 100)
-    private String event_subjects;
+    @JsonProperty("event_subjects")
+    private String eventSubjects;
 }

@@ -17,11 +17,11 @@ public class EventCreateService {
     @Transactional
     public void execute(EventRequest eventRequest) {
         Event event = Event.builder()
-                .title(eventRequest.getEvent_name())
-                .description(eventRequest.getEvent_description())
-                .createdAt(eventRequest.getEvent_start_date())
-                .endedAt(eventRequest.getEvent_end_date())
-                .subjects(eventRequest.getEvent_subjects())
+                .title(eventRequest.getEventName())
+                .description(eventRequest.getEventDescription())
+                .createdAt(eventRequest.getEventStartDate())
+                .endedAt(eventRequest.getEventEndDate())
+                .subjects(eventRequest.getEventSubjects())
                 .build();
 
         eventRepository.save(event);
