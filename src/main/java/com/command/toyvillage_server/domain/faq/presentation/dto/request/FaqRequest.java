@@ -6,11 +6,11 @@ import lombok.Getter;
 
 @Getter
 public class FaqRequest {
-    @NotBlank(message = "질문 내용를 비워둘 순 없습니다.")
+    @NotBlank(message = "질문 내용을 비워둘 순 없습니다.")
     @JsonProperty("question_content")
     private String questionContent;
 
-    @NotBlank(message = "질문 답변를 비워둘 순 없습니다.")
+    @NotBlank(message = "질문 답변을 비워둘 순 없습니다.")
     @JsonProperty("question_answer")
     private String questionAnswer;
 }
