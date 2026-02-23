@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 
 @Getter
-public class FaqUpdateRequest {
+public class FaqRequest {
     @NotBlank(message = "질문 내용를 비워둘 순 없습니다.")
     @JsonProperty("question_content")
     private String questionContent;

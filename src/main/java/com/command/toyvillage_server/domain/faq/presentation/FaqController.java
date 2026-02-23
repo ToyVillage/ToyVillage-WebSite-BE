@@ -1,7 +1,6 @@
 package com.command.toyvillage_server.domain.faq.presentation;
 
-import com.command.toyvillage_server.domain.faq.presentation.dto.request.FaqCreateRequest;
-import com.command.toyvillage_server.domain.faq.presentation.dto.request.FaqUpdateRequest;
+import com.command.toyvillage_server.domain.faq.presentation.dto.request.FaqRequest;
 import com.command.toyvillage_server.domain.faq.presentation.dto.response.FaqResponse;
 import com.command.toyvillage_server.domain.faq.service.*;
 import com.command.toyvillage_server.domain.faq.presentation.dto.response.MessageResponse;
@@ -25,8 +24,8 @@ public class FaqController {
     private final DeleteFaqService deleteFaqService;
 
     @PostMapping
-    public ResponseEntity<MessageResponse> create(@Valid @RequestBody FaqCreateRequest faqCreateRequest) {
-        Long id = createFaqService.execute(faqCreateRequest);
+    public ResponseEntity<MessageResponse> create(@Valid @RequestBody FaqRequest faqRequest) {
+        Long id = createFaqService.execute(faqRequest);
         return ResponseEntity.created(URI.create("/faq/" + id))
             .body(MessageResponse.of("자주묻는 질문이 추가되었습니다."));
     }
@@ -44,9 +43,9 @@ public class FaqController {
     @PutMapping("/{faq_id}")
     public MessageResponse update(
         @PathVariable(name = "faq_id") Long faqId,
-        @Valid @RequestBody FaqUpdateRequest faqUpdateRequest
+        @Valid @RequestBody FaqRequest faqRequest
     ) {
-        updateFaqService.execute(faqUpdateRequest, faqId);
+        updateFaqService.execute(faqRequest, faqId);
         return MessageResponse.of("자주묻는 질문이 수정되었습니다.");
     }
 
