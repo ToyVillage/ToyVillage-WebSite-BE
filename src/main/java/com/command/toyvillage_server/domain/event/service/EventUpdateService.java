@@ -28,5 +28,4 @@ public class EventUpdateService {
                 eventRequest.getEventSubjects()
         );
     }
-
 }
