@@ -16,9 +16,17 @@ public class EventUpdateService {
 
     @Transactional
     public void execute(Long id, EventRequest eventRequest) {
+
         Event event = eventRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("해당 수정할 이벤트을 찾을수 없습니다."));
-        event.update(eventRequest);
+                .orElseThrow(() -> new RuntimeException("해당 수정할 이벤트를 찾을 수 없습니다."));
+
+        event.update(
+                eventRequest.getEventName(),
+                eventRequest.getEventDescription(),
+                eventRequest.getEventStartDate(),
+                eventRequest.getEventEndDate(),
+                eventRequest.getEventSubjects()
+        );
     }
 
 }

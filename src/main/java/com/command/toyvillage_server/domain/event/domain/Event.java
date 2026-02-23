@@ -32,11 +32,11 @@ public class Event {
     @Column(name = "event_subjects", nullable = false)
     private String subjects;
 
-    public void update(EventRequest eventRequest) {
-        this.title = eventRequest.getEventName();
-        this.description = eventRequest.getEventDescription();
-        this.startDate = eventRequest.getEventStartDate();
-        this.endDate = eventRequest.getEventEndDate();
-        this.subjects = eventRequest.getEventSubjects();
+    public void update(String title, String description, LocalDateTime startDate, LocalDateTime endDate, String subjects) {
+        this.title = title;
+        this.description = description;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.subjects = subjects;
     }
 }
