@@ -3,12 +3,10 @@ package com.command.toyvillage_server.domain.news.presentation;
 import com.command.toyvillage_server.domain.news.presentation.dto.request.NewsRequest;
 import com.command.toyvillage_server.domain.news.presentation.dto.response.MessageResponse;
 import com.command.toyvillage_server.domain.news.presentation.dto.response.NewsResponse;
-import com.command.toyvillage_server.domain.news.service.NewsCreateService;
-import com.command.toyvillage_server.domain.news.service.NewsDeleteService;
-import com.command.toyvillage_server.domain.news.service.NewsQueryAllService;
-import com.command.toyvillage_server.domain.news.service.NewsQueryService;
+import com.command.toyvillage_server.domain.news.service.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +21,7 @@ public class NewsController {
     private final NewsQueryAllService newsQueryAllService;
     private final NewsQueryService newsQueryService;
     private final NewsDeleteService newsDeleteService;
+    private final NewsUpdateService newsUpdateService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -47,6 +46,13 @@ public class NewsController {
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<MessageResponse> deleteQueryNews(@PathVariable Long id) {
         newsDeleteService.execute(id);
-        return ResponseEntity.ok(new MessageResponse("뉴스가 삭제되었습니다"));
+        return ResponseEntity.ok(new MessageResponse("뉴스가 삭제되었습니다."));
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<MessageResponse> updateQueryNews(@PathVariable Long id, @RequestBody NewsRequest newsRequest) {
+        newsUpdateService.execute(id, newsRequest);
+        return ResponseEntity.ok(new MessageResponse("뉴스가 수정되었습니다."));
     }
 }

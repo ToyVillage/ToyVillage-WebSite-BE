@@ -31,4 +31,9 @@ public class News {
     @CreatedDate
     @Column(name = "news_postdate",nullable = false)
     private LocalDateTime createdDate;
+
+    public void update(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
 }
