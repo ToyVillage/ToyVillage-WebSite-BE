@@ -2,6 +2,7 @@ package com.command.toyvillage_server.domain.event.service;
 
 import com.command.toyvillage_server.domain.event.domain.Event;
 import com.command.toyvillage_server.domain.event.domain.repository.EventRepository;
+import com.command.toyvillage_server.domain.event.exception.EventNotFoundException;
 import com.command.toyvillage_server.domain.event.presentation.dto.response.EventResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +18,7 @@ public class EventQueryService {
     @Transactional(readOnly = true)
     public EventResponse execute(Long id) {
         Event event = eventRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("해당 이벤트를 찾을수 없습니다."));
+                .orElseThrow(() -> EventNotFoundException.EXCEPTION);
         return EventResponse.from(event);
     }
 }

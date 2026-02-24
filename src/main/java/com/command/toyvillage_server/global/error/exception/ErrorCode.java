@@ -21,6 +21,9 @@ public enum ErrorCode {
     PASSWORD_MISMATCH(401, "비밀번호가 일치하지 않습니다."),
     USER_EXIST(409, "유저가 이미 존재합니다."),
 
+    //event
+    EVENT_NOT_FOUND(404, "해당 이벤트가 존재하지 않습니다."),
+
     // general
     BAD_REQUEST(400, "잘못된 요청입니다."),
     INTERNAL_SERVER_ERROR(500, "내부 서버 오류가 발생했습니다.");
