@@ -6,11 +6,9 @@ import com.command.toyvillage_server.domain.news.presentation.dto.response.NewsR
 import com.command.toyvillage_server.domain.news.service.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -24,10 +22,11 @@ public class NewsController {
     private final NewsUpdateService newsUpdateService;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<MessageResponse> create(@Valid @RequestBody NewsRequest newsRequest) {
         newsCreateService.execute(newsRequest);
-        return ResponseEntity.ok(new MessageResponse("뉴스가 추가되었습니다."));
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(new MessageResponse("뉴스가 추가되었습니다."));
     }
 
     @GetMapping
