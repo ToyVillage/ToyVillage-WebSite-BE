@@ -2,6 +2,7 @@ package com.command.toyvillage_server.domain.news.service;
 
 import com.command.toyvillage_server.domain.news.domain.News;
 import com.command.toyvillage_server.domain.news.domain.repository.NewsRepository;
+import com.command.toyvillage_server.domain.news.exception.NewsNotFoundException;
 import com.command.toyvillage_server.domain.news.presentation.dto.request.NewsRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +18,7 @@ public class NewsUpdateService {
     @Transactional
     public void execute(Long id, NewsRequest newsRequest) {
         News news = newsRepository.findById(id)
-                .orElseThrow(()->new RuntimeException("해당 뉴스를 찾을수없습니다"));
+                .orElseThrow(()-> NewsNotFoundException.EXCEPTION);
 
         news.update(
                 newsRequest.getTitle(),
@@ -25,5 +26,4 @@ public class NewsUpdateService {
         );
         log.info("뉴스 수정 /id : {}",news.getId());
     }
-
 }
