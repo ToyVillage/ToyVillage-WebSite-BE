@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name = "tbl_news")
 @EntityListeners(AuditingEntityListener.class)
 public class News {
     @Id
