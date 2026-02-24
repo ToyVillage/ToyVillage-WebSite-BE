@@ -20,7 +20,7 @@ public class NewsCreateService {
                 .title(newsRequest.getTitle())
                 .description(newsRequest.getDescription())
                 .build();
-        log.info("뉴스 생성됨: {}", news.getId());
         newsRepository.save(news);
+        log.info("뉴스 생성됨: {}", news.getId());
     }
 }
