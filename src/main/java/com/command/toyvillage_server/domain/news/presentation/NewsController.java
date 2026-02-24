@@ -4,6 +4,7 @@ import com.command.toyvillage_server.domain.news.presentation.dto.request.NewsRe
 import com.command.toyvillage_server.domain.news.presentation.dto.response.MessageResponse;
 import com.command.toyvillage_server.domain.news.presentation.dto.response.NewsResponse;
 import com.command.toyvillage_server.domain.news.service.NewsCreateService;
+import com.command.toyvillage_server.domain.news.service.NewsDeleteService;
 import com.command.toyvillage_server.domain.news.service.NewsQueryAllService;
 import com.command.toyvillage_server.domain.news.service.NewsQueryService;
 import jakarta.validation.Valid;
@@ -21,6 +22,7 @@ public class NewsController {
     private final NewsCreateService newsCreateService;
     private final NewsQueryAllService newsQueryAllService;
     private final NewsQueryService newsQueryService;
+    private final NewsDeleteService newsDeleteService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -39,5 +41,12 @@ public class NewsController {
     @ResponseStatus(HttpStatus.OK)
     public NewsResponse getQueryNews(@PathVariable Long id) {
         return newsQueryService.execute(id);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<MessageResponse> deleteQueryNews(@PathVariable Long id) {
+        newsDeleteService.execute(id);
+        return ResponseEntity.ok(new MessageResponse("뉴스가 삭제되었습니다"));
     }
 }
