@@ -25,7 +25,7 @@ public class News {
     @Column(name = "news_title", nullable = false)
     private String title;
 
-    @Column(name = "news_description", nullable = false)
+    @Column(name = "news_description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
     @CreatedDate
