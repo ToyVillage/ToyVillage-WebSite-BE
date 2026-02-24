@@ -18,7 +18,7 @@ public class EventDeleteService {
     public void execute(Long id) {
         Event event = eventRepository.findById(id)
                 .orElseThrow(() -> EventNotFoundException.EXCEPTION);
-        log.info("이벤트 삭제: {}", event);
+        log.info("이벤트 삭제: {}", event.getId());
         eventRepository.delete(event);
     }
 }
