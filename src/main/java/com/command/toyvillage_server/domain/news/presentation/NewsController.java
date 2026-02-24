@@ -51,7 +51,7 @@ public class NewsController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<MessageResponse> updateQueryNews(@PathVariable Long id, @RequestBody NewsRequest newsRequest) {
+    public ResponseEntity<MessageResponse> updateQueryNews(@PathVariable Long id,@Valid @RequestBody NewsRequest newsRequest) {
         newsUpdateService.execute(id, newsRequest);
         return ResponseEntity.ok(new MessageResponse("뉴스가 수정되었습니다."));
     }
