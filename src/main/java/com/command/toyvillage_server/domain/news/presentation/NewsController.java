@@ -5,6 +5,7 @@ import com.command.toyvillage_server.domain.news.presentation.dto.response.Messa
 import com.command.toyvillage_server.domain.news.presentation.dto.response.NewsResponse;
 import com.command.toyvillage_server.domain.news.service.NewsCreateService;
 import com.command.toyvillage_server.domain.news.service.NewsQueryAllService;
+import com.command.toyvillage_server.domain.news.service.NewsQueryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import java.util.List;
 public class NewsController {
     private final NewsCreateService newsCreateService;
     private final NewsQueryAllService newsQueryAllService;
+    private final NewsQueryService newsQueryService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -31,5 +33,11 @@ public class NewsController {
     @ResponseStatus(HttpStatus.OK)
     public List<NewsResponse> getQueryAllNews() {
         return newsQueryAllService.execute();
+    }
+
+    @GetMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public NewsResponse getQueryNews(@PathVariable Long id) {
+        return newsQueryService.execute(id);
     }
 }
