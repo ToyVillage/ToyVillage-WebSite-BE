@@ -1,8 +1,12 @@
 package com.command.toyvillage_server.global.security.jwt;
 
 import ch.qos.logback.core.net.server.Client;
+import com.command.toyvillage_server.domain.animal.domain.repository.RefreshTokenRepository;
+import com.command.toyvillage_server.domain.auth.domain.RefreshToken;
 import com.command.toyvillage_server.domain.auth.domain.repository.AdminRepository;
 import com.command.toyvillage_server.global.security.auth.CustomUserDetailsService;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,7 +19,7 @@ import org.springframework.util.StringUtils;
 
 import java.util.Date;
 
-Component
+@Component
 @RequiredArgsConstructor
 public class JwtTokenProvider {
     private final JwtProperties jwtProperties;
@@ -57,8 +61,7 @@ public class JwtTokenProvider {
 
         refreshTokenRepository.save(
                 RefreshToken.builder()
-                        .organName(adminName)
-                        .client(client.name())
+                        .username(adminName)
                         .token(refreshToken)
                         .timeToLive((jwtProperties.getRefreshExpiration()))
                         .build()
