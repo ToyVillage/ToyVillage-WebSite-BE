@@ -10,6 +10,9 @@ import lombok.Getter;
 public enum ErrorCode {
     METHOD_NOT_ALLOWED(405, "지원하지 않는 메서드 형식입니다."),
 
+    // auth
+    LOGIN_INFO_NOT_MATCHED(401, "아이디 또는 비밀번호를 확인해주세요"),
+
     // jwt
     EXPIRED_TOKEN(401, "만료된 토큰입니다."),
     INVALID_TOKEN(401, "유효하지 않은 토큰입니다."),
