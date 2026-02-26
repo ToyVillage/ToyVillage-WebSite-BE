@@ -1,6 +1,7 @@
 package com.command.toyvillage_server.global.security.jwt;
 
 import com.command.toyvillage_server.domain.animal.domain.repository.RefreshTokenRepository;
+import com.command.toyvillage_server.domain.auth.exception.AdminNotFoundException;
 import com.command.toyvillage_server.domain.auth.exception.ExpiredTokenException;
 import com.command.toyvillage_server.domain.auth.exception.InvalidTokenException;
 import com.command.toyvillage_server.domain.auth.domain.RefreshToken;
@@ -102,13 +103,9 @@ public class JwtTokenProvider {
     public TokenResponse receiveToken(String adminName) {
 
         adminRepository.findByUsername(adminName)
-                .orElseThrow(() -> AdminNot.EXCEPTION);
+                .orElseThrow(() -> AdminNotFoundException.EXCEPTION);
 
-        return TokenResponse.builder()
-                .accessToken(createAccessToken(organName, client))
-                .refreshToken(createRefreshToken(organName, client))
-                .organName(organName)
-                .build();
+        return TokenResponse()
     }
 
     public String resolveToken(HttpServletRequest request) {
