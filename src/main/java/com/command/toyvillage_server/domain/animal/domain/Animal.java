@@ -1,7 +1,5 @@
 package com.command.toyvillage_server.domain.animal.domain;
 
-import com.command.toyvillage_server.domain.animal.presentation.dto.request.AnimalRequest;
-import com.command.toyvillage_server.domain.animal.presentation.dto.response.AnimalResponse;
 import jakarta.persistence.*;
 import lombok.*;
 
