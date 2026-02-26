@@ -105,7 +105,9 @@ public class JwtTokenProvider {
         adminRepository.findByUsername(adminName)
                 .orElseThrow(() -> AdminNotFoundException.EXCEPTION);
 
-        return TokenResponse()
+        return TokenResponse.of(
+                createRefreshToken(adminName)
+        );
     }
 
     public String resolveToken(HttpServletRequest request) {
