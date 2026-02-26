@@ -14,11 +14,11 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final AdminRepository adminRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String organName) {
+    public UserDetails loadUserByUsername(String adminName) {
 
-        Admin admin = adminRepository.findByOrganName(organName)
+        Admin admin = adminRepository.findByUsername(adminName)
                 .orElseThrow(() -> new UsernameNotFoundException("Admin Not Found"));
 
-        return new CustomUserDetails(organ);
+        return new CustomUserDetails(admin);
     }
 }
