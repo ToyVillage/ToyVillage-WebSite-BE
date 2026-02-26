@@ -106,7 +106,8 @@ public class JwtTokenProvider {
                 .orElseThrow(() -> AdminNotFoundException.EXCEPTION);
 
         return TokenResponse.of(
-                createRefreshToken(adminName)
+                createRefreshToken(adminName),
+                createAccessToken(adminName)
         );
     }
 

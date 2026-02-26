@@ -2,6 +2,7 @@ package com.command.toyvillage_server.domain.auth.service;
 
 import com.command.toyvillage_server.domain.animal.domain.repository.RefreshTokenRepository;
 import com.command.toyvillage_server.domain.auth.domain.repository.AdminRepository;
+import com.command.toyvillage_server.domain.auth.exception.AdminNotFoundException;
 import com.command.toyvillage_server.domain.auth.presentation.dto.request.AdminLoginRequest;
 import com.command.toyvillage_server.domain.auth.presentation.dto.response.TokenResponse;
 import com.command.toyvillage_server.global.security.jwt.JwtTokenProvider;
@@ -18,6 +19,10 @@ public class AdminLoginService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     public TokenResponse execute(AdminLoginRequest request){
+        adminRepository.findByUsername(request.username())
+                .orElseThrow(() -> AdminNotFoundException.EXCEPTION);
 
+        String accessToken = jwtTokenProvider.createAccessToken(request.username());
+        String refreshToken = jwtTokenProvider.createRefreshToken(request.username());
     }
 }
