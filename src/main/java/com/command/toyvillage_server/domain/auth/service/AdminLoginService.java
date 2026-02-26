@@ -4,6 +4,7 @@ import com.command.toyvillage_server.domain.animal.domain.repository.RefreshToke
 import com.command.toyvillage_server.domain.auth.domain.Admin;
 import com.command.toyvillage_server.domain.auth.domain.repository.AdminRepository;
 import com.command.toyvillage_server.domain.auth.exception.AdminNotFoundException;
+import com.command.toyvillage_server.domain.auth.exception.LoginInfoNotMatchedException;
 import com.command.toyvillage_server.domain.auth.presentation.dto.request.AdminLoginRequest;
 import com.command.toyvillage_server.domain.auth.presentation.dto.response.TokenResponse;
 import com.command.toyvillage_server.global.security.jwt.JwtTokenProvider;
@@ -22,9 +23,10 @@ public class AdminLoginService {
 
     public TokenResponse execute(AdminLoginRequest request){
         Admin admin = adminRepository.findByUsername(request.username())
-                .orElseThrow(() -> AdminNotFoundException.EXCEPTION);
+                .orElseThrow(() -> LoginInfoNotMatchedException.EXCEPTION);
+
         if(!passwordEncoder.matches(request.password(), admin.getPassword())) {
-            throw .EXCEPTION;
+            throw LoginInfoNotMatchedException.EXCEPTION;
         }
 
         String accessToken = jwtTokenProvider.createAccessToken(request.username());
