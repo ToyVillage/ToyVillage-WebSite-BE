@@ -1,4 +1,4 @@
-package com.command.toyvillage_server.domain.animal.exception;
+package com.command.toyvillage_server.domain.auth.exception;
 
 import com.command.toyvillage_server.global.error.exception.ErrorCode;
 import com.command.toyvillage_server.global.error.exception.ToyVillageException;
