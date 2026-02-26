@@ -22,6 +22,8 @@ public class AdminLoginService {
     private final PasswordEncoder passwordEncoder;
 
     public TokenResponse execute(AdminLoginRequest request){
+        log.info("로그인 시도 / username : {}", request.username());
+
         Admin admin = adminRepository.findByUsername(request.username())
                 .orElseThrow(() -> LoginInfoNotMatchedException.EXCEPTION);
 
@@ -31,6 +33,8 @@ public class AdminLoginService {
 
         String accessToken = jwtTokenProvider.createAccessToken(request.username());
         String refreshToken = jwtTokenProvider.createRefreshToken(request.username());
+
+        log.info("로그인 성공 / username : {}", request.username());
 
         return TokenResponse.of(accessToken, refreshToken);
     }
