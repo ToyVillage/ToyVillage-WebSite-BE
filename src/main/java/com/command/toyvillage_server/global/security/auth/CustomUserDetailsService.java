@@ -3,6 +3,9 @@ package com.command.toyvillage_server.global.security.auth;
 import com.command.toyvillage_server.domain.auth.domain.Admin;
 import com.command.toyvillage_server.domain.auth.domain.repository.AdminRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -14,7 +17,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String organName) {
 
         Admin admin = adminRepository.findByOrganName(organName)
-                .orElseThrow(() -> new UsernameNotFoundException("Organ Not Found"));
+                .orElseThrow(() -> new UsernameNotFoundException("Admin Not Found"));
 
         return new CustomUserDetails(organ);
     }
