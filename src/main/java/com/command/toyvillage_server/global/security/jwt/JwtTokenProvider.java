@@ -1,6 +1,6 @@
 package com.command.toyvillage_server.global.security.jwt;
 
-import com.command.toyvillage_server.domain.animal.domain.repository.RefreshTokenRepository;
+import com.command.toyvillage_server.domain.auth.domain.repository.RefreshTokenRepository;
 import com.command.toyvillage_server.domain.auth.exception.AdminNotFoundException;
 import com.command.toyvillage_server.domain.auth.exception.ExpiredTokenException;
 import com.command.toyvillage_server.domain.auth.exception.InvalidTokenException;

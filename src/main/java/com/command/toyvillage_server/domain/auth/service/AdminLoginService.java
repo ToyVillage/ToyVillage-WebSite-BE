@@ -1,9 +1,7 @@
 package com.command.toyvillage_server.domain.auth.service;
 
-import com.command.toyvillage_server.domain.animal.domain.repository.RefreshTokenRepository;
 import com.command.toyvillage_server.domain.auth.domain.Admin;
 import com.command.toyvillage_server.domain.auth.domain.repository.AdminRepository;
-import com.command.toyvillage_server.domain.auth.exception.AdminNotFoundException;
 import com.command.toyvillage_server.domain.auth.exception.LoginInfoNotMatchedException;
 import com.command.toyvillage_server.domain.auth.presentation.dto.request.AdminLoginRequest;
 import com.command.toyvillage_server.domain.auth.presentation.dto.response.TokenResponse;
