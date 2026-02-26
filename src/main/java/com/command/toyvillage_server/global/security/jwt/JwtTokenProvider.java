@@ -2,6 +2,8 @@ package com.command.toyvillage_server.global.security.jwt;
 
 import ch.qos.logback.core.net.server.Client;
 import com.command.toyvillage_server.domain.animal.domain.repository.RefreshTokenRepository;
+import com.command.toyvillage_server.domain.animal.exception.ExpiredTokenException;
+import com.command.toyvillage_server.domain.animal.exception.InvalidTokenException;
 import com.command.toyvillage_server.domain.auth.domain.RefreshToken;
 import com.command.toyvillage_server.domain.auth.domain.repository.AdminRepository;
 import com.command.toyvillage_server.global.security.auth.CustomUserDetailsService;
