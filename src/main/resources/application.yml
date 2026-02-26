@@ -17,3 +17,8 @@ cors:
 redis:
   host: ${REDIS_HOST}
   port: ${REDIS_PORT}
+
+jwt:
+  secret-key: ${SECRET_KEY}
+  accessExpiration: 3600
+  refreshExpiration: 604800
