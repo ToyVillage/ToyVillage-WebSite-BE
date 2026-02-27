@@ -118,7 +118,7 @@ public class JwtTokenProvider {
 
         if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(jwtProperties.getPrefix())
                 && bearerToken.length() > jwtProperties.getPrefix().length() + 1) {
-            return bearerToken.substring(7);
+            return bearerToken.substring(jwtProperties.getPrefix().length() + 1);
         }
 
         return null;
