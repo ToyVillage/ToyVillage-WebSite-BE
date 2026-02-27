@@ -19,7 +19,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-
 import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
@@ -36,7 +35,7 @@ public class JwtTokenProvider {
     private static final String CLAIM_TYPE = "type";
     private static final String ACCESS_TYPE = "access";
     private static final String REFRESH_TYPE = "refresh";
-    
+
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(
                 jwtProperties.getSecretKey().getBytes(StandardCharsets.UTF_8)
