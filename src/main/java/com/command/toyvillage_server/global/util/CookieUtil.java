@@ -12,9 +12,13 @@ public class CookieUtil {
     @Value("${app.cookie.secure}")
     private boolean cookieSecure;
 
+    @Value("${jwt.refreshExpiration}")
+    private int refreshExpiration;
+
     public void addRefreshTokenCookie(HttpServletResponse response, String refreshToken) {
         ResponseCookie cookie = ResponseCookie.from("REFRESH_TOKEN", refreshToken)
                 .httpOnly(true)
+                .maxAge(refreshExpiration)
                 .secure(cookieSecure)
                 .path("/")
                 .sameSite("Lax")
