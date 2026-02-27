@@ -33,4 +33,13 @@ public class News {
         this.title = title;
         this.description = description;
     }
+
+    protected News(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
+
+    public static News create(String title, String description) {
+        return new News(title,description);
+    }
 }

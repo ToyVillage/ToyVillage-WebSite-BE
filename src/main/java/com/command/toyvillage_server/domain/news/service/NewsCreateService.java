@@ -16,10 +16,10 @@ public class NewsCreateService {
 
     @Transactional
     public void execute(NewsRequest newsRequest) {
-        News news = News.builder()
-                .title(newsRequest.getTitle())
-                .description(newsRequest.getDescription())
-                .build();
+        News news = News.create(
+                newsRequest.getTitle(),
+                newsRequest.getDescription()
+        );
         newsRepository.save(news);
         log.info("뉴스 생성됨: {}", news.getId());
     }
