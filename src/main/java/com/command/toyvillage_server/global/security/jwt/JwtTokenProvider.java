@@ -56,6 +56,7 @@ public class JwtTokenProvider {
 
         String refreshToken = Jwts.builder()
                 .claim(CLAIM_TYPE, REFRESH_TYPE)  //refresh 토큰임을 나타냄
+                .setSubject(adminName)
                 .setIssuedAt(now)
                 .setExpiration(new java.sql.Timestamp(now.getTime() + jwtProperties.getRefreshExpiration()))
                 .signWith(SignatureAlgorithm.HS512, jwtProperties.getSecretKey())
