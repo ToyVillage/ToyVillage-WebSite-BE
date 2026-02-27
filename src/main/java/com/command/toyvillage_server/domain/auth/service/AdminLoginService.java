@@ -29,11 +29,10 @@ public class AdminLoginService {
             throw LoginInfoNotMatchedException.EXCEPTION;
         }
 
-        String accessToken = jwtTokenProvider.createAccessToken(request.username());
-        String refreshToken = jwtTokenProvider.createRefreshToken(request.username());
+        TokenResponse response = jwtTokenProvider.receiveToken(request.username());
 
         log.info("로그인 성공 / username : {}", request.username());
 
-        return TokenResponse.of(accessToken, refreshToken);
+        return response;
     }
 }
