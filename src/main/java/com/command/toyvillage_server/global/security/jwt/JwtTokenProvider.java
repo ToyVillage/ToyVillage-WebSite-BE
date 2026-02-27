@@ -1,17 +1,17 @@
 package com.command.toyvillage_server.global.security.jwt;
 
+import com.command.toyvillage_server.domain.auth.domain.RefreshToken;
+import com.command.toyvillage_server.domain.auth.domain.repository.AdminRepository;
 import com.command.toyvillage_server.domain.auth.domain.repository.RefreshTokenRepository;
 import com.command.toyvillage_server.domain.auth.exception.AdminNotFoundException;
 import com.command.toyvillage_server.domain.auth.exception.ExpiredTokenException;
 import com.command.toyvillage_server.domain.auth.exception.InvalidTokenException;
-import com.command.toyvillage_server.domain.auth.domain.RefreshToken;
-import com.command.toyvillage_server.domain.auth.domain.repository.AdminRepository;
 import com.command.toyvillage_server.domain.auth.presentation.dto.response.TokenResponse;
 import com.command.toyvillage_server.global.security.auth.CustomUserDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,11 +20,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import javax.crypto.SecretKey;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 @Component
 @RequiredArgsConstructor
 public class JwtTokenProvider {
+
     private final JwtProperties jwtProperties;
     private final AdminRepository adminRepository;
     private final CustomUserDetailsService customUserDetailsService;
@@ -33,70 +36,75 @@ public class JwtTokenProvider {
     private static final String CLAIM_TYPE = "type";
     private static final String ACCESS_TYPE = "access";
     private static final String REFRESH_TYPE = "refresh";
+    
+    private SecretKey getSigningKey() {
+        return Keys.hmacShaKeyFor(
+                jwtProperties.getSecretKey().getBytes(StandardCharsets.UTF_8)
+        );
+    }
 
-    //access token 생성
     public String createAccessToken(String adminName) {
 
         Date now = new Date();
 
         return Jwts.builder()
-                .setSubject(adminName)
-                .claim(CLAIM_TYPE, ACCESS_TYPE) // 액세스 토큰임을 나타냄
-                .setIssuedAt(now) // 토큰 발행 시간 정보
-                .setExpiration(new Date(now.getTime() + jwtProperties.getAccessExpiration())) // 토큰의 만료 시간 설정
-                .signWith(SignatureAlgorithm.HS512, jwtProperties.getSecretKey())
+                .subject(adminName)
+                .claim(CLAIM_TYPE, ACCESS_TYPE)
+                .issuedAt(now)
+                .expiration(new Date(now.getTime() + jwtProperties.getAccessExpiration()))
+                .signWith(getSigningKey(), Jwts.SIG.HS512)
                 .compact();
-
     }
 
-    //refresh token 생성
     public String createRefreshToken(String adminName) {
 
         Date now = new Date();
 
         String refreshToken = Jwts.builder()
-                .claim(CLAIM_TYPE, REFRESH_TYPE)  //refresh 토큰임을 나타냄
-                .setSubject(adminName)
-                .setIssuedAt(now)
-                .setExpiration(new java.sql.Timestamp(now.getTime() + jwtProperties.getRefreshExpiration()))
-                .signWith(SignatureAlgorithm.HS512, jwtProperties.getSecretKey())
+                .subject(adminName)
+                .claim(CLAIM_TYPE, REFRESH_TYPE)
+                .issuedAt(now)
+                .expiration(new Date(now.getTime() + jwtProperties.getRefreshExpiration()))
+                .signWith(getSigningKey(), Jwts.SIG.HS512)
                 .compact();
-
 
         refreshTokenRepository.save(
                 RefreshToken.builder()
                         .username(adminName)
                         .token(refreshToken)
-                        .timeToLive((jwtProperties.getRefreshExpiration()))
+                        .timeToLive(jwtProperties.getRefreshExpiration())
                         .build()
         );
 
         return refreshToken;
     }
 
-    // 토큰에 담겨 있는 userId로 SpringSecurity Authentication 정보를 반환 하는 메서드
     public Authentication getAuthentication(String token) {
 
         Claims claims = getClaims(token);
 
-        UserDetails userDetails = customUserDetailsService.loadUserByUsername(claims.getSubject());
+        UserDetails userDetails =
+                customUserDetailsService.loadUserByUsername(claims.getSubject());
 
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(
+                userDetails,
+                null,
+                userDetails.getAuthorities()
+        );
     }
 
     public Claims getClaims(String token) {
 
         try {
-            return Jwts
-                    .parser() //JWT parser 생성
-                    .setSigningKey(jwtProperties.getSecretKey())
-                    .parseClaimsJws(token)
-                    .getBody();
-        }
-        catch (ExpiredJwtException e) {
-            throw  ExpiredTokenException.EXCEPTION;
-        }
-        catch (Exception E) {
+            return Jwts.parser()
+                    .verifyWith(getSigningKey())
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
+
+        } catch (ExpiredJwtException e) {
+            throw ExpiredTokenException.EXCEPTION;
+        } catch (Exception e) {
             throw InvalidTokenException.EXCEPTION;
         }
     }
@@ -116,8 +124,10 @@ public class JwtTokenProvider {
 
         String bearerToken = request.getHeader(jwtProperties.getHeader());
 
-        if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(jwtProperties.getPrefix())
+        if (StringUtils.hasText(bearerToken)
+                && bearerToken.startsWith(jwtProperties.getPrefix())
                 && bearerToken.length() > jwtProperties.getPrefix().length() + 1) {
+
             return bearerToken.substring(jwtProperties.getPrefix().length() + 1);
         }
 
