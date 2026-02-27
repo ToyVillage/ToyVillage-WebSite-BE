@@ -5,6 +5,7 @@ import com.command.toyvillage_server.domain.auth.presentation.dto.response.Token
 import com.command.toyvillage_server.domain.auth.service.AdminLoginService;
 import com.command.toyvillage_server.global.util.CookieUtil;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<String> login(
-            @RequestBody AdminLoginRequest request,
+            @RequestBody @Valid AdminLoginRequest request,
             HttpServletResponse response
     ){
         TokenResponse result = adminLoginService.execute(request);
