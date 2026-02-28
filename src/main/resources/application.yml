@@ -17,3 +17,16 @@ cors:
 redis:
   host: ${REDIS_HOST}
   port: ${REDIS_PORT}
+
+jwt:
+  secret-key: ${SECRET_KEY}
+  accessExpiration: 3600
+  refreshExpiration: 604800
+
+  header: Authorization
+  prefix: Bearer
+
+
+app:
+  cookie:
+    secure: false # 테스트 환경에선 false, 운영 환경에선 https를 사용함, 따라서 true로 바꾼뒤 운영해야함
