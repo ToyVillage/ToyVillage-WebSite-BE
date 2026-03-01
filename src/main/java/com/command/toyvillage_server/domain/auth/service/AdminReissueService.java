@@ -12,6 +12,7 @@ public class AdminReissueService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     public AccessTokenResponse execute(ReissueRequest request) {
-        refreshTokenRepository.
+        refreshTokenRepository.findByUsername(request.username())
+                .orElseThrow(() -> )
     }
 }
