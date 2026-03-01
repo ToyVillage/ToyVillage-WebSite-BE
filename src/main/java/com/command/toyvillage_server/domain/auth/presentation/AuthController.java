@@ -1,8 +1,11 @@
 package com.command.toyvillage_server.domain.auth.presentation;
 
+import com.command.toyvillage_server.domain.animal.presentation.dto.response.MessageResponse;
 import com.command.toyvillage_server.domain.auth.presentation.dto.request.AdminLoginRequest;
+import com.command.toyvillage_server.domain.auth.presentation.dto.request.AdminSignUpRequest;
 import com.command.toyvillage_server.domain.auth.presentation.dto.response.TokenResponse;
 import com.command.toyvillage_server.domain.auth.service.AdminLoginService;
+import com.command.toyvillage_server.domain.auth.service.AdminSignUpService;
 import com.command.toyvillage_server.global.util.CookieUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -19,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class AuthController {
     private final AdminLoginService adminLoginService;
+    private final AdminSignUpService adminSignUpService;
 
     private final CookieUtil cookieUtil;
 
@@ -34,5 +38,15 @@ public class AuthController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(result.accessToken());
+    }
+    @PostMapping("/signup")
+    public ResponseEntity<MessageResponse> signup(
+            @RequestBody @Valid AdminSignUpRequest request
+    ){
+        adminSignUpService.execute(request);
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(MessageResponse.of("회원가입 완료되었습니다. 로그인 후 이용해주세요."));
     }
 }
