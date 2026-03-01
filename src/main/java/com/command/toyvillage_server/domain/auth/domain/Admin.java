@@ -1,10 +1,7 @@
 package com.command.toyvillage_server.domain.auth.domain;
 
-import ch.qos.logback.core.sift.AbstractDiscriminator;
-import com.command.toyvillage_server.domain.auth.presentation.dto.request.AdminSignUpRequest;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.beans.BeanUtils;
 
 @Entity
 @Table(name = "tbl_admin")
