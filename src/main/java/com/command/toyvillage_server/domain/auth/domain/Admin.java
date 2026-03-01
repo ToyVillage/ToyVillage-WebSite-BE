@@ -20,4 +20,11 @@ public class Admin {
 
     @Column(nullable = false)
     private String password;
+
+    public static Admin create(String username, String password) {
+        return Admin.builder()
+                .username(username)
+                .password(password)
+                .build();
+    }
 }
