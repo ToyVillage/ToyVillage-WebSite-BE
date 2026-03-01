@@ -26,7 +26,7 @@ public enum ErrorCode {
     ADMIN_NOT_FOUND(404, "해당 관리자가 존재하지 않습니다."),
     ADMIN_MISMATCH(401, "유저가 일치하지 않습니다."),
     PASSWORD_MISMATCH(401, "비밀번호가 일치하지 않습니다."),
-    USER_EXIST(409, "유저가 이미 존재합니다."),
+    ADMIN_EXIST(409, "유저가 이미 존재합니다."),
 
     //event
     EVENT_NOT_FOUND(404, "해당 이벤트가 존재하지 않습니다."),
