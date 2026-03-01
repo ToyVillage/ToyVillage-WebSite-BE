@@ -2,6 +2,7 @@ package com.command.toyvillage_server.domain.auth.service;
 
 import com.command.toyvillage_server.domain.auth.domain.Admin;
 import com.command.toyvillage_server.domain.auth.domain.repository.AdminRepository;
+import com.command.toyvillage_server.domain.auth.exception.AdminAlreadyException;
 import com.command.toyvillage_server.domain.auth.presentation.dto.request.AdminSignUpRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,11 +17,11 @@ public class AdminSignUpService {
 
     @Transactional
     public void execute(AdminSignUpRequest request) {
-        String password = passwordEncoder.encode(request.password());
-
         if(adminRepository.findByUsername(request.username()).isPresent()){
-            throw Admin
+            throw AdminAlreadyException.EXCEPTION;
         }
+
+        String password = passwordEncoder.encode(request.password());
 
         Admin admin = Admin.create(
                 request.username(),
