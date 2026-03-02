@@ -1,6 +1,7 @@
 package com.command.toyvillage_server.domain.auth.service;
 
 import com.command.toyvillage_server.domain.auth.domain.Admin;
+import com.command.toyvillage_server.domain.auth.domain.RefreshToken;
 import com.command.toyvillage_server.domain.auth.domain.repository.RefreshTokenRepository;
 import com.command.toyvillage_server.domain.auth.exception.RefreshTokenNotFoundException;
 import com.command.toyvillage_server.domain.auth.facade.AdminFacade;
@@ -20,8 +21,10 @@ public class AdminReissueService {
     public TokenResponse execute(ReissueRequest request) {
         adminFacade.currentAdmin();
 
-        refreshTokenRepository.findByUsername(request.username())
+        RefreshToken refreshToken = refreshTokenRepository.findByUsername(request.username())
                 .orElseThrow(() -> RefreshTokenNotFoundException.EXCEPTION);
+
+        refreshTokenRepository.delete(refreshToken);
 
         return jwtTokenProvider.receiveToken(request.username());
     }
