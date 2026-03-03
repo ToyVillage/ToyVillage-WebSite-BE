@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     private final AdminLoginService adminLoginService;
     private final AdminSignUpService adminSignUpService;
-    public final AdminReissueService adminReissueService;
+    private final AdminReissueService adminReissueService;
 
     private final CookieUtil cookieUtil;
 
