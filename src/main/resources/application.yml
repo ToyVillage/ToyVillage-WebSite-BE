@@ -20,8 +20,8 @@ redis:
 
 jwt:
   secret-key: ${SECRET_KEY}
-  accessExpiration: 3600
-  refreshExpiration: 604800
+  accessExpiration: 3600000
+  refreshExpiration: 604800000
 
   header: Authorization
   prefix: Bearer
