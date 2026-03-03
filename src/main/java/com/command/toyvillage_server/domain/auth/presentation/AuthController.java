@@ -3,7 +3,6 @@ package com.command.toyvillage_server.domain.auth.presentation;
 import com.command.toyvillage_server.domain.animal.presentation.dto.response.MessageResponse;
 import com.command.toyvillage_server.domain.auth.presentation.dto.request.AdminLoginRequest;
 import com.command.toyvillage_server.domain.auth.presentation.dto.request.AdminSignUpRequest;
-import com.command.toyvillage_server.domain.auth.presentation.dto.request.ReissueRequest;
 import com.command.toyvillage_server.domain.auth.presentation.dto.response.AccessTokenResponse;
 import com.command.toyvillage_server.domain.auth.presentation.dto.response.TokenResponse;
 import com.command.toyvillage_server.domain.auth.service.AdminLoginService;
