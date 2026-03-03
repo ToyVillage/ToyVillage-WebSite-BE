@@ -53,10 +53,9 @@ public class AuthController {
 
     @PatchMapping("/reissue")
     public ResponseEntity<AccessTokenResponse> reissue(
-            @RequestBody ReissueRequest request,
             HttpServletResponse response
     ){
-        TokenResponse result = adminReissueService.execute(request);
+        TokenResponse result = adminReissueService.execute();
 
         cookieUtil.addRefreshTokenCookie(response, result.refreshToken());
 
