@@ -21,7 +21,7 @@ public class CookieUtil {
                 .maxAge(refreshExpiration)
                 .secure(cookieSecure)
                 .path("/")
-                .sameSite("Lax")
+                .sameSite("Strict")
                 .build();
 
         response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
