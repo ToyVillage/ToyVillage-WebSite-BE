@@ -6,6 +6,7 @@ import com.command.toyvillage_server.domain.auth.presentation.dto.request.AdminS
 import com.command.toyvillage_server.domain.auth.presentation.dto.response.AccessTokenResponse;
 import com.command.toyvillage_server.domain.auth.presentation.dto.response.TokenResponse;
 import com.command.toyvillage_server.domain.auth.service.AdminLoginService;
+import com.command.toyvillage_server.domain.auth.service.AdminReissueService;
 import com.command.toyvillage_server.domain.auth.service.AdminSignUpService;
 import com.command.toyvillage_server.global.util.CookieUtil;
 import jakarta.servlet.http.HttpServletResponse;
@@ -13,10 +14,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -24,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     private final AdminLoginService adminLoginService;
     private final AdminSignUpService adminSignUpService;
+    private final AdminReissueService adminReissueService;
 
     private final CookieUtil cookieUtil;
 
@@ -49,5 +48,18 @@ public class AuthController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(MessageResponse.of("회원가입 완료되었습니다. 로그인 후 이용해주세요."));
+    }
+
+    @PatchMapping("/reissue")
+    public ResponseEntity<AccessTokenResponse> reissue(
+            HttpServletResponse response
+    ){
+        TokenResponse result = adminReissueService.execute();
+
+        cookieUtil.addRefreshTokenCookie(response, result.refreshToken());
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(AccessTokenResponse.of(result.accessToken()));
     }
 }
