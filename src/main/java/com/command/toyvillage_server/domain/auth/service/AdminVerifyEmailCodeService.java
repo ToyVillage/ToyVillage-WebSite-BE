@@ -4,6 +4,7 @@ import com.command.toyvillage_server.domain.auth.domain.EmailVerification;
 import com.command.toyvillage_server.domain.auth.domain.PasswordResetToken;
 import com.command.toyvillage_server.domain.auth.domain.repository.EmailVerificationRepository;
 import com.command.toyvillage_server.domain.auth.domain.repository.PasswordResetTokenRepository;
+import com.command.toyvillage_server.domain.auth.exception.EmailNotMatchedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
