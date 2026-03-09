@@ -21,16 +21,11 @@ public class AdminChangePasswordService {
     private final PasswordResetTokenRepository passwordResetTokenRepository;
 
     @Transactional
-    public void execute(String email, Long id, ChangePasswordRequest request){
-
+    public void execute(ChangePasswordRequest request){
         PasswordResetToken resetToken = passwordResetTokenRepository.findById(request.resetToken())
                 .orElseThrow(() -> ResetTokenNotFoundException.EXCEPTION);
 
-        if (!resetToken.getEmail().equals(email)) {
-            throw ResetTokenNotFoundException.EXCEPTION; // 또는 UnauthorizedException
-        }
-
-        Admin admin = adminRepository.findById(id)
+        Admin admin = adminRepository.findByEmail(resetToken.getEmail())
                 .orElseThrow(() -> AdminNotFoundException.EXCEPTION);
 
         admin.changePassword(passwordEncoder.encode(request.newPassword()));
