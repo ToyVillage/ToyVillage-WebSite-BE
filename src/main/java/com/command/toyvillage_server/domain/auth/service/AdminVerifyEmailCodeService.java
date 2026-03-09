@@ -6,6 +6,7 @@ import com.command.toyvillage_server.domain.auth.domain.repository.EmailVerifica
 import com.command.toyvillage_server.domain.auth.domain.repository.PasswordResetTokenRepository;
 import com.command.toyvillage_server.domain.auth.exception.EmailNotMatchedException;
 import com.command.toyvillage_server.domain.auth.exception.VerificationCodeExpiredException;
+import com.command.toyvillage_server.domain.auth.exception.VerificationCodeNotMatchedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
