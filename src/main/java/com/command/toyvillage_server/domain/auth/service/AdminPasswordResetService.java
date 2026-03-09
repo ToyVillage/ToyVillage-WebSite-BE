@@ -29,7 +29,7 @@ public class AdminPasswordResetService {
     private void sendEmail(String email, String code) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(email);
-        message.setSubject("[itda] 비밀번호 재설정 인증 코드 : " + code);
+        message.setSubject("비밀번호 재설정 인증 코드 : " + code);
         message.setText("인증 코드: " + code + "\n\n5분 이내에 입력해주세요.");
         mailSender.send(message);
     }
