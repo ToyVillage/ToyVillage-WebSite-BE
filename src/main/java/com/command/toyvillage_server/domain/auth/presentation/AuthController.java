@@ -1,10 +1,7 @@
 package com.command.toyvillage_server.domain.auth.presentation;
 
-import com.command.toyvillage_server.domain.auth.presentation.dto.request.AdminPasswordResetRequest;
+import com.command.toyvillage_server.domain.auth.presentation.dto.request.*;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
-import com.command.toyvillage_server.domain.auth.presentation.dto.request.AdminLoginRequest;
-import com.command.toyvillage_server.domain.auth.presentation.dto.request.AdminSignUpRequest;
-import com.command.toyvillage_server.domain.auth.presentation.dto.request.ChangePasswordRequest;
 import com.command.toyvillage_server.domain.auth.presentation.dto.response.AccessTokenResponse;
 import com.command.toyvillage_server.domain.auth.presentation.dto.response.TokenResponse;
 import com.command.toyvillage_server.domain.auth.service.*;
@@ -74,7 +71,7 @@ public class AuthController {
         AdminPasswordResetRequest request
     ){
         adminPasswordResetService.execute(request.email());
-        
+
         return ResponseEntity.ok(
                 MessageResponse.of("해당 이메일로 인증번호가 발송되었습니다, 인증코드를 입력해주세요.")
         );
@@ -82,10 +79,10 @@ public class AuthController {
 
     @PostMapping("password/verification/confirm")
     public ResponseEntity<VerifyEmailCodeResponse> verifyEmailCode(
-            @RequestBody VerifyEmailCodeRequest request
+            @RequestBody AdminVerifyEmailCodeRequest request
     ){
-        adminVerifyEmailCodeService.validateEmail(userDetails.getEmail(), request.email());
         String resetToken = adminVerifyEmailCodeService.execute(request.email(), request.code());
+
         return ResponseEntity.ok(new VerifyEmailCodeResponse(resetToken));
     }
 

@@ -17,12 +17,6 @@ public class AdminVerifyEmailCodeService {
     private final PasswordResetTokenRepository passwordResetTokenRepository;
     private final EmailVerificationRepository emailVerificationRepository;
 
-    public void validateEmail(String userEmail, String requestEmail) {
-        if (!userEmail.equals(requestEmail)) {
-            throw EmailNotMatchedException.EXCEPTION;
-        }
-    }
-
     public String execute(String email, String code){
         EmailVerification verification = emailVerificationRepository.findById(email)
                 .orElseThrow(() -> VerificationCodeExpiredException.EXCEPTION);
