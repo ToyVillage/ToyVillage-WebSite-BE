@@ -45,4 +45,7 @@ public record CustomUserDetails(Admin admin) implements UserDetails {
         return true;
     }
 
+    public Long getId() {
+        return admin.getId();
+    }
 }
