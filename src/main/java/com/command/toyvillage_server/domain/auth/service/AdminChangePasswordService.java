@@ -5,6 +5,7 @@ import com.command.toyvillage_server.domain.auth.domain.PasswordResetToken;
 import com.command.toyvillage_server.domain.auth.domain.repository.AdminRepository;
 import com.command.toyvillage_server.domain.auth.domain.repository.PasswordResetTokenRepository;
 import com.command.toyvillage_server.domain.auth.exception.AdminNotFoundException;
+import com.command.toyvillage_server.domain.auth.exception.ResetTokenNotFoundException;
 import com.command.toyvillage_server.domain.auth.presentation.dto.request.ChangePasswordRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
