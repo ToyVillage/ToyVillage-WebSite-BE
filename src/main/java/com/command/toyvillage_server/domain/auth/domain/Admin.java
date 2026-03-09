@@ -27,4 +27,8 @@ public class Admin {
                 .password(password)
                 .build();
     }
+
+    public void changePassword(String password) {
+        this.password = password;
+    }
 }
