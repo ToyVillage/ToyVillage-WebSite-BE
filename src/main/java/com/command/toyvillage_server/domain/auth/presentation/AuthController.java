@@ -1,19 +1,19 @@
 package com.command.toyvillage_server.domain.auth.presentation;
 
-import com.command.toyvillage_server.domain.animal.presentation.dto.response.MessageResponse;
+import com.command.toyvillage_server.global.common.response.MessageResponse;
 import com.command.toyvillage_server.domain.auth.presentation.dto.request.AdminLoginRequest;
 import com.command.toyvillage_server.domain.auth.presentation.dto.request.AdminSignUpRequest;
+import com.command.toyvillage_server.domain.auth.presentation.dto.request.ChangePasswordRequest;
 import com.command.toyvillage_server.domain.auth.presentation.dto.response.AccessTokenResponse;
 import com.command.toyvillage_server.domain.auth.presentation.dto.response.TokenResponse;
-import com.command.toyvillage_server.domain.auth.service.AdminLoginService;
-import com.command.toyvillage_server.domain.auth.service.AdminReissueService;
-import com.command.toyvillage_server.domain.auth.service.AdminSignUpService;
+import com.command.toyvillage_server.domain.auth.service.*;
 import com.command.toyvillage_server.global.util.CookieUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,6 +23,9 @@ public class AuthController {
     private final AdminLoginService adminLoginService;
     private final AdminSignUpService adminSignUpService;
     private final AdminReissueService adminReissueService;
+    private final AdminPasswordResetService adminPasswordResetService;
+    private final AdminChangePasswordService adminChangePasswordService;
+    private final AdminVerifyEmailCodeService adminVerifyEmailCodeService;
 
     private final CookieUtil cookieUtil;
 
@@ -61,5 +64,32 @@ public class AuthController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(AccessTokenResponse.of(result.accessToken()));
+    }
+
+    @PostMapping("password/verification")
+    public ResponseEntity<MessageResponse> sendVerificationEmail(
+            @AuthenticationPrincipal CustomUserDetails userDetails
+    ){
+        adminPasswordResetService.execute(userDetails.getEmail());
+        return ResponseEntity.ok(MessageResponse.of("해당 이메일로 인증번호가 발송되었습니다, 인증코드를 입력해주세요."));
+    }
+
+    @PostMapping("password/verification/confirm")
+    public ResponseEntity<VerifyEmailCodeResponse> verifyEmailCode(
+            @AuthenticationPrincipal CustomUserDetails userDetails,
+            @RequestBody VerifyEmailCodeRequest request
+    ){
+        verifyEmailCodeService.validateEmail(userDetails.getEmail(), request.email());
+        String resetToken = adminVerifyEmailCodeService.execute(request.email(), request.code());
+        return ResponseEntity.ok(new VerifyEmailCodeResponse(resetToken));
+    }
+
+    @PatchMapping("password")
+    public ResponseEntity<MessageResponse> changePassword(
+            @RequestBody ChangePasswordRequest request
+    ){
+        adminChangePasswordService.execute(request);
+
+        return ResponseEntity.ok(MessageResponse.of("비밀번호가 변경되었습니다."));
     }
 }
