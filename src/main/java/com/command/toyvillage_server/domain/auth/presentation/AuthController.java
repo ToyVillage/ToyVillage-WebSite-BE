@@ -80,7 +80,7 @@ public class AuthController {
 
     @PostMapping("password/verification/confirm")
     public ResponseEntity<AdminVerifyEmailCodeResponse> verifyEmailCode(
-            @RequestBody AdminVerifyEmailCodeRequest request
+            @RequestBody @Valid AdminVerifyEmailCodeRequest request
     ){
         String resetToken = adminVerifyEmailCodeService.execute(request.email(), request.code());
 
