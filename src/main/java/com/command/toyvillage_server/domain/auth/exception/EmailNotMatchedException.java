@@ -8,5 +8,5 @@ public class EmailNotMatchedException extends ToyVillageException {
     public static final ToyVillageException EXCEPTION = new EmailNotMatchedException();
 
     public EmailNotMatchedException() {
-        super(ErrorCode.ADMIN_NOT_FOUND);
+        super(ErrorCode.EMAIL_NOT_MATCHED);
     }}
