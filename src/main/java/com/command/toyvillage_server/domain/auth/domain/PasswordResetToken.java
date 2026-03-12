@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Getter
 @Builder
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @RedisHash(value = "password_reset_token")
 public class PasswordResetToken {
