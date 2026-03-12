@@ -20,9 +20,9 @@ public class AdminFacade {
                 throw AdminNotFoundException.EXCEPTION;
         }
 
-        String adminName = authentication.getName();
+        String email = authentication.getName();
 
-        return adminRepository.findByUsername(adminName)
+        return adminRepository.findByEmail(email)
                 .orElseThrow(() -> AdminNotFoundException.EXCEPTION);
     }
 }

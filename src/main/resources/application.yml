@@ -7,6 +7,20 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${MAIL_USERNAME}   # 환경변수로 관리
+    password: ${MAIL_PASSWORD}    # 앱 비밀번호
+    properties:
+      mail:
+        smtp:
+          auth: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+          starttls:
+            enable: true
 
 cors:
   allowed-origins:
@@ -25,7 +39,6 @@ jwt:
 
   header: Authorization
   prefix: Bearer
-
 
 app:
   cookie:

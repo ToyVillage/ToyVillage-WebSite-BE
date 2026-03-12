@@ -20,18 +20,18 @@ public class AdminLoginService {
     private final PasswordEncoder passwordEncoder;
 
     public TokenResponse execute(AdminLoginRequest request){
-        log.info("로그인 시도 / username : {}", request.username());
+        log.info("로그인 시도 / username : {}", request.email());
 
-        Admin admin = adminRepository.findByUsername(request.username())
+        Admin admin = adminRepository.findByEmail(request.email())
                 .orElseThrow(() -> LoginInfoNotMatchedException.EXCEPTION);
 
         if(!passwordEncoder.matches(request.password(), admin.getPassword())) {
             throw LoginInfoNotMatchedException.EXCEPTION;
         }
 
-        TokenResponse response = jwtTokenProvider.receiveToken(request.username());
+        TokenResponse response = jwtTokenProvider.receiveToken(request.email());
 
-        log.info("로그인 성공 / username : {}", request.username());
+        log.info("로그인 성공 / username : {}", request.email());
 
         return response;
     }

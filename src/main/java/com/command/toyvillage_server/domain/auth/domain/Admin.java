@@ -16,15 +16,19 @@ public class Admin {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String username;
+    private String email;
 
     @Column(nullable = false)
     private String password;
 
-    public static Admin create(String username, String password) {
+    public static Admin create(String email, String password) {
         return Admin.builder()
-                .username(username)
+                .email(email)
                 .password(password)
                 .build();
+    }
+
+    public void changePassword(String password) {
+        this.password = password;
     }
 }

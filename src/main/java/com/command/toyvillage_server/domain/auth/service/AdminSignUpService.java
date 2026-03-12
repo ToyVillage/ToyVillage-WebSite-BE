@@ -17,14 +17,14 @@ public class AdminSignUpService {
 
     @Transactional
     public void execute(AdminSignUpRequest request) {
-        if(adminRepository.findByUsername(request.username()).isPresent()){
+        if(adminRepository.findByEmail(request.email()).isPresent()){
             throw AdminAlreadyException.EXCEPTION;
         }
 
         String password = passwordEncoder.encode(request.password());
 
         Admin admin = Admin.create(
-                request.username(),
+                request.email(),
                 password
         );
 

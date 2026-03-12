@@ -108,14 +108,14 @@ public class JwtTokenProvider {
         }
     }
 
-    public TokenResponse receiveToken(String adminName) {
+    public TokenResponse receiveToken(String email) {
 
-        adminRepository.findByUsername(adminName)
+        adminRepository.findByEmail(email)
                 .orElseThrow(() -> AdminNotFoundException.EXCEPTION);
 
         return TokenResponse.of(
-                createAccessToken(adminName),
-                createRefreshToken(adminName)
+                createAccessToken(email),
+                createRefreshToken(email)
         );
     }
 

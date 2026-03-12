@@ -20,11 +20,11 @@ public class AdminReissueService {
     public TokenResponse execute() {
         Admin admin = adminFacade.currentAdmin();
 
-        RefreshToken refreshToken = refreshTokenRepository.findByUsername(admin.getUsername())
+        RefreshToken refreshToken = refreshTokenRepository.findByUsername(admin.getEmail())
                 .orElseThrow(() -> RefreshTokenNotFoundException.EXCEPTION);
 
         refreshTokenRepository.delete(refreshToken);
 
-        return jwtTokenProvider.receiveToken(admin.getUsername());
+        return jwtTokenProvider.receiveToken(admin.getEmail());
     }
 }

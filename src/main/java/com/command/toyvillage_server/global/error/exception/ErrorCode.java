@@ -12,6 +12,11 @@ public enum ErrorCode {
 
     // auth
     LOGIN_INFO_NOT_MATCHED(401, "아이디 또는 비밀번호를 확인해주세요"),
+    EMAIL_NOT_MATCHED(400, "요청의 이메일이 인증된 사용자의 이메일과 일치하지 않습니다."),
+    VERIFICATION_CODE_EXPIRED(404, "인증 코드가 만료되었습니다."),
+    VERIFICATION_CODE_NOT_MATCHED(400, "인증 코드가 일치하지 않습니다."),
+    RESET_TOKEN_NOT_FOUND(401, "유효하지 않은 비밀번호 재설정 토큰 입니다."),
+    MANY_REQUEST(429, "5분 뒤에 다시 시도해주세요."),
 
     // jwt
     EXPIRED_TOKEN(401, "만료된 토큰입니다."),

@@ -12,7 +12,7 @@ import java.util.Collections;
 public record CustomUserDetails(Admin admin) implements UserDetails {
     @Override
     public String getUsername() {
-        return admin.getUsername();
+        return admin.getEmail();
     }
 
     @Override
@@ -45,4 +45,7 @@ public record CustomUserDetails(Admin admin) implements UserDetails {
         return true;
     }
 
+    public Long getId() {
+        return admin.getId();
+    }
 }

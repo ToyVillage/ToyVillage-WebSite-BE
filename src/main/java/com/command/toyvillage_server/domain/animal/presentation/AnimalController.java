@@ -2,7 +2,7 @@ package com.command.toyvillage_server.domain.animal.presentation;
 
 import com.command.toyvillage_server.domain.animal.presentation.dto.request.AnimalRequest;
 import com.command.toyvillage_server.domain.animal.presentation.dto.response.AnimalResponse;
-import com.command.toyvillage_server.domain.animal.presentation.dto.response.MessageResponse;
+import com.command.toyvillage_server.global.common.response.MessageResponse;
 import com.command.toyvillage_server.domain.animal.service.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
