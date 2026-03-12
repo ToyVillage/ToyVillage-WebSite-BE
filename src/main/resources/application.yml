@@ -10,8 +10,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${MAIL_USERNAME}    # 환경변수로 관리
-    password: ${MAIL_PASSWORD}    # 앱 비밀번호
+    username: oijwef098234@gmail.com   # 환경변수로 관리
+    password: qluhegkpugdznbrt    # 앱 비밀번호
     properties:
       mail:
         smtp:

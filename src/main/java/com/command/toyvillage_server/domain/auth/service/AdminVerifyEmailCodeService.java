@@ -18,14 +18,12 @@ public class AdminVerifyEmailCodeService {
     private final PasswordResetTokenRepository passwordResetTokenRepository;
     private final EmailVerificationRepository emailVerificationRepository;
 
-    private static final int MAX_FAIL_COUNT = 5;
-
     @Transactional
     public String execute(String email, String code){
         EmailVerification verification = emailVerificationRepository.findById(email)
                 .orElseThrow(() -> VerificationCodeExpiredException.EXCEPTION);
 
-        if(verification.getFailCount() == MAX_FAIL_COUNT){
+        if(verification.getFailCount() == 0){
             throw ManyRequestException.EXCEPTION;
         }
 
