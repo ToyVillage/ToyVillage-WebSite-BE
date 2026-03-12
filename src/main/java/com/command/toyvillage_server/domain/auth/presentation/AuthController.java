@@ -89,7 +89,9 @@ public class AuthController {
 
     @PatchMapping("password")
     public ResponseEntity<MessageResponse> changePassword(
-            @RequestBody ChangePasswordRequest request
+            @RequestBody
+            @Valid
+            ChangePasswordRequest request
     ){
         adminChangePasswordService.execute(request);
 
