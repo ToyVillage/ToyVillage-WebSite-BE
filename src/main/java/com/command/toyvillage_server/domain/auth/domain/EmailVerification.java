@@ -23,13 +23,14 @@ public class EmailVerification {
     private int expiration;
 
     private static final int EXPIRATION_IN_SECONDS = 300; // 5분
+    private static final int MAX_FAIL_COUNT = 5;
 
     public static EmailVerification create(String email, String code) {
         return EmailVerification.builder()
                 .email(email)
                 .code(code)
                 .expiration(EXPIRATION_IN_SECONDS) // 5분
-                .failCount(0)
+                .failCount(MAX_FAIL_COUNT)
                 .build();
     }
 
@@ -38,6 +39,6 @@ public class EmailVerification {
     }
 
     public void increaseFailCount() {
-        this.failCount++;
+        this.failCount--;
     }
 }
