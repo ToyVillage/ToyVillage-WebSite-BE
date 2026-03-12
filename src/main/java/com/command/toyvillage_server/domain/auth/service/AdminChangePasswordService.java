@@ -23,10 +23,7 @@ public class AdminChangePasswordService {
     private final PasswordResetTokenRepository passwordResetTokenRepository;
 
     @Transactional
-    public void execute(
-            @RequestBody
-            @Valid
-            ChangePasswordRequest request){
+    public void execute(ChangePasswordRequest request){
         PasswordResetToken resetToken = passwordResetTokenRepository.findById(request.resetToken())
                 .orElseThrow(() -> ResetTokenNotFoundException.EXCEPTION);
 
