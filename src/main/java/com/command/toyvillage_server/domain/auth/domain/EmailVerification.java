@@ -17,6 +17,8 @@ public class EmailVerification {
 
     private String code;
 
+    private int failCount;
+
     @TimeToLive
     private int expiration;
 
@@ -27,10 +29,15 @@ public class EmailVerification {
                 .email(email)
                 .code(code)
                 .expiration(EXPIRATION_IN_SECONDS) // 5분
+                .failCount(0)
                 .build();
     }
 
     public boolean isValid(String inputCode) {
         return this.code.equals(inputCode);
+    }
+
+    public void increaseFailCount() {
+        this.failCount++;
     }
 }

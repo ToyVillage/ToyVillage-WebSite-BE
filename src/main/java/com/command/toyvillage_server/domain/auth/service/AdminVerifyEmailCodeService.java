@@ -4,6 +4,7 @@ import com.command.toyvillage_server.domain.auth.domain.EmailVerification;
 import com.command.toyvillage_server.domain.auth.domain.PasswordResetToken;
 import com.command.toyvillage_server.domain.auth.domain.repository.EmailVerificationRepository;
 import com.command.toyvillage_server.domain.auth.domain.repository.PasswordResetTokenRepository;
+import com.command.toyvillage_server.domain.auth.exception.ManyRequestException;
 import com.command.toyvillage_server.domain.auth.exception.VerificationCodeExpiredException;
 import com.command.toyvillage_server.domain.auth.exception.VerificationCodeNotMatchedException;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +18,19 @@ public class AdminVerifyEmailCodeService {
     private final PasswordResetTokenRepository passwordResetTokenRepository;
     private final EmailVerificationRepository emailVerificationRepository;
 
+    private static final int MAX_FAIL_COUNT = 5;
+
     @Transactional
     public String execute(String email, String code){
         EmailVerification verification = emailVerificationRepository.findById(email)
                 .orElseThrow(() -> VerificationCodeExpiredException.EXCEPTION);
 
+        if(verification.getFailCount() == MAX_FAIL_COUNT){
+            throw ManyRequestException.EXCEPTION;
+        }
+
         if (!verification.isValid(code)){
+            verification.increaseFailCount();
             throw VerificationCodeNotMatchedException.EXCEPTION;
         }
 
