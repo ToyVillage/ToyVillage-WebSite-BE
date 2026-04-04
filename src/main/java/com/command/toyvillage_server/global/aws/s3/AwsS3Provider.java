@@ -8,12 +8,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
+import software.amazon.awssdk.core.exception.SdkException;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
-import software.amazon.awssdk.services.s3.model.S3Exception;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 
@@ -46,7 +46,7 @@ public class AwsS3Provider {
             .build();
         try {
             s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
-        } catch (S3Exception e) {
+        } catch (IOException | SdkException e) {
             throw FileUploadFailException.EXCEPTION;
         }
 
@@ -83,7 +83,7 @@ public class AwsS3Provider {
                 .build();
 
             s3Client.deleteObject(deleteObjectRequest);
-        } catch (S3Exception e) {
+        } catch (SdkException e) {
             throw FileDeleteFailException.EXCEPTION;
         }
     }
