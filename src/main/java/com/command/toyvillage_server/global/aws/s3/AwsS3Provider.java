@@ -49,7 +49,8 @@ public class AwsS3Provider {
         try {
             s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
         } catch (IOException | SdkException e) {
-            log.error("파일 업로드 실패 / 원인 : {}", e.getMessage());
+            log.error("파일 업로드 실패", e);
+            log.error("파일 업로드 실패 / 메시지 : {}", e.getMessage());
             throw FileUploadFailException.EXCEPTION;
         }
 
@@ -87,7 +88,8 @@ public class AwsS3Provider {
 
             s3Client.deleteObject(deleteObjectRequest);
         } catch (SdkException e) {
-            log.error("파일 삭제 실패 / 원인 : {}", e.getMessage());
+            log.error("파일 삭제 실패", e);
+            log.error("파일 삭제 실패 / 메시지 : {}", e.getMessage());
             throw FileDeleteFailException.EXCEPTION;
         }
     }
