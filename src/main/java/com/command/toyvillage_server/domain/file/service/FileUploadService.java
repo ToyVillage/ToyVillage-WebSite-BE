@@ -4,6 +4,7 @@ import com.command.toyvillage_server.domain.file.presentation.dto.response.FileU
 import com.command.toyvillage_server.global.aws.s3.AwsS3Provider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
@@ -11,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class FileUploadService {
     private final AwsS3Provider awsS3Provider;
 
+    @Transactional
     public FileUploadResponse execute(MultipartFile file) {
         String key = awsS3Provider.upload(file);
         String fileUrl = awsS3Provider.getPresignedUrl(key);
