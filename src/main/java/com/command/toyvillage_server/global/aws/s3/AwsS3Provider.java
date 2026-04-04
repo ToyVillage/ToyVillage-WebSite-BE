@@ -5,6 +5,7 @@ import com.command.toyvillage_server.global.aws.s3.exception.FileEmptyException;
 import com.command.toyvillage_server.global.aws.s3.exception.FileUploadFailException;
 import com.command.toyvillage_server.global.aws.s3.exception.KeyEmptyException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +24,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Component
+@Slf4j
 public class AwsS3Provider {
     private final S3Client s3Client;
     private final S3Presigner s3Presigner;
@@ -47,6 +49,7 @@ public class AwsS3Provider {
         try {
             s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
         } catch (IOException | SdkException e) {
+            log.error("파일 업로드 실패 / 원인 : {}", e.getMessage());
             throw FileUploadFailException.EXCEPTION;
         }
 
@@ -84,6 +87,7 @@ public class AwsS3Provider {
 
             s3Client.deleteObject(deleteObjectRequest);
         } catch (SdkException e) {
+            log.error("파일 삭제 실패 / 원인 : {}", e.getMessage());
             throw FileDeleteFailException.EXCEPTION;
         }
     }
