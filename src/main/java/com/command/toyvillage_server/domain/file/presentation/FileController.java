@@ -15,7 +15,7 @@ public class FileController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public FileUploadResponse upload(@RequestBody MultipartFile file) {
+    public FileUploadResponse upload(@RequestParam("files") MultipartFile file) {
         return fileUploadService.execute(file);
     }
 }
