@@ -4,6 +4,6 @@ import lombok.Builder;
 
 @Builder
 public record FileUploadResponse (
-    String key,
+    String fileKey,
     String fileUrl
 ) { }
