@@ -14,11 +14,12 @@ import lombok.NoArgsConstructor;
 public class File {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "file_id")
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, name = "file_key")
     private String fileKey;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "file_name")
     private String fileName;
 }
