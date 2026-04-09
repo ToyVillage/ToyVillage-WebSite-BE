@@ -42,7 +42,13 @@ public enum ErrorCode {
 
     // general
     BAD_REQUEST(400, "잘못된 요청입니다."),
-    INTERNAL_SERVER_ERROR(500, "내부 서버 오류가 발생했습니다.");
+    INTERNAL_SERVER_ERROR(500, "내부 서버 오류가 발생했습니다."),
+
+    //aws s3
+    FILE_EMPTY(400, "파일이 비어있습니다."),
+    KEY_EMPTY(400, "해당 파일의 키가 비어있습니다."),
+    FILE_UPLOAD_FAIL(500, "파일을 업로드하는중 문제가 발생했습니다."),
+    FILE_DELETE_FAIL(500, "파일을 삭제하던중 문제가 발생했습니다.");
 
     private final int statusCode;
     private final String errorMessage;
