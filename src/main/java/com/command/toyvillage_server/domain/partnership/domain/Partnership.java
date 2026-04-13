@@ -18,6 +18,9 @@ public class Partnership {
     @Column(name = "partnership_phone_number", nullable = false, length = 15)
     private String phoneNumber;
 
+    @Column(name = "partnership_name", nullable = false, length = 50)
+    private String name;
+
     @Column(name = "partnership_email", nullable = false)
     private String email;
 
