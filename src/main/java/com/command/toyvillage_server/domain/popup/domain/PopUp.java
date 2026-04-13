@@ -1,7 +1,10 @@
 package com.command.toyvillage_server.domain.popup.domain;
 
+import com.command.toyvillage_server.domain.popup.domain.enums.ContentType;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "pu_tbl")
@@ -15,6 +18,16 @@ public class PopUp {
     @Column(name = "pu_id")
     private Long id;
 
+    @Column(nullable = false)
     private String content;
-    private
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ContentType contentType;
+
+    @Column(nullable = false)
+    private LocalDate expirationDate;
+
+    @Column(nullable = false)
+    private Integer priority;
 }
