@@ -30,4 +30,16 @@ public class PopUp {
 
     @Column(nullable = false)
     private Integer priority;
+
+    public void update(
+            String content,
+            ContentType contentType,
+            LocalDate expirationDate,
+            Integer priority
+    ){
+        this.content = content;
+        this.contentType = contentType;
+        this.expirationDate = expirationDate;
+        this.priority = priority;
+    }
 }
