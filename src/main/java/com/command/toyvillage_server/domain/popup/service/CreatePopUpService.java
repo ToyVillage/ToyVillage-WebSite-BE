@@ -5,12 +5,14 @@ import com.command.toyvillage_server.domain.popup.domain.repository.PopUpReposit
 import com.command.toyvillage_server.domain.popup.presentation.dto.request.PopUpRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class CreatePopUpService {
     private final PopUpRepository popUpRepository;
 
+    @Transactional
     public void execute(PopUpRequest popUpRequest) {
         PopUp popUp = PopUp.builder()
                 .content(popUpRequest.content())
