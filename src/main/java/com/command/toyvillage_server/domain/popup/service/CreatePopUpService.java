@@ -18,7 +18,7 @@ public class CreatePopUpService {
                 .expirationDate(popUpRequest.expirationDate())
                 .priority(popUpRequest.priority())
                 .build();
-        
+
         popUpRepository.save(popUp);
     }
 }
