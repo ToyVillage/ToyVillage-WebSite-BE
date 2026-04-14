@@ -10,6 +10,9 @@ import lombok.Getter;
 public enum ErrorCode {
     METHOD_NOT_ALLOWED(405, "지원하지 않는 메서드 형식입니다."),
 
+    // popup
+    POPUP_NOT_FOUND(404, "존재하지 않는 팝업입니다."),
+
     // auth
     LOGIN_INFO_NOT_MATCHED(401, "아이디 또는 비밀번호를 확인해주세요"),
     EMAIL_NOT_MATCHED(400, "요청의 이메일이 인증된 사용자의 이메일과 일치하지 않습니다."),
