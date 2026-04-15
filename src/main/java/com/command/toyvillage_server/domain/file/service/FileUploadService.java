@@ -21,7 +21,7 @@ public class FileUploadService {
 
         log.info("파일 업로드 완료 / key : {}", key);
         return FileUploadResponse.builder()
-            .key(key)
+            .fileKey(key)
             .fileUrl(fileUrl)
             .build();
     }
