@@ -1,8 +1,10 @@
 package com.command.toyvillage_server.domain.popup.presentation;
 
 import com.command.toyvillage_server.domain.popup.presentation.dto.request.PopUpRequest;
+import com.command.toyvillage_server.domain.popup.presentation.dto.response.PopUpResponse;
 import com.command.toyvillage_server.domain.popup.service.CreatePopUpService;
 import com.command.toyvillage_server.domain.popup.service.DeletePopUpService;
+import com.command.toyvillage_server.domain.popup.service.QueryPopUpService;
 import com.command.toyvillage_server.domain.popup.service.UpdatePopUpService;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ public class PopUpController {
     private final CreatePopUpService createPopUpService;
     private final UpdatePopUpService updatePopUpService;
     private final DeletePopUpService deletePopUpService;
+    private final QueryPopUpService queryPopUpService;
 
     @PostMapping
     public ResponseEntity<MessageResponse> createPopUp(@RequestBody PopUpRequest popUpRequest) {
@@ -48,5 +51,12 @@ public class PopUpController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(MessageResponse.of("팝업이 삭제되었습니다."));
+    }
+
+    @GetMapping("/{popup-id}")
+    public PopUpResponse getPopUp(
+            @PathVariable("popup-id")   Long popUpId
+    ){
+        return queryPopUpService.execute(popUpId);
     }
 }
