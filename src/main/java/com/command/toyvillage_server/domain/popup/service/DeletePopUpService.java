@@ -5,12 +5,14 @@ import com.command.toyvillage_server.domain.popup.domain.repository.PopUpReposit
 import com.command.toyvillage_server.domain.popup.exception.PopUpNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
 public class DeletePopUpService {
     private final PopUpRepository popUpRepository;
 
+    @Transactional
     public void execute(Long popUpId){
         PopUp popUp = popUpRepository.findById(popUpId)
                 .orElseThrow(() -> PopUpNotFoundException.EXCEPTION);
