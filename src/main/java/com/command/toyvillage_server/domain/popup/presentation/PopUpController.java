@@ -2,6 +2,7 @@ package com.command.toyvillage_server.domain.popup.presentation;
 
 import com.command.toyvillage_server.domain.popup.presentation.dto.request.PopUpRequest;
 import com.command.toyvillage_server.domain.popup.service.CreatePopUpService;
+import com.command.toyvillage_server.domain.popup.service.DeletePopUpService;
 import com.command.toyvillage_server.domain.popup.service.UpdatePopUpService;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 public class PopUpController {
     private final CreatePopUpService createPopUpService;
     private final UpdatePopUpService updatePopUpService;
+    private final DeletePopUpService deletePopUpService;
 
     @PostMapping
     public ResponseEntity<MessageResponse> createPopUp(@RequestBody PopUpRequest popUpRequest) {
@@ -35,5 +37,16 @@ public class PopUpController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(MessageResponse.of("팝업이 수정되었습니다."));
+    }
+
+    @DeleteMapping("/{popup-id}")
+    public ResponseEntity<MessageResponse> deletePopUp(
+            @PathVariable("popup-id")  Long popUpId
+    ){
+        deletePopUpService.execute(popUpId);
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(MessageResponse.of("팝업이 삭제되었습니다."));
     }
 }
