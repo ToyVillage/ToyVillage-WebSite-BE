@@ -2,22 +2,25 @@ package com.command.toyvillage_server.domain.popup.service;
 
 import com.command.toyvillage_server.domain.popup.domain.PopUp;
 import com.command.toyvillage_server.domain.popup.domain.repository.PopUpRepository;
-import com.command.toyvillage_server.domain.popup.exception.PopUpNotFoundException;
 import com.command.toyvillage_server.domain.popup.presentation.dto.response.PopUpResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
-public class QueryPopUpService {
+public class QueryListPopUpService {
     private final PopUpRepository popUpRepository;
 
     @Transactional(readOnly = true)
-    public PopUpResponse execute(Long id) {
-        PopUp popUp = popUpRepository.findById(id)
-                .orElseThrow(() -> PopUpNotFoundException.EXCEPTION);
+    public List<PopUpResponse> execute(){
+        List<PopUp> popUps = popUpRepository.findAll();
 
-        return PopUpResponse.from(popUp);
+        return popUps
+                .stream()
+                .map(PopUpResponse::from)
+                .toList();
     }
 }
