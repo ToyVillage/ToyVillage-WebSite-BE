@@ -50,7 +50,7 @@ public class EventController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity updateEvent(@PathVariable Long id, @RequestBody @Valid EventRequest eventRequest) {
+    public ResponseEntity<MessageResponse> updateEvent(@PathVariable Long id, @RequestBody @Valid EventRequest eventRequest) {
         eventUpdateService.execute(id, eventRequest);
         return ResponseEntity.ok(
                 new MessageResponse("이벤트가 변경되었습니다")
