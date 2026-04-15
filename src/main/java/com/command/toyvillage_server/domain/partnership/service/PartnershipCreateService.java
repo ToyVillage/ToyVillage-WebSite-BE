@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 @Slf4j
 public class PartnershipCreateService {
-    private final PartnershipRepository partnershipRepository;
+        private final PartnershipRepository partnershipRepository;
 
     @Transactional
     public void execute(PartnershipRequest partnershipRequest) {
