@@ -4,6 +4,10 @@ import com.command.toyvillage_server.domain.popup.domain.PopUp;
 import com.command.toyvillage_server.domain.popup.domain.repository.PopUpRepository;
 import com.command.toyvillage_server.domain.popup.presentation.dto.response.PopUpResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,12 +19,13 @@ public class QueryListPopUpService {
     private final PopUpRepository popUpRepository;
 
     @Transactional(readOnly = true)
-    public List<PopUpResponse> execute(){
-        List<PopUp> popUps = popUpRepository.findAll();
-
-        return popUps
-                .stream()
-                .map(PopUpResponse::from)
-                .toList();
+    public Page<PopUpResponse> execute(Pageable p) {
+        Pageable pageable = PageRequest.of(
+                p.getPageNumber(),
+                p.getPageSize(),
+                Sort.by(Sort.Direction.DESC, "pu_id")
+        );
+        return popUpRepository.findAllBy(pageable)
+                .map(PopUpResponse::from);
     }
 }

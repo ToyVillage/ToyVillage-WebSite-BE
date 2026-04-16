@@ -5,6 +5,8 @@ import com.command.toyvillage_server.domain.popup.presentation.dto.response.PopU
 import com.command.toyvillage_server.domain.popup.service.*;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -61,7 +63,7 @@ public class PopUpController {
     }
 
     @GetMapping()
-    public List<PopUpResponse> getPopUps(){
-        return queryListPopUpService.execute();
+    public Page<PopUpResponse> getPopUps(Pageable pageable){
+        return queryListPopUpService.execute(pageable);
     }
 }
