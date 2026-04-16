@@ -55,7 +55,7 @@ public enum ErrorCode {
     FILE_DELETE_FAIL(500, "파일을 삭제하던 중 문제가 발생했습니다."),
 
     //partnership
-    PARTNERSHIP_NOT_FOUND(404, "해당 제휴문의를 찾을수 없습니다.");
+    PARTNERSHIP_NOT_FOUND(404, "해당 제휴문의를 찾을 수 없습니다.");
 
     //file
     FILE_NOT_FOUND(404, "파일을 찾을 수 없습니다."),
