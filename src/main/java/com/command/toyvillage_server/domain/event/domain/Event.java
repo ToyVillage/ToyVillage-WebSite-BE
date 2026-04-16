@@ -1,6 +1,5 @@
 package com.command.toyvillage_server.domain.event.domain;
 
-import com.command.toyvillage_server.domain.event.presentation.dto.request.EventRequest;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
