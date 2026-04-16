@@ -24,7 +24,6 @@ public class Gallery {
     private File file;
 
     public void update(String title, File file) {
-        this.id = id;
         this.title = title;
         this.file = file;
     }
