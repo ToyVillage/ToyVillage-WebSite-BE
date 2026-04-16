@@ -12,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -24,19 +23,20 @@ public class PartnershipController {
     private final PartnershipQueryService partnershipQueryService;
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<MessageResponse> create(@RequestBody @Valid PartnershipRequest partnershipRequest) {
         partnershipCreateService.execute(partnershipRequest);
-        return ResponseEntity.ok(
-                new MessageResponse("제휴생성이 완료되었습니다.")
-        );
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(new MessageResponse("제휴생성이 완료되었습니다.")
+                );
     }
+
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public List<PartnershipQueryResponse> readAll() {
         return partnershipQueryAllService.execute();
     }
-    @GetMapping("{/id}")
+    
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public PartnershipResponse readById(@PathVariable Long id) {
         return partnershipQueryService.execute(id);
