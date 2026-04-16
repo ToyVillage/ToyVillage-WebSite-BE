@@ -35,7 +35,7 @@ public class PartnershipController {
     public List<PartnershipQueryResponse> readAll() {
         return partnershipQueryAllService.execute();
     }
-    
+
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public PartnershipResponse readById(@PathVariable Long id) {
