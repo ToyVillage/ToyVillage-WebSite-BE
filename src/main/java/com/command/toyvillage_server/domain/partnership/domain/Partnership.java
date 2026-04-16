@@ -2,12 +2,17 @@ package com.command.toyvillage_server.domain.partnership.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @Builder
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "tbl_partnership")
 public class Partnership {
     @Id
@@ -33,4 +38,8 @@ public class Partnership {
     @Column(name = "partnership_type", nullable = false)
     @Enumerated(EnumType.STRING)
     private PartnershipType type;
+
+    @CreatedDate
+    @Column(name = "partnership_date",nullable = false)
+    private LocalDateTime createdDate;
 }
