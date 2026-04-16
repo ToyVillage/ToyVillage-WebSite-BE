@@ -4,7 +4,6 @@ import com.command.toyvillage_server.domain.partnership.domain.Partnership;
 import com.command.toyvillage_server.domain.partnership.domain.PartnershipType;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 import java.time.LocalDateTime;
 
 @Getter
