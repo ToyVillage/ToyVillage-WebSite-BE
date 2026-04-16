@@ -16,7 +16,7 @@ public class QueryDetailGalleryService {
     private final AwsS3Provider awsS3Provider;
 
     @Transactional(readOnly = true)
-    public GalleryResponse getDetail(Long galleryId) {
+    public GalleryResponse execute(Long galleryId) {
         Gallery gallery = galleryRepository.findById(galleryId).orElseThrow(() -> GalleryNotFoundException.EXCEPTION);
 
         String key = gallery.getFile().getFileKey();

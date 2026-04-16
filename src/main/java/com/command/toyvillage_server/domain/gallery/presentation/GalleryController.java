@@ -1,10 +1,8 @@
 package com.command.toyvillage_server.domain.gallery.presentation;
 
 import com.command.toyvillage_server.domain.gallery.presentation.dto.request.GalleryRequest;
-import com.command.toyvillage_server.domain.gallery.service.CreateGalleryService;
-import com.command.toyvillage_server.domain.gallery.service.DeleteGalleryService;
-import com.command.toyvillage_server.domain.gallery.service.QueryDetailGalleryService;
-import com.command.toyvillage_server.domain.gallery.service.UpdateGalleryService;
+import com.command.toyvillage_server.domain.gallery.presentation.dto.response.GalleryResponse;
+import com.command.toyvillage_server.domain.gallery.service.*;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/gallery")
@@ -21,12 +20,23 @@ public class GalleryController {
     private final UpdateGalleryService updateGalleryService;
     private final DeleteGalleryService deleteGalleryService;
     private final QueryDetailGalleryService queryDetailGalleryService;
+    private final QueryGalleryListService queryGalleryListService;
 
     @PostMapping
     public ResponseEntity<MessageResponse> post(@Valid @RequestBody GalleryRequest request) {
         Long id = createGalleryService.execute(request);
         return ResponseEntity.created(URI.create("/gallery/" + id))
             .body(MessageResponse.of("갤러리가 추가되었습니다."));
+    }
+
+    @GetMapping
+    public List<GalleryResponse> getList() {
+        return queryGalleryListService.execute();
+    }
+
+    @GetMapping("/{gallery_id}")
+    public GalleryResponse get(@PathVariable("gallery_id") Long galleryId) {
+        return queryDetailGalleryService.execute(galleryId);
     }
 
     @PutMapping("/{gallery_id}")
