@@ -3,7 +3,6 @@ package com.command.toyvillage_server.domain.partnership.presentation.dto.respon
 import com.command.toyvillage_server.domain.partnership.domain.Partnership;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-
 import java.time.LocalDateTime;
 
 @Getter
