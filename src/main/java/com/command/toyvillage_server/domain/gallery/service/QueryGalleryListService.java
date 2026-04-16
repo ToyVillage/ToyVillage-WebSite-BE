@@ -17,7 +17,7 @@ public class QueryGalleryListService {
 
     @Transactional(readOnly = true)
     public List<GalleryResponse> execute() {
-        return galleryRepository.findAll().stream()
+        return galleryRepository.findAllWithFile().stream()
                 .map(gallery -> GalleryResponse.builder()
                         .galleryId(gallery.getId())
                         .galleryTitle(gallery.getTitle())
