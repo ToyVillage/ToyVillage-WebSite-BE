@@ -1,11 +1,12 @@
 package com.command.toyvillage_server.domain.partnership.presentation;
 
-import com.command.toyvillage_server.domain.partnership.domain.Partnership;
 import com.command.toyvillage_server.domain.partnership.presentation.dto.request.PartnershipRequest;
 import com.command.toyvillage_server.domain.partnership.presentation.dto.response.MessageResponse;
 import com.command.toyvillage_server.domain.partnership.presentation.dto.response.PartnershipQueryResponse;
+import com.command.toyvillage_server.domain.partnership.presentation.dto.response.PartnershipResponse;
 import com.command.toyvillage_server.domain.partnership.service.PartnershipCreateService;
 import com.command.toyvillage_server.domain.partnership.service.PartnershipQueryAllService;
+import com.command.toyvillage_server.domain.partnership.service.PartnershipQueryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ import java.util.List;
 public class PartnershipController {
     private final PartnershipCreateService partnershipCreateService;
     private final PartnershipQueryAllService partnershipQueryAllService;
+    private final PartnershipQueryService partnershipQueryService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -33,5 +35,10 @@ public class PartnershipController {
     @ResponseStatus(HttpStatus.OK)
     public List<PartnershipQueryResponse> readAll() {
         return partnershipQueryAllService.execute();
+    }
+    @GetMapping("{/id}")
+    @ResponseStatus(HttpStatus.OK)
+    public PartnershipResponse readById(@PathVariable Long id) {
+        return partnershipQueryService.execute(id);
     }
 }
