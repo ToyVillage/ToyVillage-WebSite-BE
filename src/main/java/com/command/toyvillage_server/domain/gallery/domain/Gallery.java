@@ -19,8 +19,8 @@ public class Gallery {
     @Column(name = "gallery_title", length = 50, nullable = false)
     private String title;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "file_id")
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "file_id", nullable = false)
     private File file;
 
     public void update(String title, File file) {
