@@ -22,7 +22,6 @@ public class PartnershipCreateService {
                 .content(partnershipRequest.getContent())
                 .email(partnershipRequest.getEmail())
                 .phoneNumber(partnershipRequest.getPhoneNumber())
-                .createdDate(partnershipRequest.getCreatedAt())
                 .type(partnershipRequest.getPartnershipType())
                 .build();
         partnershipRepository.save(partnership);

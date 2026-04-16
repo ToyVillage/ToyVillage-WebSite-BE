@@ -30,6 +30,4 @@ public class PartnershipRequest {
 
     @NotBlank(message = "제휴 내용은 공백일 수 없습니다.")
     private String content;
-
-    private LocalDateTime createdAt;
 }
