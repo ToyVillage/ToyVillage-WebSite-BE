@@ -10,7 +10,7 @@ public class GalleryRequest {
     @NotBlank
     @Size(min = 1, max = 50)
     @JsonProperty("gallery_title")
-    private String galaryTitle;
+    private String galleryTitle;
 
     @NotBlank
     @JsonProperty("file_key")

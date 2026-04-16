@@ -20,7 +20,7 @@ public class CreateGalleryService {
     public Long execute(GalleryRequest request) {
         File file = fileRepository.findByFileKey(request.getFileKey()).orElseThrow(() -> FileNotFoundException.EXCEPTION);
         Gallery gallery = Gallery.builder()
-            .title(request.getGalaryTitle())
+            .title(request.getGalleryTitle())
             .file(file)
             .build();
 

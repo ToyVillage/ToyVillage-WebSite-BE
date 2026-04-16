@@ -23,7 +23,7 @@ public class UpdateGalleryService {
         File file = fileRepository.findByFileKey(request.getFileKey()).orElseThrow(() -> FileNotFoundException.EXCEPTION);
 
         gallery.update(
-            request.getGalaryTitle(),
+            request.getGalleryTitle(),
             file
         );
     }
