@@ -1,7 +1,7 @@
 package com.command.toyvillage_server.domain.partnership.presentation;
 
 import com.command.toyvillage_server.domain.partnership.presentation.dto.request.PartnershipRequest;
-import com.command.toyvillage_server.domain.partnership.presentation.dto.response.PartnershipQueryResponse;
+import com.command.toyvillage_server.domain.partnership.presentation.dto.response.PartnershipQueryAllResponse;
 import com.command.toyvillage_server.domain.partnership.presentation.dto.response.PartnershipResponse;
 import com.command.toyvillage_server.domain.partnership.service.PartnershipCreateService;
 import com.command.toyvillage_server.domain.partnership.service.PartnershipQueryAllService;
@@ -35,7 +35,7 @@ public class PartnershipController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public Page<PartnershipQueryResponse> readAll(
+    public Page<PartnershipQueryAllResponse> readAll(
             @PageableDefault(sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable
     ) {
         return partnershipQueryAllService.execute(pageable);

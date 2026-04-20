@@ -1,6 +1,7 @@
 package com.command.toyvillage_server.domain.partnership.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -27,12 +28,13 @@ public class Partnership {
     private String name;
 
     @Column(name = "partnership_email", nullable = false)
+    @Email
     private String email;
 
     @Column(name = "partnership_title",nullable = false , length = 50)
     private String title;
 
-    @Column(name = "partnership_content", nullable = false)
+    @Column(name = "partnership_content", nullable = false,columnDefinition = "LONGTEXT")
     private String content;
 
     @Column(name = "partnership_type", nullable = false)
