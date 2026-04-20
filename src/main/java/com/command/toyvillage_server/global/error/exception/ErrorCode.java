@@ -51,7 +51,11 @@ public enum ErrorCode {
     FILE_EMPTY(400, "파일이 비어있습니다."),
     KEY_EMPTY(400, "해당 파일의 키가 비어있습니다."),
     FILE_UPLOAD_FAIL(500, "파일을 업로드하는중 문제가 발생했습니다."),
+    FILE_DELETE_FAIL(500, "파일을 삭제하던중 문제가 발생했습니다."),
     FILE_DELETE_FAIL(500, "파일을 삭제하던 중 문제가 발생했습니다."),
+
+    //partnership
+    PARTNERSHIP_NOT_FOUND(404, "해당 제휴문의를 찾을 수 없습니다.");
 
     //file
     FILE_NOT_FOUND(404, "파일을 찾을 수 없습니다."),
