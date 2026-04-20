@@ -9,10 +9,13 @@ import com.command.toyvillage_server.domain.partnership.service.PartnershipQuery
 import com.command.toyvillage_server.domain.partnership.service.PartnershipQueryService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 @RestController
 @RequestMapping("/partnership")
@@ -32,8 +35,10 @@ public class PartnershipController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<PartnershipQueryResponse> readAll() {
-        return partnershipQueryAllService.execute();
+    public Page<PartnershipQueryResponse> readAll(
+            @PageableDefault(sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable
+    ) {
+        return partnershipQueryAllService.execute(pageable);
     }
 
     @GetMapping("/{id}")
