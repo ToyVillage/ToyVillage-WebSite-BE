@@ -1,12 +1,12 @@
 package com.command.toyvillage_server.domain.partnership.presentation;
 
 import com.command.toyvillage_server.domain.partnership.presentation.dto.request.PartnershipRequest;
-import com.command.toyvillage_server.domain.partnership.presentation.dto.response.MessageResponse;
 import com.command.toyvillage_server.domain.partnership.presentation.dto.response.PartnershipQueryResponse;
 import com.command.toyvillage_server.domain.partnership.presentation.dto.response.PartnershipResponse;
 import com.command.toyvillage_server.domain.partnership.service.PartnershipCreateService;
 import com.command.toyvillage_server.domain.partnership.service.PartnershipQueryAllService;
 import com.command.toyvillage_server.domain.partnership.service.PartnershipQueryService;
+import com.command.toyvillage_server.global.common.response.MessageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
