@@ -18,7 +18,7 @@ public class PopUp {
     @Column(name = "pu_id")
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, columnDefinition = "LONGTEXT")
     private String content;
 
     @Enumerated(EnumType.STRING)
