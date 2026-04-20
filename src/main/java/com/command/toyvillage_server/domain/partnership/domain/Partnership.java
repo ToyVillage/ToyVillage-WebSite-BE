@@ -29,7 +29,7 @@ public class Partnership {
     @Column(name = "partnership_email", nullable = false)
     private String email;
 
-    @Column(name = "partnership_title",nullable = false)
+    @Column(name = "partnership_title",nullable = false , length = 50)
     private String title;
 
     @Column(name = "partnership_content", nullable = false)
