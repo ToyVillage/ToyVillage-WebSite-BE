@@ -24,7 +24,7 @@ public class PartnershipCreateService {
                 .phoneNumber(partnershipRequest.getPhoneNumber())
                 .type(partnershipRequest.getPartnershipType())
                 .build();
-        partnershipRepository.save(partnership);
+        partnershipRepository.save( partnership);
         log.info("제휴 생성  {}", partnership.getId());
     }
 }
