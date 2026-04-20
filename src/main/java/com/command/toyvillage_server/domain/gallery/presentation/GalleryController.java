@@ -34,7 +34,7 @@ public class GalleryController {
         return queryGalleryListService.execute();
     }
 
-    @GetMapping("/{gallery_id}")
+    @GetMapping("/{gallery-id}")
     public GalleryResponse get(@PathVariable("gallery_id") Long galleryId) {
         return queryDetailGalleryService.execute(galleryId);
     }
