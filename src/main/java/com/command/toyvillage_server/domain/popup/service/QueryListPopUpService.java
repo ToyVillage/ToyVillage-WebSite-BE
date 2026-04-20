@@ -23,7 +23,7 @@ public class QueryListPopUpService {
         Pageable pageable = PageRequest.of(
                 p.getPageNumber(),
                 p.getPageSize(),
-                Sort.by(Sort.Direction.DESC, "pu_id")
+                Sort.by(Sort.Direction.DESC, "id")
         );
         return popUpRepository.findAllBy(pageable)
                 .map(PopUpResponse::from);
