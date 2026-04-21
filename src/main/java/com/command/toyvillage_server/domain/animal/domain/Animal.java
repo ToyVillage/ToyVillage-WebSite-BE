@@ -18,6 +18,9 @@ public class Animal {
     @Column(nullable = false, length = 50, name = "animal_kind")
     private String animalKind;
 
+    @Column(nullable = false, name = "animal_image")
+    private String animalImage;
+
     @Column(nullable = false, name = "animal_description")
     private String animalDescription;
 
