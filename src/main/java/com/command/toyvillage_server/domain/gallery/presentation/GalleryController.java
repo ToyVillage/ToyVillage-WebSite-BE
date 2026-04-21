@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/gallery")
@@ -37,7 +36,7 @@ public class GalleryController {
     }
 
     @GetMapping("/{gallery-id}")
-    public GalleryResponse get(@PathVariable("gallery_id") Long galleryId) {
+    public GalleryResponse get(@PathVariable("gallery-id") Long galleryId) {
         return queryDetailGalleryService.execute(galleryId);
     }
 
