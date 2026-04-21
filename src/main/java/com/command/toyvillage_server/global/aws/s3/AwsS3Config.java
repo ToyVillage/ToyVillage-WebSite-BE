@@ -27,7 +27,7 @@ public class AwsS3Config {
     public S3Client s3Client(
         @Value("${spring.cloud.aws.region.static}") String region,
         @Value("${spring.cloud.aws.s3.region:}") String s3Region,
-        @Value("${spring.cloud.aws.endpoint:}") String endpoint,
+        @Value("${spring.cloud.aws.s3.endpoint:}") String endpoint,
         AwsCredentialsProvider credentialsProvider
     ) {
         String finalRegion = StringUtils.hasText(s3Region) ? s3Region : region;

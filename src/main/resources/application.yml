@@ -31,7 +31,7 @@ spring:
       s3:
         region: ${AWS_S3_REGION}
         bucket: ${AWS_S3_BUCKET}
-      endpoint: ${AWS_ENDPOINT:}
+        endpoint: ${AWS_ENDPOINT:}
   servlet:
     multipart:
       max-file-size: 10MB
