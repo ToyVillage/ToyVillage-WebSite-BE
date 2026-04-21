@@ -17,12 +17,10 @@ public class FileUploadService {
     @Transactional
     public FileUploadResponse execute(MultipartFile file) {
         String key = awsS3Provider.upload(file);
-        String fileUrl = awsS3Provider.getPresignedUrl(key);
 
         log.info("파일 업로드 완료 / key : {}", key);
         return FileUploadResponse.builder()
             .fileKey(key)
-            .fileUrl(fileUrl)
             .build();
     }
 }

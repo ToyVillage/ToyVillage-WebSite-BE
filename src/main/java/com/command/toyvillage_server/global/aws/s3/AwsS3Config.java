@@ -9,7 +9,9 @@ import software.amazon.awssdk.auth.credentials.AwsCredentialsProvider;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.presigner.S3Presigner;
+import software.amazon.awssdk.services.s3.S3ClientBuilder;
+
+import java.net.URI;
 
 @Configuration
 public class AwsS3Config {
@@ -25,27 +27,19 @@ public class AwsS3Config {
     public S3Client s3Client(
         @Value("${spring.cloud.aws.region.static}") String region,
         @Value("${spring.cloud.aws.s3.region:}") String s3Region,
+        @Value("${spring.cloud.aws.s3.endpoint:}") String endpoint,
         AwsCredentialsProvider credentialsProvider
     ) {
         String finalRegion = StringUtils.hasText(s3Region) ? s3Region : region;
 
-        return S3Client.builder()
+        S3ClientBuilder s3ClientBuilder = S3Client.builder()
             .credentialsProvider(credentialsProvider)
-            .region(Region.of(finalRegion))
-            .build();
-    }
+            .region(Region.of(finalRegion));
 
-    @Bean
-    public S3Presigner s3Presigner(
-        @Value("${spring.cloud.aws.region.static}") String region,
-        @Value("${spring.cloud.aws.s3.region:}") String s3Region,
-        AwsCredentialsProvider credentialsProvider
-    ) {
-        String finalRegion = StringUtils.hasText(s3Region) ? s3Region : region;
+        if (StringUtils.hasText(endpoint)) {
+            s3ClientBuilder.endpointOverride(URI.create(endpoint));
+        }
 
-        return S3Presigner.builder()
-            .credentialsProvider(credentialsProvider)
-            .region(Region.of(finalRegion))
-            .build();
+        return s3ClientBuilder.build();
     }
 }

@@ -13,12 +13,8 @@ import software.amazon.awssdk.core.exception.SdkException;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
-import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
-import software.amazon.awssdk.services.s3.presigner.S3Presigner;
-import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 import java.io.IOException;
-import java.time.Duration;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -26,13 +22,9 @@ import java.util.UUID;
 @Slf4j
 public class AwsS3Provider {
     private final S3Client s3Client;
-    private final S3Presigner s3Presigner;
 
     @Value("${spring.cloud.aws.s3.bucket}")
     private String bucket;
-
-    @Value("${spring.cloud.aws.s3.url-duration}")
-    private Long urlDuration;
 
     public String upload(MultipartFile file) {
         if(file == null || file.isEmpty()) {
@@ -54,24 +46,6 @@ public class AwsS3Provider {
         }
 
         return key;
-    }
-
-    public String getPresignedUrl(String key) {
-        if (key == null || key.isBlank()) {
-            throw KeyEmptyException.EXCEPTION;
-        }
-
-        GetObjectRequest getObjectRequest = GetObjectRequest.builder()
-            .bucket(bucket)
-            .key(key)
-            .build();
-
-        GetObjectPresignRequest presignRequest = GetObjectPresignRequest.builder()
-            .signatureDuration(Duration.ofMinutes(urlDuration))
-            .getObjectRequest(getObjectRequest)
-            .build();
-
-        return s3Presigner.presignGetObject(presignRequest).url().toString();
     }
 
     public void delete(String key) {
