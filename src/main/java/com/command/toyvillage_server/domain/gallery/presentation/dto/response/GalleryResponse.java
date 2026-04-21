@@ -9,6 +9,6 @@ public record GalleryResponse (
     Long galleryId,
     @JsonProperty("gallery_title")
     String galleryTitle,
-    @JsonProperty("gallery_file_url")
-    String galleryFileUrl
+    @JsonProperty("gallery_file_key")
+    String galleryFileKey
 ) { }
