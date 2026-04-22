@@ -5,6 +5,7 @@ import com.command.toyvillage_server.domain.animal.domain.repository.AnimalRepos
 import com.command.toyvillage_server.domain.animal.exception.AnimalNotFoundException;
 import com.command.toyvillage_server.domain.animal.presentation.dto.request.AnimalRequest;
 import com.command.toyvillage_server.domain.animal.presentation.dto.response.AnimalResponse;
+import com.command.toyvillage_server.global.aws.s3.AwsS3Provider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,15 +16,18 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class UpdateAnimalService {
     private final AnimalRepository animalRepository;
+    private final AwsS3Provider awsS3Provider;
 
     @Transactional
     public AnimalResponse execute(AnimalRequest request, Long animalId) {
         Animal animal = animalRepository.findById(animalId)
                 .orElseThrow(() -> AnimalNotFoundException.EXCEPTION);
 
+        String animalImage = awsS3Provider.upload(request.animalImage());
+
         animal.update(
                 request.animalKind(),
-
+                animalImage,
                 request.animalDescription()
         );
 
