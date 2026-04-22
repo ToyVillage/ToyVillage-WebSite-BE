@@ -23,7 +23,7 @@ public class AnimalController {
     private final QueryAllAnimalService queryAllAnimalService;
 
     @PostMapping
-    public ResponseEntity<MessageResponse> create(@RequestBody @Valid AnimalRequest request) {
+    public ResponseEntity<MessageResponse> create(@ModelAttribute @Valid AnimalRequest request) {
         createAnimalService.execute(request);
 
         return ResponseEntity
