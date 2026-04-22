@@ -30,6 +30,9 @@ public class Animal {
     @Column(nullable = false, name = "animal_type")
     private AnimalType animalType;
 
+    @Column(nullable = false, name = "popular_animal")
+    private boolean popularAnimal;
+
     public void update(String animalKind, String animalImage, String animalDescription) {
         this.animalKind = animalKind;
         this.animalImage = animalImage;
