@@ -1,5 +1,7 @@
 package com.command.toyvillage_server.domain.animal.domain;
 
+import com.command.toyvillage_server.domain.animal.domain.enums.AnimalType;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,7 +26,9 @@ public class Animal {
     @Column(nullable = false, name = "animal_description")
     private String animalDescription;
 
-    private String animalType;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, name = "animal_type")
+    private AnimalType animalType;
 
     public void update(String animalKind, String animalImage, String animalDescription) {
         this.animalKind = animalKind;
