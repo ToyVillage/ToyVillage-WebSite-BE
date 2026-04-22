@@ -6,6 +6,10 @@ import com.command.toyvillage_server.domain.news.presentation.dto.response.NewsR
 import com.command.toyvillage_server.domain.news.service.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,8 +35,10 @@ public class NewsController {
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public List<NewsResponse> getQueryAllNews() {
-        return newsQueryAllService.execute();
+    public Page<NewsResponse> getQueryAllNews(
+            @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable
+    ) {
+        return newsQueryAllService.execute(pageable);
     }
 
     @GetMapping("/{id}")
