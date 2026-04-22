@@ -24,8 +24,9 @@ public class Animal {
     @Column(nullable = false, name = "animal_description")
     private String animalDescription;
 
-    public void update(String animalKind, String animalDescription) {
+    public void update(String animalKind, String animalImage, String animalDescription) {
         this.animalKind = animalKind;
+        this.animalImage = animalImage;
         this.animalDescription = animalDescription;
     }
 }

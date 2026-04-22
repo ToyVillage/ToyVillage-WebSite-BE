@@ -23,6 +23,7 @@ public class UpdateAnimalService {
 
         animal.update(
                 request.animalKind(),
+
                 request.animalDescription()
         );
 
