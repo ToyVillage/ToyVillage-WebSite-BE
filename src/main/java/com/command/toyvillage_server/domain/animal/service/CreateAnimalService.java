@@ -3,6 +3,7 @@ package com.command.toyvillage_server.domain.animal.service;
 import com.command.toyvillage_server.domain.animal.domain.Animal;
 import com.command.toyvillage_server.domain.animal.domain.repository.AnimalRepository;
 import com.command.toyvillage_server.domain.animal.presentation.dto.request.AnimalRequest;
+import com.command.toyvillage_server.global.aws.s3.AwsS3Provider;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -13,11 +14,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Slf4j
 public class CreateAnimalService {
     private final AnimalRepository animalRepository;
+    private final AwsS3Provider awsS3Provider;
 
     @Transactional
     public void execute(AnimalRequest request) {
+        String animalFile = awsS3Provider.upload(request.animalImage());
+
         Animal animal = Animal.builder()
                 .animalKind(request.animalKind())
+                .animalImage(animalFile)
                 .animalDescription(request.animalDescription())
                 .build();
 
