@@ -1,6 +1,7 @@
 package com.command.toyvillage_server.domain.animal.presentation;
 
 import com.command.toyvillage_server.domain.animal.presentation.dto.request.AnimalRequest;
+import com.command.toyvillage_server.domain.animal.presentation.dto.response.AnimalListResponse;
 import com.command.toyvillage_server.domain.animal.presentation.dto.response.AnimalResponse;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
 import com.command.toyvillage_server.domain.animal.service.*;
@@ -53,7 +54,7 @@ public class AnimalController {
     }
 
     @GetMapping
-    public List<AnimalResponse> queryAll() {
+    public AnimalListResponse queryAll() {
         return queryAllAnimalService.execute();
     }
 }
