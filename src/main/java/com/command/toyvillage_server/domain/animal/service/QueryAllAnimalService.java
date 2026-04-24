@@ -30,9 +30,7 @@ public class QueryAllAnimalService {
 
         Map<AnimalType, List<AnimalResponse>> groupedAnimals = animals.stream()
                 .map(AnimalResponse::from)
-                .collect(Collectors.groupingBy(animalResponse ->
-                        AnimalType.valueOf(animalResponse.animalType().getType())
-                ));
+                .collect(Collectors.groupingBy(AnimalResponse::animalType));
 
         List<AnimalResponse> mammals = groupedAnimals.getOrDefault(AnimalType.MAMMALS, Collections.emptyList());
 

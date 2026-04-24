@@ -12,7 +12,7 @@ public record AnimalRequest(
         @JsonProperty("animal_kind")
         String animalKind,
 
-        @NotBlank(message = "동물 사진을 첨부해주세요.")
+        @NotNull(message = "동물 사진을 첨부해주세요.")
         @JsonProperty("animal_image")
         MultipartFile  animalImage,
 
