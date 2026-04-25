@@ -26,6 +26,6 @@ public record AnimalRequest(
 
         @NotNull(message = "인기 동물 여부를 선택해주세요.")
         @JsonProperty("popular_animal")
-        boolean popularAnimal
+        Boolean popularAnimal
 ) {
 }
