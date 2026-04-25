@@ -8,7 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public record AnimalRequest(
 
-        @NotBlank(message = "동물 종류를 비워둘 수 없습니다.")
+        @NotBlank(message = "동물 이름을 비워둘 수 없습니다.")
         @JsonProperty("animal_kind")
         String animalKind,
 
