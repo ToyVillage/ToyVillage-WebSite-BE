@@ -24,6 +24,8 @@ public class CreateAnimalService {
                 .animalKind(request.animalKind())
                 .animalImage(animalFile)
                 .animalDescription(request.animalDescription())
+                .animalType(request.animalType())
+                .popularAnimal(request.popularAnimal())
                 .build();
 
         animalRepository.save(animal);

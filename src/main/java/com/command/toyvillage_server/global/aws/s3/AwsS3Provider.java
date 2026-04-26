@@ -38,7 +38,7 @@ public class AwsS3Provider {
             .key(key)
             .build();
         try {
-            s3Client.putObject(putObjectRequest, RequestBody.fromInputStream(file.getInputStream(), file.getSize()));
+            s3Client.putObject(putObjectRequest, RequestBody.fromBytes(file.getBytes()));
         } catch (IOException | SdkException e) {
             log.error("파일 업로드 실패", e);
             log.error("파일 업로드 실패 / 메시지 : {}", e.getMessage());
