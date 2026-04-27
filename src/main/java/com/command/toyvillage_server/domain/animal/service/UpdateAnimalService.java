@@ -28,7 +28,9 @@ public class UpdateAnimalService {
         animal.update(
                 request.animalKind(),
                 animalImage,
-                request.animalDescription()
+                request.animalDescription(),
+                request.animalType(),
+                request.popularAnimal()
         );
 
         animalRepository.save(animal);
