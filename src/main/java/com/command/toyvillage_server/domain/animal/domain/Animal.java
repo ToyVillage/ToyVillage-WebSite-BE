@@ -38,7 +38,8 @@ public class Animal {
         String animalImage,
         String animalDescription,
         AnimalType animalType,
-        boolean popularAnimal) {
+        boolean popularAnimal
+    ) {
         this.animalKind = animalKind;
         this.animalImage = animalImage;
         this.animalDescription = animalDescription;
