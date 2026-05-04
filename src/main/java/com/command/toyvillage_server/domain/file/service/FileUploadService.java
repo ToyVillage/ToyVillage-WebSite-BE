@@ -25,7 +25,7 @@ public class FileUploadService {
         File savedFile = fileRepository.save(
             File.builder()
             .fileKey(key)
-            .fileName(StringUtils.getFilename(file.getOriginalFilename()))
+            .fileName(StringUtils.getFilename(file.getOriginalFilename() == null ? "" : file.getOriginalFilename()))
             .build()
         );
         log.info("파일{}", savedFile.getId());
