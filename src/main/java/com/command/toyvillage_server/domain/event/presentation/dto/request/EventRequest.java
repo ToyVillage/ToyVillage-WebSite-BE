@@ -1,5 +1,6 @@
 package com.command.toyvillage_server.domain.event.presentation.dto.request;
 
+import com.command.toyvillage_server.domain.file.domain.File;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -32,4 +33,8 @@ public class EventRequest {
     @Size(max = 100)
     @JsonProperty("event_subjects")
     private String eventSubjects;
+
+    @NotBlank
+    @JsonProperty("file_key")
+    private String fileKey;
 }
