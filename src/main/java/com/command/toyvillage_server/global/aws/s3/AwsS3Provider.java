@@ -45,6 +45,7 @@ public class AwsS3Provider {
         } catch (IOException | SdkException e) {
             log.error("파일 업로드 실패", e);
             log.error("파일 업로드 실패 / 메시지 : {}", e.getMessage());
+            delete(key);
             throw FileUploadFailException.EXCEPTION;
         }
 
@@ -62,6 +63,7 @@ public class AwsS3Provider {
                 .key(key)
                 .build();
 
+            fileRepository.findByFileKey(key).ifPresent(fileRepository::delete);
             s3Client.deleteObject(deleteObjectRequest);
         } catch (SdkException e) {
             log.error("파일 삭제 실패", e);
