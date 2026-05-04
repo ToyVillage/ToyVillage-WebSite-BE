@@ -1,13 +1,10 @@
 package com.command.toyvillage_server.domain.event.presentation.dto.request;
 
-import com.command.toyvillage_server.domain.file.domain.File;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 
 @Getter

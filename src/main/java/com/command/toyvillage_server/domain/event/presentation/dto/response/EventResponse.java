@@ -15,7 +15,7 @@
         private LocalDateTime eventStartDate;
         private LocalDateTime eventEndDate;
         private String eventSubjects;
-        private File fileKey;
+        private String fileKey;
 
         public static EventResponse from(Event event) {
             return new EventResponse(
@@ -25,7 +25,7 @@
                 event.getStartDate(),
                 event.getEndDate(),
                 event.getSubjects(),
-                    event.getFile()
+                    event.getFile().getFileKey()
             );
         }
     }
