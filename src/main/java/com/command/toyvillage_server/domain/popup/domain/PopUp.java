@@ -18,7 +18,7 @@ public class PopUp {
     @Column(name = "pu_id")
     private Long id;
 
-    @Column(nullable = false, columnDefinition = "LONGTEXT")
+    @Column(nullable = false)
     private String popupImage;
 
     @Column(nullable = false)
