@@ -1,5 +1,7 @@
 package com.command.toyvillage_server.domain.popup.presentation.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.JoinColumn;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -9,10 +11,7 @@ public record PopUpRequest(
 
         @NotBlank(message = "본문을 비워둘 순 없습니다.")
         @Size(max = 50)
-        String content,
-
-        @NotBlank(message = "본문의 형식을 지정해주세요.")
-        ContentType contentType,
+        String popupImage,
 
         @NotBlank(message = "팝업 마감기한을 설정해주세요.")
         LocalDate expirationDate,

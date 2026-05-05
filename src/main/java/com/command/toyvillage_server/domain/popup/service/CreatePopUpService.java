@@ -15,7 +15,7 @@ public class CreatePopUpService {
     @Transactional
     public void execute(PopUpRequest popUpRequest) {
         PopUp popUp = PopUp.builder()
-                .content(popUpRequest.content())
+                .popupImage(popUpRequest.popupImage())
                 .expirationDate(popUpRequest.expirationDate())
                 .priority(popUpRequest.priority())
                 .build();

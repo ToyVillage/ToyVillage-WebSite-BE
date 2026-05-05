@@ -18,7 +18,7 @@ public class PopUp {
     private Long id;
 
     @Column(nullable = false, columnDefinition = "LONGTEXT")
-    private String content;
+    private String popupImage;
 
     @Column(nullable = false)
     private LocalDate expirationDate;
@@ -27,11 +27,11 @@ public class PopUp {
     private Integer priority;
 
     public void update(
-            String content,
+            String popupImage,
             LocalDate expirationDate,
             Integer priority
     ){
-        this.content = content;
+        this.popupImage = popupImage;
         this.expirationDate = expirationDate;
         this.priority = priority;
     }

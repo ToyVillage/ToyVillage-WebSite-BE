@@ -20,7 +20,7 @@ public class UpdatePopUpService {
                 .orElseThrow(() -> PopUpNotFoundException.EXCEPTION);
 
         popUp.update(
-                popUpRequest.content(),
+                popUpRequest.popupImage(),
                 popUpRequest.expirationDate(),
                 popUpRequest.priority()
         );
