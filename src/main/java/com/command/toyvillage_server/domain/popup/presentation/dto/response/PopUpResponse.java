@@ -6,16 +6,14 @@ import java.time.LocalDate;
 
 public record PopUpResponse(
         Long id,
-        ContentType contentType,
-        String content,
+        String popupImage,
         LocalDate expirationDate,
         int priority
 ) {
     public static PopUpResponse from(PopUp popUp) {
         return new PopUpResponse(
                 popUp.getId(),
-                popUp.getContentType(),
-                popUp.getContent(),
+                popUp.getPopupImage(),
                 popUp.getExpirationDate(),
                 popUp.getPriority()
         );
