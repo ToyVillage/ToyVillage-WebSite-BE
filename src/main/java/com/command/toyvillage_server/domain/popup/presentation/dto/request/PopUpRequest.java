@@ -1,6 +1,5 @@
 package com.command.toyvillage_server.domain.popup.presentation.dto.request;
 
-import com.command.toyvillage_server.domain.popup.domain.enums.ContentType;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 

@@ -1,7 +1,6 @@
 package com.command.toyvillage_server.domain.popup.presentation.dto.response;
 
 import com.command.toyvillage_server.domain.popup.domain.PopUp;
-import com.command.toyvillage_server.domain.popup.domain.enums.ContentType;
 
 import java.time.LocalDate;
 

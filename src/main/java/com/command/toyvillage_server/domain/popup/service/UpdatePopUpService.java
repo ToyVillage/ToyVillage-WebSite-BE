@@ -21,7 +21,6 @@ public class UpdatePopUpService {
 
         popUp.update(
                 popUpRequest.content(),
-                popUpRequest.contentType(),
                 popUpRequest.expirationDate(),
                 popUpRequest.priority()
         );

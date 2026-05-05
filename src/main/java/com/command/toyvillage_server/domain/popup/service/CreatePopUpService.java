@@ -16,7 +16,6 @@ public class CreatePopUpService {
     public void execute(PopUpRequest popUpRequest) {
         PopUp popUp = PopUp.builder()
                 .content(popUpRequest.content())
-                .contentType(popUpRequest.contentType())
                 .expirationDate(popUpRequest.expirationDate())
                 .priority(popUpRequest.priority())
                 .build();
