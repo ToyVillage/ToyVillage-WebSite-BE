@@ -1,8 +1,5 @@
 package com.command.toyvillage_server.domain.popup.presentation.dto.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.JoinColumn;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import org.springframework.web.multipart.MultipartFile;
