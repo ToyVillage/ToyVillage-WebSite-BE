@@ -6,5 +6,5 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PopUpRepository extends JpaRepository<PopUp,Long> {
-    Page<PopUp> findAllBy(Pageable pageable);
+    Page<PopUp> findAllByOrderByPriorityAsc(Pageable pageable);
 }

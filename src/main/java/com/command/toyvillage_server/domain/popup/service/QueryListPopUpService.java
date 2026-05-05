@@ -25,7 +25,8 @@ public class QueryListPopUpService {
                 p.getPageSize(),
                 Sort.by(Sort.Direction.DESC, "id")
         );
-        return popUpRepository.findAllBy(pageable)
+
+        return popUpRepository.findAllByOrderByPriorityAsc(pageable)
                 .map(PopUpResponse::from);
     }
 }
