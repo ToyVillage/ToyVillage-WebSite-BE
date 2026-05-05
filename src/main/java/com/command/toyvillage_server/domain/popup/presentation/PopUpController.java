@@ -4,6 +4,7 @@ import com.command.toyvillage_server.domain.popup.presentation.dto.request.PopUp
 import com.command.toyvillage_server.domain.popup.presentation.dto.response.PopUpResponse;
 import com.command.toyvillage_server.domain.popup.service.*;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,7 +25,7 @@ public class PopUpController {
     private final QueryListPopUpService queryListPopUpService;
 
     @PostMapping
-    public ResponseEntity<MessageResponse> createPopUp(@RequestBody PopUpRequest popUpRequest) {
+    public ResponseEntity<MessageResponse> createPopUp(@ModelAttribute @Valid PopUpRequest popUpRequest) {
         createPopUpService.execute(popUpRequest);
 
         return ResponseEntity
@@ -34,7 +35,7 @@ public class PopUpController {
 
     @PatchMapping("/{popup-id}")
     public ResponseEntity<MessageResponse> updatePopUp(
-            @RequestBody PopUpRequest popUpRequest,
+            @ModelAttribute @Valid PopUpRequest popUpRequest,
             @PathVariable("popup-id") Long popUpId
     ) {
         updatePopUpService.execute(popUpRequest, popUpId);
