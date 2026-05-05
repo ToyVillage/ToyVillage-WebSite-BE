@@ -95,10 +95,13 @@ public class AwsS3Provider {
                 .bucket(bucket)
                 .delete(Delete.builder().objects(deleteObjects).build())
                 .build();
-            
+
             try {
-                s3Client.deleteObjects(deleteObjectsRequest);
-                log.info("{} 개의 고아 객체가 삭제되었습니다.", deleteObjects.size());
+                DeleteObjectsResponse deleteObjectsResponse = s3Client.deleteObjects(deleteObjectsRequest);
+                if (!deleteObjectsResponse.errors().isEmpty()) {
+                    log.info("{} 개의 고아 객체가 삭제되었습니다.", deleteObjects.size());
+                    throw FileDeleteFailException.EXCEPTION;
+                }
             } catch (SdkException e) {
                 log.error("고아 객체 삭제 실패");
                 throw FileDeleteFailException.EXCEPTION;
