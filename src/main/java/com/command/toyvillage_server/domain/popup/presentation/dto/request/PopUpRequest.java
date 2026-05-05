@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.JoinColumn;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
@@ -11,7 +12,7 @@ public record PopUpRequest(
 
         @NotBlank(message = "본문을 비워둘 순 없습니다.")
         @Size(max = 50)
-        String popupImage,
+        MultipartFile popupImage,
 
         @NotBlank(message = "팝업 마감기한을 설정해주세요.")
         LocalDate expirationDate,

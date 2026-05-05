@@ -2,6 +2,7 @@ package com.command.toyvillage_server.domain.popup.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
