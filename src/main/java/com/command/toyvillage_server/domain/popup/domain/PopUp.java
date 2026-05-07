@@ -1,6 +1,5 @@
 package com.command.toyvillage_server.domain.popup.domain;
 
-import com.command.toyvillage_server.domain.popup.domain.enums.ContentType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,12 +17,8 @@ public class PopUp {
     @Column(name = "pu_id")
     private Long id;
 
-    @Column(nullable = false, columnDefinition = "LONGTEXT")
-    private String content;
-
-    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private ContentType contentType;
+    private String popupImage;
 
     @Column(nullable = false)
     private LocalDate expirationDate;
@@ -32,13 +27,11 @@ public class PopUp {
     private Integer priority;
 
     public void update(
-            String content,
-            ContentType contentType,
+            String popupImage,
             LocalDate expirationDate,
             Integer priority
     ){
-        this.content = content;
-        this.contentType = contentType;
+        this.popupImage = popupImage;
         this.expirationDate = expirationDate;
         this.priority = priority;
     }
