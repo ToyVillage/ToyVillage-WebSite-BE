@@ -23,7 +23,7 @@ public class FileUploadService {
         String key = awsS3Provider.upload(file);
 
         try {
-            File savedFile = fileRepository.save(
+            File savedFile = fileRepository.saveAndFlush(
                 File.builder()
                     .fileKey(key)
                     .fileName(StringUtils.getFilename(file.getOriginalFilename() == null ? "" : file.getOriginalFilename()))
@@ -35,7 +35,7 @@ public class FileUploadService {
             awsS3Provider.delete(key);
             throw e;
         }
-        
+
         return FileUploadResponse.builder()
             .fileKey(key)
             .build();
