@@ -16,6 +16,8 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.*;
 
 import java.io.IOException;
+import java.time.Duration;
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -73,19 +75,18 @@ public class AwsS3Provider {
     }
 
     public void cleanupOrphanedObjects() {
+        Instant safeBefore = Instant.now().minus(Duration.ofHours(1));
+        List<String> dbKeys = fileRepository.findAllFileKeys();
+
         ListObjectsV2Request listObjectsRequest = ListObjectsV2Request.builder()
             .bucket(bucket)
             .build();
 
         ListObjectsV2Response listObjectsV2Response = s3Client.listObjectsV2(listObjectsRequest);
 
-        List<String> keys = listObjectsV2Response.contents().stream()
+        List<ObjectIdentifier> deleteObjects = listObjectsV2Response.contents().stream()
+            .filter(o -> o.lastModified() != null && o.lastModified().isBefore(safeBefore))
             .map(S3Object::key)
-            .toList();
-
-        List<String> dbKeys = fileRepository.findAllFileKeys();
-
-        List<ObjectIdentifier> deleteObjects = keys.stream()
             .filter(key -> !dbKeys.contains(key))
             .map(key -> ObjectIdentifier.builder().key(key).build())
             .toList();
