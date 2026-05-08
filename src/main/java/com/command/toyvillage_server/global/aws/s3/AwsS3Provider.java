@@ -100,11 +100,12 @@ public class AwsS3Provider {
             try {
                 DeleteObjectsResponse deleteObjectsResponse = s3Client.deleteObjects(deleteObjectsRequest);
                 if (!deleteObjectsResponse.errors().isEmpty()) {
-                    log.info("{} 개의 고아 객체가 삭제되었습니다.", deleteObjects.size());
+                    log.error("고아 객체 삭제 부분 실패: {}", deleteObjectsResponse.errors());
                     throw FileDeleteFailException.EXCEPTION;
                 }
+                log.info("{} 개의 고아 객체가 삭제되었습니다." , deleteObjects.size());
             } catch (SdkException e) {
-                log.error("고아 객체 삭제 실패");
+                log.error("고아 객체 삭제 실패", e);
                 throw FileDeleteFailException.EXCEPTION;
             }
         }
