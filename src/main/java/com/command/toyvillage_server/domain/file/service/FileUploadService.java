@@ -22,14 +22,20 @@ public class FileUploadService {
     public FileUploadResponse execute(MultipartFile file) {
         String key = awsS3Provider.upload(file);
 
-        File savedFile = fileRepository.save(
-            File.builder()
-            .fileKey(key)
-            .fileName(StringUtils.getFilename(file.getOriginalFilename() == null ? "" : file.getOriginalFilename()))
-            .build()
-        );
-        log.info("파일{}", savedFile.getId());
-        log.info("파일 업로드 완료 / key : {}", key);
+        try {
+            File savedFile = fileRepository.save(
+                File.builder()
+                    .fileKey(key)
+                    .fileName(StringUtils.getFilename(file.getOriginalFilename() == null ? "" : file.getOriginalFilename()))
+                    .build()
+            );
+            log.info("파일{}", savedFile.getId());
+            log.info("파일 업로드 완료 / key : {}", key);
+        } catch (Exception e) {
+            awsS3Provider.delete(key);
+            throw e;
+        }
+        
         return FileUploadResponse.builder()
             .fileKey(key)
             .build();
