@@ -71,7 +71,7 @@ public class AwsS3Provider {
 
             fileRepository.findByFileKey(key).ifPresent(fileRepository::delete);
             s3Client.deleteObject(deleteObjectRequest);
-        } catch (SdkException e) {
+        } catch (RuntimeException e) {
             log.error("파일 삭제 실패", e);
             log.error("파일 삭제 실패 / 메시지 : {}", e.getMessage());
             throw FileDeleteFailException.EXCEPTION;
