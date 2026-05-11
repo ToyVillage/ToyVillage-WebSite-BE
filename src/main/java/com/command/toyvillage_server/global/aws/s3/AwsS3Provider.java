@@ -50,7 +50,7 @@ public class AwsS3Provider {
             try {
                 delete(key);
             } catch (Exception e1) {
-                log.error("파일업로드 실패 후 삭제 작업 실패", e);
+                log.error("파일업로드 실패 후 삭제 작업 실패", e1);
             }
             throw FileUploadFailException.EXCEPTION;
         }
