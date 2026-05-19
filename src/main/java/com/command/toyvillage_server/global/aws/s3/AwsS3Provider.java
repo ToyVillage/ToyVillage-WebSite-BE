@@ -77,41 +77,5 @@ public class AwsS3Provider {
             throw FileDeleteFailException.EXCEPTION;
         }
     }
-
-    public void cleanupOrphanedObjects() {
-        Instant safeBefore = Instant.now().minus(Duration.ofHours(1));
-        List<String> dbKeys = fileRepository.findAllFileKeys();
-
-        ListObjectsV2Request listObjectsRequest = ListObjectsV2Request.builder()
-            .bucket(bucket)
-            .build();
-
-        ListObjectsV2Response listObjectsV2Response = s3Client.listObjectsV2(listObjectsRequest);
-
-        List<ObjectIdentifier> deleteObjects = listObjectsV2Response.contents().stream()
-            .filter(o -> o.lastModified() != null && o.lastModified().isBefore(safeBefore))
-            .map(S3Object::key)
-            .filter(key -> !dbKeys.contains(key))
-            .map(key -> ObjectIdentifier.builder().key(key).build())
-            .toList();
-
-        if (!deleteObjects.isEmpty()) {
-            DeleteObjectsRequest deleteObjectsRequest = DeleteObjectsRequest.builder()
-                .bucket(bucket)
-                .delete(Delete.builder().objects(deleteObjects).build())
-                .build();
-
-            try {
-                DeleteObjectsResponse deleteObjectsResponse = s3Client.deleteObjects(deleteObjectsRequest);
-                if (!deleteObjectsResponse.errors().isEmpty()) {
-                    log.error("고아 객체 삭제 부분 실패: {}", deleteObjectsResponse.errors());
-                    throw FileDeleteFailException.EXCEPTION;
-                }
-                log.info("{} 개의 고아 객체가 삭제되었습니다." , deleteObjects.size());
-            } catch (SdkException e) {
-                log.error("고아 객체 삭제 실패", e);
-                throw FileDeleteFailException.EXCEPTION;
-            }
-        }
-    }
+    
 }
