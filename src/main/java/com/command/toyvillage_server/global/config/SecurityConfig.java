@@ -54,9 +54,14 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                     .requestMatchers("/auth/login", "/auth/signup", "/auth/password", "/auth/password/verification", "/auth/password/verification/confirm").permitAll()
+                    // faq
                     .requestMatchers(HttpMethod.GET, "/faq").permitAll()
                     .requestMatchers(HttpMethod.GET, "/faq/{id}").permitAll()
+
+                    // file
                     .requestMatchers(HttpMethod.POST, "/file").permitAll()
+
+                    // gallery
                     .requestMatchers(HttpMethod.GET, "/gallery").permitAll()
                     .requestMatchers(HttpMethod.GET, "/gallery/{id}").permitAll()
                     .anyRequest().authenticated()
