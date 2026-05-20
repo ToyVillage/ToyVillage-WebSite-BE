@@ -53,7 +53,11 @@ public class SecurityConfig {
                 .sessionManagement(sessionManagement -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+                                                          
+                    // auth
                     .requestMatchers("/auth/login", "/auth/signup", "/auth/password", "/auth/password/verification", "/auth/password/verification/confirm").permitAll()
+                    .requestMatchers("/auth/reissue").authenticated()
+                     
                     // faq
                     .requestMatchers(HttpMethod.GET, "/faq").permitAll()
                     .requestMatchers(HttpMethod.GET, "/faq/{id}").permitAll()
@@ -64,6 +68,15 @@ public class SecurityConfig {
                     // gallery
                     .requestMatchers(HttpMethod.GET, "/gallery").permitAll()
                     .requestMatchers(HttpMethod.GET, "/gallery/{id}").permitAll()
+                    
+
+                    // animal
+                    .requestMatchers(HttpMethod.GET, "/animal", "/animal/**").permitAll()
+                    .requestMatchers("/animal", "/animal/**").authenticated()
+
+                    // popup
+                    .requestMatchers(HttpMethod.GET, "/popup", "/popup/**").permitAll()
+                    .requestMatchers("/popup", "/popup/**").authenticated()
                     .anyRequest().authenticated()
                 )
                 .with(new SecurityFilterConfig(jwtTokenProvider, objectMapper), Customizer.withDefaults())
