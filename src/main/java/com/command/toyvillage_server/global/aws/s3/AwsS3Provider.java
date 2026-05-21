@@ -1,5 +1,6 @@
 package com.command.toyvillage_server.global.aws.s3;
 
+import com.command.toyvillage_server.domain.file.domain.repository.FileRepository;
 import com.command.toyvillage_server.global.aws.s3.exception.FileDeleteFailException;
 import com.command.toyvillage_server.global.aws.s3.exception.FileEmptyException;
 import com.command.toyvillage_server.global.aws.s3.exception.FileUploadFailException;
@@ -12,9 +13,12 @@ import org.springframework.web.multipart.MultipartFile;
 import software.amazon.awssdk.core.exception.SdkException;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.DeleteObjectRequest;
-import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.*;
+
 import java.io.IOException;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -22,6 +26,7 @@ import java.util.UUID;
 @Slf4j
 public class AwsS3Provider {
     private final S3Client s3Client;
+    private final FileRepository fileRepository;
 
     @Value("${spring.cloud.aws.s3.bucket}")
     private String bucket;
@@ -42,6 +47,11 @@ public class AwsS3Provider {
         } catch (IOException | SdkException e) {
             log.error("파일 업로드 실패", e);
             log.error("파일 업로드 실패 / 메시지 : {}", e.getMessage());
+            try {
+                delete(key);
+            } catch (Exception e1) {
+                log.error("파일업로드 실패 후 삭제 작업 실패", e1);
+            }
             throw FileUploadFailException.EXCEPTION;
         }
 
@@ -59,12 +69,13 @@ public class AwsS3Provider {
                 .key(key)
                 .build();
 
+            fileRepository.findByFileKey(key).ifPresent(fileRepository::delete);
             s3Client.deleteObject(deleteObjectRequest);
-        } catch (SdkException e) {
+        } catch (RuntimeException e) {
             log.error("파일 삭제 실패", e);
             log.error("파일 삭제 실패 / 메시지 : {}", e.getMessage());
             throw FileDeleteFailException.EXCEPTION;
         }
     }
-
+    
 }
