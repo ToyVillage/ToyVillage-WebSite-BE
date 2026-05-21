@@ -14,6 +14,14 @@ java {
     }
 }
 
+jar {
+    enabled = false
+}
+
+bootJar {
+    archiveFileName = "toyvillage.jar"
+}
+
 repositories {
     mavenCentral()
 }
