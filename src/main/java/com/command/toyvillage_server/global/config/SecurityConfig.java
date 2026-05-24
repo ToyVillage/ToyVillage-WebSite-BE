@@ -79,7 +79,6 @@ public class SecurityConfig {
 
                     // partnership
                     .requestMatchers(HttpMethod.POST, "/partnership").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/partnership", "/partnership/**").permitAll()
                     .requestMatchers("/partnership", "/partnership/**").authenticated()
 
                     // animal
