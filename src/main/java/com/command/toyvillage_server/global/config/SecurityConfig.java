@@ -68,7 +68,18 @@ public class SecurityConfig {
                     // gallery
                     .requestMatchers(HttpMethod.GET, "/gallery").permitAll()
                     .requestMatchers(HttpMethod.GET, "/gallery/{id}").permitAll()
-                    
+
+                    // news
+                    .requestMatchers(HttpMethod.GET, "/news", "/news/**").permitAll()
+                    .requestMatchers("/news", "/news/**").authenticated()
+
+                    // events
+                    .requestMatchers(HttpMethod.GET, "/events", "/events/**").permitAll()
+                    .requestMatchers("/events", "/events/**").authenticated()
+
+                    // partnership
+                    .requestMatchers(HttpMethod.POST, "/partnership").permitAll()
+                    .requestMatchers("/partnership", "/partnership/**").authenticated()
 
                     // animal
                     .requestMatchers(HttpMethod.GET, "/animal", "/animal/**").permitAll()
