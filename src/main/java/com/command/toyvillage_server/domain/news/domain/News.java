@@ -1,9 +1,12 @@
 package com.command.toyvillage_server.domain.news.domain;
 
+import com.command.toyvillage_server.domain.file.domain.File;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.time.LocalDateTime;
 
 @Entity
@@ -25,21 +28,32 @@ public class News {
     @Column(name = "news_description", nullable = false, columnDefinition = "TEXT")
     private String description;
 
+    @Builder.Default
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "tbl_news_file",
+            joinColumns = @JoinColumn(name = "news_id"),
+            inverseJoinColumns = @JoinColumn(name = "file_id")
+    )
+    private List<File> files = new ArrayList<>();
+
     @CreatedDate
     @Column(name = "news_postdate",nullable = false)
     private LocalDateTime createdDate;
 
-    public void update(String title, String description) {
+    public void update(String title, String description, List<File> files) {
         this.title = title;
         this.description = description;
+        this.files = files;
     }
 
-    protected News(String title, String description) {
+    protected News(String title, String description, List<File> files) {
         this.title = title;
         this.description = description;
+        this.files = files;
     }
 
-    public static News create(String title, String description) {
-        return new News(title,description);
+    public static News create(String title, String description, List<File> files) {
+        return new News(title, description, files);
     }
 }
