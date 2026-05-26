@@ -1,13 +1,19 @@
 package com.command.toyvillage_server.domain.faq.presentation.dto.response;
 
 import com.command.toyvillage_server.domain.faq.domain.Faq;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AccessLevel;
 import lombok.Builder;
 
 @Builder(access = AccessLevel.PRIVATE)
 public record FaqResponse(
+    @JsonProperty("question_id")
     Long questionId,
+    
+    @JsonProperty("question_content")
     String questionContent,
+
+    @JsonProperty("question_answer")
     String questionAnswer
 ) {
     public static FaqResponse from(Faq faq) {
