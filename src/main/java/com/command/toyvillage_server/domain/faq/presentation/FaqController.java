@@ -3,7 +3,7 @@ package com.command.toyvillage_server.domain.faq.presentation;
 import com.command.toyvillage_server.domain.faq.presentation.dto.request.FaqRequest;
 import com.command.toyvillage_server.domain.faq.presentation.dto.response.FaqResponse;
 import com.command.toyvillage_server.domain.faq.service.*;
-import com.command.toyvillage_server.domain.faq.presentation.dto.response.MessageResponse;
+import com.command.toyvillage_server.global.common.response.MessageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
