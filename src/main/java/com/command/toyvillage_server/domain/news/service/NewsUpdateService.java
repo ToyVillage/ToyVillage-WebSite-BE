@@ -26,11 +26,15 @@ public class NewsUpdateService {
     public void execute(Long id, NewsRequest newsRequest) {
         News news = newsRepository.findById(id)
                 .orElseThrow(()-> NewsNotFoundException.EXCEPTION);
-        List<File> files = new ArrayList<>();
-        if (newsRequest.getFileKeys() != null && !newsRequest.getFileKeys().isEmpty()) {
-            files = fileRepository.findAllByFileKeyIn(newsRequest.getFileKeys());
-            if (files.size() != newsRequest.getFileKeys().size()) {
-                throw FileNotFoundException.EXCEPTION;
+        List<File> files = news.getFiles();
+        if (newsRequest.getFileKeys() != null){
+            if(newsRequest.getFileKeys().isEmpty()){
+                files = new ArrayList<>();
+            }else {
+                files = fileRepository.findAllByFileKeyIn(newsRequest.getFileKeys());
+                if(files.size() != newsRequest.getFileKeys().size()){
+                    throw FileNotFoundException.EXCEPTION;
+                }
             }
         }
 

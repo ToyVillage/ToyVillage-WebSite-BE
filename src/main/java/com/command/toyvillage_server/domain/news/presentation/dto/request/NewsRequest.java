@@ -18,5 +18,6 @@ public class NewsRequest {
     private String description;
 
     @JsonProperty("file_keys")
+    
     private List<String> fileKeys;
 }
