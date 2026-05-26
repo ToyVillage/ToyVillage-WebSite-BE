@@ -6,12 +6,12 @@ import com.command.toyvillage_server.domain.gallery.service.*;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RequestMapping("/gallery")
@@ -31,7 +31,7 @@ public class GalleryController {
     }
 
     @GetMapping
-    public Page<GalleryResponse> getList(Pageable pageable) {
+    public List<GalleryResponse> getList(Pageable pageable) {
         return queryGalleryListService.execute(pageable);
     }
 

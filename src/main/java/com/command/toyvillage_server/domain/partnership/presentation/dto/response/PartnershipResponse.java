@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Getter
 @AllArgsConstructor
@@ -30,6 +31,9 @@ public class PartnershipResponse {
     @JsonProperty("partnership_type")
     private PartnershipType type;
 
+    @JsonProperty("partnership_file_keys")
+    private List<String> fileKeys;
+
     public static PartnershipResponse from(Partnership partnership) {
         return new PartnershipResponse(
                 partnership.getId(),
@@ -38,7 +42,10 @@ public class PartnershipResponse {
                 partnership.getPhoneNumber(),
                 partnership.getCreatedDate(),
                 partnership.getContent(),
-                partnership.getType()
+                partnership.getType(),
+                partnership.getFiles().stream()
+                        .map(file -> file.getFileKey())
+                        .toList()
         );
     }
 }

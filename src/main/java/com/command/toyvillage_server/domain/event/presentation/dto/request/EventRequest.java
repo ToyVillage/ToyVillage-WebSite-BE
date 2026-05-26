@@ -5,8 +5,6 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 
 @Getter
@@ -32,4 +30,8 @@ public class EventRequest {
     @Size(max = 100)
     @JsonProperty("event_subjects")
     private String eventSubjects;
+
+    @NotBlank
+    @JsonProperty("file_key")
+    private String fileKey;
 }
