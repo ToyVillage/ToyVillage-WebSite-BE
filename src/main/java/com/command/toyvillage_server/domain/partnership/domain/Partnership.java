@@ -7,6 +7,8 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.time.LocalDateTime;
 
 @Entity
@@ -38,9 +40,14 @@ public class Partnership {
     @Column(name = "partnership_content", nullable = false,columnDefinition = "LONGTEXT")
     private String content;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "file_id")
-    private File file;
+    @Builder.Default
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "tbl_partnership_file",
+            joinColumns = @JoinColumn(name = "partnership_id"),
+            inverseJoinColumns = @JoinColumn(name = "file_id")
+    )
+    private List<File> files = new ArrayList<>();
 
     @Column(name = "partnership_type", nullable = false)
     @Enumerated(EnumType.STRING)

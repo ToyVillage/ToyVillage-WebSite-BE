@@ -9,6 +9,8 @@ import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.List;
+
 @Getter
 @AllArgsConstructor
 public class PartnershipRequest {
@@ -34,6 +36,6 @@ public class PartnershipRequest {
     @NotBlank(message = "제휴 내용은 공백일 수 없습니다.")
     private String content;
 
-    @JsonProperty("file_key")
-    private String fileKey;
+    @JsonProperty("file_keys")
+    private List<String> fileKeys;
 }

@@ -8,9 +8,11 @@ import com.command.toyvillage_server.domain.partnership.domain.repository.Partne
 import com.command.toyvillage_server.domain.partnership.presentation.dto.request.PartnershipRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.util.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -22,10 +24,12 @@ public class PartnershipCreateService {
     @Transactional
     public void execute(PartnershipRequest partnershipRequest) {
 
-        File file = null;
-        if (StringUtils.hasText(partnershipRequest.getFileKey())) {
-            file = fileRepository.findByFileKey(partnershipRequest.getFileKey())
-                    .orElseThrow(() -> FileNotFoundException.EXCEPTION);
+        List<File> files = new ArrayList<>();
+        if (partnershipRequest.getFileKeys() != null && !partnershipRequest.getFileKeys().isEmpty()) {
+            files = fileRepository.findAllByFileKeyIn(partnershipRequest.getFileKeys());
+            if (files.size() != partnershipRequest.getFileKeys().size()) {
+                throw FileNotFoundException.EXCEPTION;
+            }
         }
 
         Partnership partnership = Partnership.builder()
@@ -35,7 +39,7 @@ public class PartnershipCreateService {
                 .email(partnershipRequest.getEmail())
                 .phoneNumber(partnershipRequest.getPhoneNumber())
                 .type(partnershipRequest.getPartnershipType())
-                .file(file)
+                .files(files)
                 .build();
 
         partnershipRepository.save(partnership);

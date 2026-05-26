@@ -10,6 +10,8 @@ import java.util.Optional;
 public interface FileRepository extends JpaRepository<File, Long> {
     Optional<File> findByFileKey(String key);
 
+    List<File> findAllByFileKeyIn(List<String> keys);
+
     @Query("SELECT f.fileKey FROM File f")
     public List<String> findAllFileKeys();
 }
