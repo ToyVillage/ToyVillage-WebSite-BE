@@ -1,5 +1,6 @@
 package com.command.toyvillage_server.domain.partnership.domain;
 
+import com.command.toyvillage_server.domain.file.domain.File;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
@@ -36,6 +37,10 @@ public class Partnership {
 
     @Column(name = "partnership_content", nullable = false,columnDefinition = "LONGTEXT")
     private String content;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "file_id")
+    private File file;
 
     @Column(name = "partnership_type", nullable = false)
     @Enumerated(EnumType.STRING)

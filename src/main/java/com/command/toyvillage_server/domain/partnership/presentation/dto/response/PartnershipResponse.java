@@ -30,6 +30,9 @@ public class PartnershipResponse {
     @JsonProperty("partnership_type")
     private PartnershipType type;
 
+    @JsonProperty("partnership_file_key")
+    private String fileKey;
+
     public static PartnershipResponse from(Partnership partnership) {
         return new PartnershipResponse(
                 partnership.getId(),
@@ -38,7 +41,8 @@ public class PartnershipResponse {
                 partnership.getPhoneNumber(),
                 partnership.getCreatedDate(),
                 partnership.getContent(),
-                partnership.getType()
+                partnership.getType(),
+                partnership.getFile() != null ? partnership.getFile().getFileKey() : null
         );
     }
 }
