@@ -1,9 +1,11 @@
 package com.command.toyvillage_server.domain.popup.service;
 
+import com.command.toyvillage_server.domain.file.domain.File;
+import com.command.toyvillage_server.domain.file.domain.repository.FileRepository;
+import com.command.toyvillage_server.domain.file.exception.FileNotFoundException;
 import com.command.toyvillage_server.domain.popup.domain.PopUp;
 import com.command.toyvillage_server.domain.popup.domain.repository.PopUpRepository;
 import com.command.toyvillage_server.domain.popup.presentation.dto.request.PopUpRequest;
-import com.command.toyvillage_server.global.aws.s3.AwsS3Provider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,14 +14,15 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class CreatePopUpService {
     private final PopUpRepository popUpRepository;
-    private final AwsS3Provider awsS3Provider;
+    private final FileRepository fileRepository;
 
     @Transactional
     public void execute(PopUpRequest popUpRequest) {
-        String popupImage = awsS3Provider.upload(popUpRequest.popupImage());
+        File file = fileRepository.findByFileKey(popUpRequest.fileKey())
+                .orElseThrow(() -> FileNotFoundException.EXCEPTION);
 
         PopUp popUp = PopUp.builder()
-                .popupImage(popupImage)
+                .file(file)
                 .expirationDate(popUpRequest.expirationDate())
                 .priority(popUpRequest.priority())
                 .build();

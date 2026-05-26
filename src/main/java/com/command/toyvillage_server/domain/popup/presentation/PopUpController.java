@@ -12,8 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/popup")
 @RequiredArgsConstructor
@@ -25,7 +23,7 @@ public class PopUpController {
     private final QueryListPopUpService queryListPopUpService;
 
     @PostMapping
-    public ResponseEntity<MessageResponse> createPopUp(@ModelAttribute @Valid PopUpRequest popUpRequest) {
+    public ResponseEntity<MessageResponse> createPopUp(@RequestBody @Valid PopUpRequest popUpRequest) {
         createPopUpService.execute(popUpRequest);
 
         return ResponseEntity
@@ -35,7 +33,7 @@ public class PopUpController {
 
     @PatchMapping("/{popup-id}")
     public ResponseEntity<MessageResponse> updatePopUp(
-            @ModelAttribute @Valid PopUpRequest popUpRequest,
+            @RequestBody @Valid PopUpRequest popUpRequest,
             @PathVariable("popup-id") Long popUpId
     ) {
         updatePopUpService.execute(popUpRequest, popUpId);

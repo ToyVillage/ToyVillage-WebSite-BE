@@ -1,14 +1,16 @@
 package com.command.toyvillage_server.domain.popup.presentation.dto.request;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 
 public record PopUpRequest(
 
-        @NotNull(message = "본문을 비워둘 순 없습니다.")
-        MultipartFile popupImage,
+        @NotBlank(message = "팝업 이미지를 선택해주세요.")
+        @JsonProperty("file_key")
+        String fileKey,
 
         @NotNull(message = "팝업 마감기한을 설정해주세요.")
         LocalDate expirationDate,

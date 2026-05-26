@@ -13,7 +13,7 @@ public record PopUpResponse(
     public static PopUpResponse from(PopUp popUp) {
         return new PopUpResponse(
                 popUp.getId(),
-                popUp.getPopupImage(),
+                popUp.getFile().getFileKey(),
                 popUp.getExpirationDate(),
                 popUp.getPriority()
         );

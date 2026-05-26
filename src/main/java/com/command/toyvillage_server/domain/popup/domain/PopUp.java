@@ -1,5 +1,6 @@
 package com.command.toyvillage_server.domain.popup.domain;
 
+import com.command.toyvillage_server.domain.file.domain.File;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,8 +18,9 @@ public class PopUp {
     @Column(name = "pu_id")
     private Long id;
 
-    @Column(nullable = false)
-    private String popupImage;
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "file_id", nullable = false)
+    private File file;
 
     @Column(nullable = false)
     private LocalDate expirationDate;
@@ -27,11 +29,11 @@ public class PopUp {
     private Integer priority;
 
     public void update(
-            String popupImage,
+            File file,
             LocalDate expirationDate,
             Integer priority
     ){
-        this.popupImage = popupImage;
+        this.file = file;
         this.expirationDate = expirationDate;
         this.priority = priority;
     }
