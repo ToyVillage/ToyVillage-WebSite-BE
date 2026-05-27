@@ -5,6 +5,7 @@ import com.command.toyvillage_server.domain.animal.domain.enums.AnimalType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public record AnimalResponse(
+        Long id,
 
         @JsonProperty("animal_kind")
         String animalKind,
@@ -23,6 +24,7 @@ public record AnimalResponse(
 ) {
     public static AnimalResponse from(Animal animal){
         return new AnimalResponse(
+                animal.getId(),
                 animal.getAnimalKind(),
                 animal.getAnimalImage(),
                 animal.getAnimalDescription(),
