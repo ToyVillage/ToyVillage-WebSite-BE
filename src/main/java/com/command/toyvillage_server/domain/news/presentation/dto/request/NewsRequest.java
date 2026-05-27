@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 
+import java.util.List;
+
 @Getter
 public class NewsRequest {
 
@@ -14,4 +16,8 @@ public class NewsRequest {
     @NotBlank(message = "뉴스 내용을 비워둘 순 없습니다.")
     @JsonProperty("news_description")
     private String description;
+
+    @JsonProperty("file_keys")
+    
+    private List<String> fileKeys;
 }

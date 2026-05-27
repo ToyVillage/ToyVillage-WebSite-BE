@@ -20,7 +20,7 @@ public class Event {
     @Column(name = "event_name",nullable = false)
     private String title;
 
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "file_id")
     private File file;
 
