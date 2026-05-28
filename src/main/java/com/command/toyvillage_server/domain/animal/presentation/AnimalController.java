@@ -33,7 +33,7 @@ public class AnimalController {
     }
 
     @PutMapping("/{animal_id}")
-    public ResponseEntity<MessageResponse> update(@RequestBody @Valid AnimalRequest request,  @PathVariable Long animal_id) {
+    public ResponseEntity<MessageResponse> update(@ModelAttribute @Valid AnimalRequest request,  @PathVariable Long animal_id) {
         updateAnimalService.execute(request, animal_id);
 
         return ResponseEntity
