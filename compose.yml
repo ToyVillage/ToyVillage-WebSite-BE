@@ -1,0 +1,31 @@
+services:
+  backend:
+    image: ${BACKEND_IMAGE}
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    environment:
+      DB_URL: "jdbc:mysql://mysql:3306/${MYSQL_DATABASE}"
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+
+    depends_on:
+      - mysql
+      - redis
+    restart: unless-stopped
+
+  mysql:
+    image: mysql:${MYSQL_VERSION:-8.4}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    restart: unless-stopped
+    volumes:
+      - mysql_data:/var/lib/mysql
+  redis:
+    image: redis:${REDIS_VERSION:-7-alpine}
+    restart: unless-stopped
+
+volumes:
+  mysql_data:
