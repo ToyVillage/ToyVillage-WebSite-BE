@@ -1,0 +1,71 @@
+name: Deploy Backend
+
+on:
+  push:
+    branches:
+      - develop
+
+env:
+  REGISTRY: registry.digitalocean.com
+  REGISTRY_NAME: cowtree28-container-registry
+  IMAGE_NAME: toyvillage-backend
+  APP_DIR: /opt/toyvillage
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Grant execute permission for Gradle
+        run: chmod +x ./gradlew
+
+      - name: Build Spring Boot app
+        run: ./gradlew clean build -x test
+
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Login to DigitalOcean Container Registry
+        run: doctl registry login --expiry-seconds 1200
+
+      - name: Build Docker image
+        run: |
+          docker build \
+            -t $REGISTRY/$REGISTRY_NAME/$IMAGE_NAME:latest \
+            .
+
+      - name: Push Docker image
+        run: |
+          docker push $REGISTRY/$REGISTRY_NAME/$IMAGE_NAME:latest
+
+      - name: Prepare SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SERVER_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H ${{ secrets.SERVER_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Copy compose.yaml to server
+        run: |
+          ssh -i ~/.ssh/deploy_key ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "mkdir -p $APP_DIR"
+          scp -i ~/.ssh/deploy_key compose.yaml ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }}:$APP_DIR/compose.yaml
+
+      - name: Deploy on server
+        run: |
+          ssh -i ~/.ssh/deploy_key ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_HOST }} "
+            cd $APP_DIR &&
+            docker compose pull backend &&
+            docker compose up -d --no-deps backend &&
+            docker image prune -f
+          "
