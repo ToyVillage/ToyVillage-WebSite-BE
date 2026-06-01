@@ -99,7 +99,7 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowedOrigins(List.of(
-                prodUrl, stagUrl, localUrl, "https://toyvillage.vercel.app/"
+                prodUrl, stagUrl, localUrl, "https://toyvillage.vercel.app/", "https://toyvillage.kr/"
         ));
 
         configuration.setAllowedMethods(Arrays.asList("OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE"));
