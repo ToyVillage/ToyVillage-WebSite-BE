@@ -26,4 +26,10 @@ public class Notice {
 
     @Column(nullable = false)
     private LocalDateTime createdAt;
+
+    public void update(String title, Kind kind, String content) {
+        this.title = title;
+        this.kind = kind;
+        this.content = content;
+    }
 }
