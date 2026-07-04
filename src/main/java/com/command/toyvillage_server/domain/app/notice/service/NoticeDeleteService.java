@@ -16,7 +16,7 @@ public class NoticeDeleteService {
     @Transactional
     public void execute(Long noticeId) {
         Notice notice = noticeRepository.findById(noticeId)
-                .orElseThrow(() -> new NoticeNotFoundException(noticeId));
+                .orElseThrow(() -> NoticeNotFoundException.EXCEPTION);
         noticeRepository.delete(notice);
     }
 }
