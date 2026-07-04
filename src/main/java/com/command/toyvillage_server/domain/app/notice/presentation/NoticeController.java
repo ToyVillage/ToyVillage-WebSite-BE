@@ -33,6 +33,12 @@ public class NoticeController {
         return MessageResponse.of("공지 수정 성공");
     }
 
+    @GetMapping("/{noticeId}")
+    @ResponseStatus(HttpStatus.OK)
+    public NoticeResponseDto getDetail(@PathVariable Long noticeId) {
+        return queryNoticeDetailService.execute(noticeId);
+    }
+
 
     @DeleteMapping("/{noticeId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
