@@ -1,6 +1,6 @@
 package com.command.toyvillage_server.global.aws.s3;
 
-import com.command.toyvillage_server.domain.file.domain.repository.FileRepository;
+import com.command.toyvillage_server.domain.web.file.domain.repository.FileRepository;
 import com.command.toyvillage_server.global.aws.s3.exception.FileDeleteFailException;
 import com.command.toyvillage_server.global.aws.s3.exception.FileEmptyException;
 import com.command.toyvillage_server.global.aws.s3.exception.FileUploadFailException;
@@ -16,9 +16,6 @@ import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.*;
 
 import java.io.IOException;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.List;
 import java.util.UUID;
 
 @RequiredArgsConstructor

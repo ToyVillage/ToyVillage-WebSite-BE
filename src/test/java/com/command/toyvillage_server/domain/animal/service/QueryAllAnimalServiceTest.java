@@ -1,9 +1,10 @@
 package com.command.toyvillage_server.domain.animal.service;
 
-import com.command.toyvillage_server.domain.animal.domain.Animal;
-import com.command.toyvillage_server.domain.animal.domain.enums.AnimalType;
-import com.command.toyvillage_server.domain.animal.domain.repository.AnimalRepository;
-import com.command.toyvillage_server.domain.animal.presentation.dto.response.AnimalListResponse;
+import com.command.toyvillage_server.domain.web.animal.domain.Animal;
+import com.command.toyvillage_server.domain.web.animal.domain.enums.AnimalType;
+import com.command.toyvillage_server.domain.web.animal.domain.repository.AnimalRepository;
+import com.command.toyvillage_server.domain.web.animal.presentation.dto.response.AnimalListResponse;
+import com.command.toyvillage_server.domain.web.animal.service.QueryAllAnimalService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
