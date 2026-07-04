@@ -39,6 +39,11 @@ public class NoticeController {
         return queryNoticeDetailService.execute(noticeId);
     }
 
+    @GetMapping
+    public List<NoticeResponseDto> getList(@PageableDefault(page = 0, size = 10) Pageable pageable) {
+        return queryNoticeListService.execute(pageable);
+    }
+
 
     @DeleteMapping("/{noticeId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
