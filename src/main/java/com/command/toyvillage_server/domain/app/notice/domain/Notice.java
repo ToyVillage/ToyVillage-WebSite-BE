@@ -5,7 +5,6 @@ import lombok.*;
 import java.time.LocalDateTime;
 
 @Getter
-@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
@@ -18,6 +17,7 @@ public class Notice {
     @Column(nullable = false , name = "title")
     private String title;
 
+    @Enumerated(EnumType.STRING)
     @Column (nullable = false, name = "kind")
     private Kind kind;
 
@@ -26,4 +26,14 @@ public class Notice {
 
     @Column(nullable = false)
     private LocalDateTime createdAt;
+
+    @Builder
+    public static Notice createNotice(String title, Kind kind, String content, LocalDateTime createdAt) {
+        return Notice.builder()
+            .title(title)
+            .kind(kind)
+            .content(content)
+            .createdAt(createdAt)
+            .build();
+    }
 }

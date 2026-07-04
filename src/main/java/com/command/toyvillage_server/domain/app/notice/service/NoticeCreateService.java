@@ -2,6 +2,7 @@ package com.command.toyvillage_server.domain.app.notice.service;
 
 import com.command.toyvillage_server.domain.app.notice.domain.Notice;
 import com.command.toyvillage_server.domain.app.notice.domain.repository.NoticeRepository;
+import com.command.toyvillage_server.domain.app.notice.presentation.dto.NoticeCreateRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +11,7 @@ import org.springframework.stereotype.Service;
 public class NoticeCreateService {
     private final NoticeRepository noticeRepository;
 
-    public void execute() {
-
+    public void execute(NoticeCreateRequest request) {
     }
 
 }
