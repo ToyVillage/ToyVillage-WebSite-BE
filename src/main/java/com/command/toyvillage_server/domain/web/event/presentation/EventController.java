@@ -3,7 +3,6 @@ package com.command.toyvillage_server.domain.web.event.presentation;
 import com.command.toyvillage_server.domain.web.event.presentation.dto.request.EventRequest;
 import com.command.toyvillage_server.domain.web.event.presentation.dto.response.EventResponse;
 import com.command.toyvillage_server.domain.web.event.presentation.dto.response.MessageResponse;
-import com.command.toyvillage_server.domain.event.service.*;
 import com.command.toyvillage_server.domain.web.event.service.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

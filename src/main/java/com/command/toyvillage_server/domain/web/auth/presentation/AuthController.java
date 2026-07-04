@@ -1,15 +1,11 @@
 package com.command.toyvillage_server.domain.web.auth.presentation;
 
-import com.command.toyvillage_server.domain.auth.presentation.dto.request.*;
-import com.command.toyvillage_server.domain.common.auth.presentation.dto.request.*;
 import com.command.toyvillage_server.domain.web.auth.presentation.dto.request.*;
 import com.command.toyvillage_server.domain.web.auth.presentation.dto.response.AdminVerifyEmailCodeResponse;
-import com.command.toyvillage_server.domain.common.auth.service.*;
 import com.command.toyvillage_server.domain.web.auth.service.*;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
 import com.command.toyvillage_server.domain.web.auth.presentation.dto.response.AccessTokenResponse;
 import com.command.toyvillage_server.domain.web.auth.presentation.dto.response.TokenResponse;
-import com.command.toyvillage_server.domain.auth.service.*;
 import com.command.toyvillage_server.global.util.CookieUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;

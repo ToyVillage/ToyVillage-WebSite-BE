@@ -2,7 +2,6 @@ package com.command.toyvillage_server.domain.web.gallery.presentation;
 
 import com.command.toyvillage_server.domain.web.gallery.presentation.dto.request.GalleryRequest;
 import com.command.toyvillage_server.domain.web.gallery.presentation.dto.response.GalleryResponse;
-import com.command.toyvillage_server.domain.gallery.service.*;
 import com.command.toyvillage_server.domain.web.gallery.service.*;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
 import jakarta.validation.Valid;

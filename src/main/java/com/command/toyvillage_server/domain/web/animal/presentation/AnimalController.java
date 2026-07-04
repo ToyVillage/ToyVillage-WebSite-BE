@@ -5,7 +5,6 @@ import com.command.toyvillage_server.domain.web.animal.presentation.dto.response
 import com.command.toyvillage_server.domain.web.animal.presentation.dto.response.AnimalResponse;
 import com.command.toyvillage_server.domain.web.animal.service.*;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
-import com.command.toyvillage_server.domain.animal.service.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

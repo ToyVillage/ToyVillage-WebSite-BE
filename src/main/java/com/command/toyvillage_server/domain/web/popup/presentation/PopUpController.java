@@ -2,7 +2,6 @@ package com.command.toyvillage_server.domain.web.popup.presentation;
 
 import com.command.toyvillage_server.domain.web.popup.presentation.dto.request.PopUpRequest;
 import com.command.toyvillage_server.domain.web.popup.presentation.dto.response.PopUpResponse;
-import com.command.toyvillage_server.domain.popup.service.*;
 import com.command.toyvillage_server.domain.web.popup.service.*;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
 import jakarta.validation.Valid;
