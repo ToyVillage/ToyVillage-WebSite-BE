@@ -30,7 +30,7 @@ public class Notice {
     private LocalDate createdAt;
 
     @Builder
-    public static Notice createNotice(String title, Kind kind, String content, LocalDateTime createdAt) {
+    public static Notice createNotice(String title, Kind kind, String content, LocalDate createdAt) {
         return Notice.builder()
             .title(title)
             .kind(kind)
