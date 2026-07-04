@@ -12,6 +12,7 @@ public class NoticeCreateService {
     private final NoticeRepository noticeRepository;
 
     public void execute(NoticeCreateRequest request) {
+        Notice notice = Notice.createNotice(request.title(), request.kind(), request.content(), request.createAt());
     }
 
 }
