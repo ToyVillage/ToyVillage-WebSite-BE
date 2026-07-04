@@ -21,7 +21,7 @@ public class QueryNoticeListService {
         Pageable pageable = PageRequest.of(
             p.getPageNumber(),
             p.getPageSize(),
-            Sort.by(Sort.Direction.DESC, "id")
+            p.getSortOr(Sort.by(Sort.Direction.DESC, "id"))
         );
 
         return noticeRepository.findAll(pageable)
