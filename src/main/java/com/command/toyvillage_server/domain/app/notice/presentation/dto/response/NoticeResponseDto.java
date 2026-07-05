@@ -4,7 +4,7 @@ import com.command.toyvillage_server.domain.app.notice.domain.Kind;
 import com.command.toyvillage_server.domain.app.notice.domain.Notice;
 import lombok.Builder;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Builder
 public record NoticeResponseDto(
@@ -12,7 +12,7 @@ public record NoticeResponseDto(
     String title,
     Kind kind,
     String content,
-    LocalDateTime createdAt
+    LocalDate createdAt
 ) {
     public static NoticeResponseDto from(Notice notice) {
         return NoticeResponseDto.builder()

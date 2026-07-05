@@ -2,7 +2,8 @@ package com.command.toyvillage_server.domain.app.notice.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
-import java.time.LocalDateTime;
+
+import java.time.LocalDate;
 
 @Getter
 @Builder
@@ -25,7 +26,7 @@ public class Notice {
     private String content;
 
     @Column(nullable = false)
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
 
     public void update(String title, Kind kind, String content) {
         this.title = title;
