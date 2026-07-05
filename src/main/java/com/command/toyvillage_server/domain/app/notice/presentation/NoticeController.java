@@ -2,6 +2,8 @@ package com.command.toyvillage_server.domain.app.notice.presentation;
 
 import com.command.toyvillage_server.domain.app.notice.presentation.dto.request.NoticeRequestDto;
 import com.command.toyvillage_server.domain.app.notice.presentation.dto.response.NoticeResponseDto;
+import com.command.toyvillage_server.domain.app.notice.presentation.dto.NoticeCreateRequest;
+import com.command.toyvillage_server.domain.app.notice.service.NoticeCreateService;
 import com.command.toyvillage_server.domain.app.notice.service.NoticeDeleteService;
 import com.command.toyvillage_server.domain.app.notice.service.NoticeUpdateService;
 import com.command.toyvillage_server.domain.app.notice.service.QueryNoticeDetailService;
@@ -25,6 +27,7 @@ public class NoticeController {
     private final QueryNoticeListService queryNoticeListService;
     private final NoticeUpdateService noticeUpdateService;
     private final NoticeDeleteService noticeDeleteService;
+    private final NoticeCreateService noticeCreateService;
 
     @PutMapping("/{noticeId}")
     @ResponseStatus(HttpStatus.OK)
@@ -47,11 +50,19 @@ public class NoticeController {
 
     @DeleteMapping("/{noticeId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity<MessageResponse> delete(@PathVariable("noticeId") Long noticeId) {
+    public ResponseEntity<MessageResponse> deleteNotice(@PathVariable("noticeId") Long noticeId) {
         noticeDeleteService.execute(noticeId);
         return ResponseEntity.ok(
                 new MessageResponse("공지 삭제가 완료되었습니다.")
         );
     }
-}
 
+    @PostMapping()
+    public ResponseEntity<MessageResponse> createNotice(@RequestBody @Valid NoticeCreateRequest request) {
+        noticeCreateService.execute(request);
+
+        return ResponseEntity.ok(
+            new MessageResponse("공지사항이 생성되었습니다.")
+        );
+    }
+}
