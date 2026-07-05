@@ -14,11 +14,10 @@ public class NoticeCreateService {
 
     @Transactional
     public void execute(NoticeCreateRequest request) {
-        Notice notice = Notice.createNotice(
+        Notice notice = Notice.create(
             request.title(),
             request.kind(),
-            request.content(),
-            request.createAt()
+            request.content()
         );
 
         noticeRepository.save(notice);
