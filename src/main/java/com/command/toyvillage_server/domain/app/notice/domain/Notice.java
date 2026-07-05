@@ -1,29 +1,43 @@
 package com.command.toyvillage_server.domain.app.notice.domain;
 
 import jakarta.persistence.*;
-import lombok.*;
-import java.time.LocalDateTime;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 
 @Getter
-@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "tbl_notice")
 public class Notice {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false , name = "title")
+    @Column(nullable = false, name = "title")
     private String title;
 
-    @Column (nullable = false, name = "kind")
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, name = "kind")
     private Kind kind;
 
-    @Column (nullable = false, name = "content")
+    @Column(nullable = false, name = "content")
     private String content;
 
     @Column(nullable = false)
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
+
+    private Notice(String title, Kind kind, String content) {
+        this.title = title;
+        this.kind = kind;
+        this.content = content;
+        this.createdAt = LocalDate.now();
+    }
+
+    public static Notice create(String title, Kind kind, String content) {
+        return new Notice(title, kind, content);
+    }
 }
