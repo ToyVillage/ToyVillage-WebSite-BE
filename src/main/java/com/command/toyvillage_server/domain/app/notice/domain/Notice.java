@@ -1,9 +1,7 @@
 package com.command.toyvillage_server.domain.app.notice.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -29,6 +27,12 @@ public class Notice {
 
     @Column(nullable = false)
     private LocalDate createdAt;
+
+    public void update(String title, Kind kind, String content) {
+        this.title = title;
+        this.kind = kind;
+        this.content = content;
+    }
 
     private Notice(String title, Kind kind, String content) {
         this.title = title;

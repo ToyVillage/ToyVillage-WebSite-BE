@@ -60,8 +60,10 @@ public enum ErrorCode {
     FILE_NOT_FOUND(404, "파일을 찾을 수 없습니다."),
 
     //gallery
-    GALLERY_NOT_FOUND(404, "존재하지 않는 갤러리입니다.");
+    GALLERY_NOT_FOUND(404, "존재하지 않는 갤러리입니다."),
 
+    //notice
+    NOTICE_NOT_FOUND(404, "존재하지 않는 공지사항입니다.");
     private final int statusCode;
     private final String errorMessage;
 }
