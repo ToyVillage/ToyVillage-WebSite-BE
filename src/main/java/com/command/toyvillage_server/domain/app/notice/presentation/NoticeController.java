@@ -4,6 +4,7 @@ import com.command.toyvillage_server.domain.app.notice.presentation.dto.NoticeCr
 import com.command.toyvillage_server.domain.app.notice.service.NoticeCreateService;
 import com.command.toyvillage_server.domain.app.notice.service.NoticeDeleteService;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +27,7 @@ public class NoticeController {
     }
 
     @PostMapping()
-    public ResponseEntity<MessageResponse> createNotice(@RequestBody NoticeCreateRequest request) {
+    public ResponseEntity<MessageResponse> createNotice(@RequestBody @Valid NoticeCreateRequest request) {
         noticeCreateService.execute(request);
 
         return ResponseEntity.ok(
