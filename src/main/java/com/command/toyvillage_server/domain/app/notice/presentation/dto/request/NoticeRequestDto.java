@@ -7,12 +7,12 @@ import lombok.Getter;
 
 @Getter
 public class NoticeRequestDto {
-    @NotBlank
+    @NotBlank(message = "공지사항 제목을 입력해주세요.")
     private String title;
 
-    @NotNull
+    @NotNull(message = "공지사항 분류를 선택해주세요.")
     private Kind kind;
 
-    @NotBlank
+    @NotBlank(message = "공지사항 내용을 입력해주세요.")
     private String content;
 }
