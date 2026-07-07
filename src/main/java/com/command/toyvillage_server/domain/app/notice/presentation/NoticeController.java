@@ -2,7 +2,6 @@ package com.command.toyvillage_server.domain.app.notice.presentation;
 
 import com.command.toyvillage_server.domain.app.notice.presentation.dto.request.NoticeRequestDto;
 import com.command.toyvillage_server.domain.app.notice.presentation.dto.response.NoticeResponseDto;
-import com.command.toyvillage_server.domain.app.notice.presentation.dto.NoticeCreateRequest;
 import com.command.toyvillage_server.domain.app.notice.service.NoticeCreateService;
 import com.command.toyvillage_server.domain.app.notice.service.NoticeDeleteService;
 import com.command.toyvillage_server.domain.app.notice.service.NoticeUpdateService;
@@ -58,7 +57,7 @@ public class NoticeController {
     }
 
     @PostMapping()
-    public ResponseEntity<MessageResponse> createNotice(@RequestBody @Valid NoticeCreateRequest request) {
+    public ResponseEntity<MessageResponse> createNotice(@RequestBody @Valid NoticeRequestDto request) {
         noticeCreateService.execute(request);
 
         return ResponseEntity.ok(
