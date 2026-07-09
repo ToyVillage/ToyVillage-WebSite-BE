@@ -48,6 +48,12 @@ public class Document {
         this.type = type;
         this.files = files;
     }
+
+    public void update(String title, DocumentType type, List<File> files) {
+        this.title = title;
+        this.type = type;
+        this.files = files;
+    }
 }
 
 
