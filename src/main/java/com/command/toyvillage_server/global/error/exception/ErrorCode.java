@@ -63,7 +63,10 @@ public enum ErrorCode {
     GALLERY_NOT_FOUND(404, "존재하지 않는 갤러리입니다."),
 
     //notice
-    NOTICE_NOT_FOUND(404, "존재하지 않는 공지사항입니다.");
+    NOTICE_NOT_FOUND(404, "존재하지 않는 공지사항입니다."),
+
+    //document
+    DOCUMENT_NOT_FOUND(404, "존재하지 않는 자료입니다.");
     private final int statusCode;
     private final String errorMessage;
 }
