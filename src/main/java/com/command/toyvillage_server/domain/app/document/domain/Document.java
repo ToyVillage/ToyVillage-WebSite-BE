@@ -37,8 +37,8 @@ public class Document {
     @OneToMany
     @JoinTable(
         name = "tbl_document_file",
-        joinColumns = @JoinColumn(name = "document_id"),
-        inverseJoinColumns = @JoinColumn(name = "file_id", unique = true)
+        joinColumns = @JoinColumn(name = "document_id", nullable = false),
+        inverseJoinColumns = @JoinColumn(name = "file_id", unique = true, nullable = false)
     )
     private List<File> files;
 
