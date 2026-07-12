@@ -10,6 +10,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -46,7 +47,7 @@ public class Document {
     public Document(String title, DocumentType type, List<File> files) {
         this.title = title;
         this.type = type;
-        this.files = files;
+        this.files = files != null ? files : new ArrayList<>();
     }
 
     public void update(String title, DocumentType type, List<File> files) {
