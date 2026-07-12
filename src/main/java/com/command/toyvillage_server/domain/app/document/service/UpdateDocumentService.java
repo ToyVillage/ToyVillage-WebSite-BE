@@ -8,6 +8,7 @@ import com.command.toyvillage_server.domain.web.file.domain.File;
 import com.command.toyvillage_server.domain.web.file.domain.repository.FileRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class UpdateDocumentService {
     private final DocumentRepository documentRepository;
     private final FileRepository fileRepository;
 
+    @Transactional
     public void execute(Long id, DocumentRequest request) {
         Document document = documentRepository.findById(id).orElseThrow(() -> DocumentNotFoundException.EXCEPTION);
         List<File> files = fileRepository.findAllByFileKeyIn(request.getFiles());
