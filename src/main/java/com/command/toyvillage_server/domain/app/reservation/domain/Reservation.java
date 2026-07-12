@@ -22,6 +22,9 @@ public class Reservation {
     @Column(nullable = false)
     private String title;
 
+    @Column(nullable = false, name = "reservation_name")
+    private String reservationName;
+
     @Column(nullable = false, name = "leader_count")
     private Integer leaderCount;
 
