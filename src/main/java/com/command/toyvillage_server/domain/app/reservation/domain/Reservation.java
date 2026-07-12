@@ -31,6 +31,9 @@ public class Reservation {
     @Column(nullable = false, name = "reservation_count")
     private Integer reservationCount;
 
+    @Column(nullable = false, name = "visit_site_count")
+    private Integer visitSiteCount;
+
     @Column(nullable = false)
     private String location;
 
