@@ -5,6 +5,7 @@ import com.command.toyvillage_server.domain.app.document.domain.repository.Docum
 import com.command.toyvillage_server.domain.app.document.presentation.dto.request.DocumentRequest;
 import com.command.toyvillage_server.domain.web.file.domain.File;
 import com.command.toyvillage_server.domain.web.file.domain.repository.FileRepository;
+import com.command.toyvillage_server.domain.web.file.exception.FileNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,6 +21,8 @@ public class CreateDocumentService {
     @Transactional
     public Long execute(DocumentRequest request) {
         List<File> files = fileRepository.findAllByFileKeyIn(request.getFiles());
+        if (files.size() != request.getFiles().size())
+            throw FileNotFoundException.EXCEPTION;
 
         Document document = documentRepository.save(
             Document.builder()
