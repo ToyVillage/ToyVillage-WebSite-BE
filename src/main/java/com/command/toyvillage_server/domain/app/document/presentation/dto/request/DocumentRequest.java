@@ -2,6 +2,7 @@ package com.command.toyvillage_server.domain.app.document.presentation.dto.reque
 
 import com.command.toyvillage_server.domain.app.document.domain.DocumentType;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
@@ -15,6 +16,6 @@ public class DocumentRequest {
     @NotNull(message = "자료 종류는 선택되어야합니다.")
     private DocumentType type;
 
-    @NotNull(message = "파일이 비어있을 수 없습니다.")
+    @NotEmpty(message = "파일이 비어있을 수 없습니다.")
     private List<String> files;
 }
