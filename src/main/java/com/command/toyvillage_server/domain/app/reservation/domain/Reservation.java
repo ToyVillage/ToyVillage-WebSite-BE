@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -21,10 +23,10 @@ public class Reservation {
     private String title;
 
     @Column(nullable = false, name = "leader_count")
-    private String leaderCount;
+    private Integer leaderCount;
 
     @Column(nullable = false, name = "reservation_count")
-    private String reservationCount;
+    private Integer reservationCount;
 
     @Column(nullable = false)
     private String location;
@@ -33,7 +35,14 @@ public class Reservation {
     private LocalDateTime visitDate;
 
     @Column(nullable = false, name = "out_time")
-    private LocalTime outTime;
+    private LocalTime exitTime;
 
-    
+    @Column(nullable = false, name = "visit_site_date")
+    private LocalDateTime visitSiteDate;
+
+    @Column(nullable = false, name = "visit_site_exit_time")
+    private LocalTime visitSiteExitTime;
+
+    @Column(nullable = false, name = "reservation_date")
+    private LocalDate reservationDate;
 }
