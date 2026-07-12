@@ -53,7 +53,8 @@ public class Document {
     public void update(String title, DocumentType type, List<File> files) {
         this.title = title;
         this.type = type;
-        this.files = files;
+        this.files.clear();
+        this.files.addAll(files);
     }
 }
 
