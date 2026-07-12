@@ -6,6 +6,7 @@ import com.command.toyvillage_server.domain.app.document.exception.DocumentNotFo
 import com.command.toyvillage_server.domain.app.document.presentation.dto.request.DocumentRequest;
 import com.command.toyvillage_server.domain.web.file.domain.File;
 import com.command.toyvillage_server.domain.web.file.domain.repository.FileRepository;
+import com.command.toyvillage_server.domain.web.file.exception.FileNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,6 +23,8 @@ public class UpdateDocumentService {
     public void execute(Long id, DocumentRequest request) {
         Document document = documentRepository.findById(id).orElseThrow(() -> DocumentNotFoundException.EXCEPTION);
         List<File> files = fileRepository.findAllByFileKeyIn(request.getFiles());
+        if (files.size() != request.getFiles().size())
+            throw FileNotFoundException.EXCEPTION;
 
         document.update(request.getTitle(), request.getType(), files);
     }
