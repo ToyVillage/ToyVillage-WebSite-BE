@@ -1,6 +1,8 @@
 package com.command.toyvillage_server.domain.app.reservation.service;
 
+import com.command.toyvillage_server.domain.app.reservation.domain.Reservation;
 import com.command.toyvillage_server.domain.app.reservation.domain.repository.ReservationRepository;
+import com.command.toyvillage_server.domain.app.reservation.exception.ReservationNotFoundException;
 import com.command.toyvillage_server.domain.app.reservation.presentation.dto.response.ReservationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,10 @@ public class ReservationQueryService {
 
     @Transactional(readOnly = true)
     public ReservationResponse execute(Long id) {
-        return reservationRepository.findById(id)
-            .orElseThrow(() -> );
+
+        Reservation reservation = reservationRepository.findById(id)
+            .orElseThrow(() -> ReservationNotFoundException.EXCEPTION);
+
+        return ReservationResponse.from(reservation);
     }
 }
