@@ -88,6 +88,11 @@ public class SecurityConfig {
                     // popup
                     .requestMatchers(HttpMethod.GET, "/popup", "/popup/**").permitAll()
                     .requestMatchers("/popup", "/popup/**").authenticated()
+
+                    //reservation
+                    .requestMatchers(HttpMethod.GET, "/reservation").permitAll()
+                    .requestMatchers("/reservation/**").authenticated()
+
                     .anyRequest().authenticated()
                 )
                 .with(new SecurityFilterConfig(jwtTokenProvider, objectMapper), Customizer.withDefaults())

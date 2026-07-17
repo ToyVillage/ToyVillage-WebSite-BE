@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/Reservation")
+@RequestMapping("/reservation")
 public class ReservationController {
     private final ReservationQueryService reservationQueryService;
     private final ReservationQueryListService reservationQueryListService;
