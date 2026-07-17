@@ -91,7 +91,7 @@ public class SecurityConfig {
 
                     //reservation
                     .requestMatchers(HttpMethod.GET, "/reservation").permitAll()
-                    .requestMatchers("/reservation/**").authenticated()
+                        .requestMatchers("/reservation/**").authenticated()
 
                     .anyRequest().authenticated()
                 )

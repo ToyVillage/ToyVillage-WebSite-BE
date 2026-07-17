@@ -1,6 +1,5 @@
 package com.command.toyvillage_server.domain.app.reservation.service;
 
-import com.command.toyvillage_server.domain.app.reservation.domain.Reservation;
 import com.command.toyvillage_server.domain.app.reservation.domain.repository.ReservationRepository;
 import com.command.toyvillage_server.domain.app.reservation.presentation.dto.response.ReservationListResponse;
 import lombok.RequiredArgsConstructor;
