@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class ReservationPermissionSettingService {
     private final UserRepository userRepository;
 
-    public void execute() {
+    public void execute(Long userId, Long reservationId) {
 
     }
 }

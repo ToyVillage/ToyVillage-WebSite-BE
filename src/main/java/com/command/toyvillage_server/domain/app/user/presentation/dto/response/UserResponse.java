@@ -5,6 +5,7 @@ import lombok.Builder;
 
 @Builder
 public record UserResponse(
+    Long id,
     String name
 ) {
     public static UserResponse of(User user) {
