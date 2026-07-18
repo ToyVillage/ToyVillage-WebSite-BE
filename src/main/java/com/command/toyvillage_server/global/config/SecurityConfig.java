@@ -93,8 +93,7 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.POST, "/user/login").permitAll()
 
                     //reservation
-                    .requestMatchers(HttpMethod.GET, "/reservation").permitAll()
-                        .requestMatchers("/reservation/**").authenticated()
+                    .requestMatchers("/reservation", "/reservation/**").authenticated()
 
                     .anyRequest().authenticated()
                 )
