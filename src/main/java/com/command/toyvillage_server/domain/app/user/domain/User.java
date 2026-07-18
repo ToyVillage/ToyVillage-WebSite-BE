@@ -21,11 +21,4 @@ public class User {
 
     @Column(nullable = false)
     private String password;
-
-    @Column(nullable = false)
-    private boolean reservationPermission;
-
-    public void setReservationPermission(boolean reservationPermission) {
-        this.reservationPermission = reservationPermission;
-    }
 }

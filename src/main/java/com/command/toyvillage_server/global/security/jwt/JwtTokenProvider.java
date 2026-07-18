@@ -1,12 +1,12 @@
 package com.command.toyvillage_server.global.security.jwt;
 
-import com.command.toyvillage_server.domain.web.auth.domain.RefreshToken;
-import com.command.toyvillage_server.domain.web.auth.domain.repository.AdminRepository;
-import com.command.toyvillage_server.domain.web.auth.domain.repository.RefreshTokenRepository;
-import com.command.toyvillage_server.domain.web.auth.exception.AdminNotFoundException;
-import com.command.toyvillage_server.domain.web.auth.exception.ExpiredTokenException;
-import com.command.toyvillage_server.domain.web.auth.exception.InvalidTokenException;
-import com.command.toyvillage_server.domain.web.auth.presentation.dto.response.TokenResponse;
+import com.command.toyvillage_server.domain.common.auth.domain.RefreshToken;
+import com.command.toyvillage_server.domain.common.auth.domain.repository.AdminRepository;
+import com.command.toyvillage_server.domain.common.auth.domain.repository.RefreshTokenRepository;
+import com.command.toyvillage_server.domain.common.auth.exception.AdminNotFoundException;
+import com.command.toyvillage_server.domain.common.auth.exception.ExpiredTokenException;
+import com.command.toyvillage_server.domain.common.auth.exception.InvalidTokenException;
+import com.command.toyvillage_server.domain.common.auth.presentation.dto.response.TokenResponse;
 import com.command.toyvillage_server.global.security.auth.CustomUserDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;

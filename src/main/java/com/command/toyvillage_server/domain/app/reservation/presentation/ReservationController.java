@@ -28,9 +28,13 @@ public class ReservationController {
         return reservationQueryListService.execute();
     }
 
-    @PostMapping("/permission/{id}")
-    public void setReservationPermission(@PathVariable Long id, @RequestBody boolean reservationPermission) {
-        reservationPermissionSettingService.execute(id, reservationPermission);
+    @PostMapping("/permission/{reservationId}/{userId}")
+    public void setReservationPermission(
+        @PathVariable("reservationId") Long reservationId,
+        @PathVariable("userId") Long userId,
+        @RequestBody boolean reservationPermission
+    ) {
+        reservationPermissionSettingService.execute(reservationId, userId, reservationPermission);
     }
 
 }
