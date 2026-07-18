@@ -65,6 +65,9 @@ public enum ErrorCode {
     //notice
     NOTICE_NOT_FOUND(404, "존재하지 않는 공지사항입니다."),
 
+    //document
+    DOCUMENT_NOT_FOUND(404, "존재하지 않는 자료입니다."),
+  
     // close day
     CLOSE_DAY_NOT_FOUND(404, "존재하지 않는 휴관일입니다."),
     CLOSE_DAY_INVALID_PERIOD(400, "휴관 종료일은 휴관 시작일보다 빠를 수 없습니다."),
