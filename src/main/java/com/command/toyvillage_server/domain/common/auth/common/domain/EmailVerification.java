@@ -1,4 +1,4 @@
-package com.command.toyvillage_server.domain.common.auth.admin.domain;
+package com.command.toyvillage_server.domain.common.auth.common.domain;
 
 import lombok.*;
 import org.springframework.data.annotation.Id;

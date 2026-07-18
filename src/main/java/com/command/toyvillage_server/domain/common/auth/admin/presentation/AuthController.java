@@ -2,7 +2,12 @@ package com.command.toyvillage_server.domain.common.auth.admin.presentation;
 
 import com.command.toyvillage_server.domain.common.auth.admin.presentation.dto.request.*;
 import com.command.toyvillage_server.domain.common.auth.admin.presentation.dto.response.AdminVerifyEmailCodeResponse;
-import com.command.toyvillage_server.domain.common.auth.admin.service.*;
+import com.command.toyvillage_server.domain.common.auth.admin.service.AdminChangePasswordService;
+import com.command.toyvillage_server.domain.common.auth.admin.service.AdminLoginService;
+import com.command.toyvillage_server.domain.common.auth.admin.service.AdminReissueService;
+import com.command.toyvillage_server.domain.common.auth.admin.service.AdminSignUpService;
+import com.command.toyvillage_server.domain.common.auth.common.service.SendVerificationCodeService;
+import com.command.toyvillage_server.domain.common.auth.common.service.VerifyEmailCodeService;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
 import com.command.toyvillage_server.domain.common.auth.common.presentation.dto.response.AccessTokenResponse;
 import com.command.toyvillage_server.domain.common.auth.common.presentation.dto.response.TokenResponse;
@@ -21,9 +26,9 @@ public class AuthController {
     private final AdminLoginService adminLoginService;
     private final AdminSignUpService adminSignUpService;
     private final AdminReissueService adminReissueService;
-    private final AdminPasswordResetService adminPasswordResetService;
+    private final SendVerificationCodeService sendVerificationCodeService;
     private final AdminChangePasswordService adminChangePasswordService;
-    private final AdminVerifyEmailCodeService adminVerifyEmailCodeService;
+    private final VerifyEmailCodeService verifyEmailCodeService;
 
     private final CookieUtil cookieUtil;
 
@@ -70,7 +75,7 @@ public class AuthController {
         @Valid
         AdminPasswordResetRequest request
     ){
-        adminPasswordResetService.execute(request.email());
+        sendVerificationCodeService.execute(request.email());
 
         return ResponseEntity.ok(
                 MessageResponse.of("해당 이메일로 인증번호가 발송되었습니다, 인증코드를 입력해주세요.")
@@ -81,7 +86,7 @@ public class AuthController {
     public ResponseEntity<AdminVerifyEmailCodeResponse> verifyEmailCode(
             @RequestBody @Valid AdminVerifyEmailCodeRequest request
     ){
-        String resetToken = adminVerifyEmailCodeService.execute(request.email(), request.code());
+        String resetToken = verifyEmailCodeService.execute(request.email(), request.code());
 
         return ResponseEntity.ok(AdminVerifyEmailCodeResponse.of(resetToken));
     }

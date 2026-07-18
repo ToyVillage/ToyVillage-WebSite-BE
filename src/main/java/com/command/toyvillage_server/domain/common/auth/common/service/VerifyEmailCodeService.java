@@ -1,19 +1,19 @@
-package com.command.toyvillage_server.domain.common.auth.admin.service;
+package com.command.toyvillage_server.domain.common.auth.common.service;
 
-import com.command.toyvillage_server.domain.common.auth.admin.domain.EmailVerification;
-import com.command.toyvillage_server.domain.common.auth.admin.domain.PasswordResetToken;
-import com.command.toyvillage_server.domain.common.auth.admin.domain.repository.EmailVerificationRepository;
-import com.command.toyvillage_server.domain.common.auth.admin.domain.repository.PasswordResetTokenRepository;
-import com.command.toyvillage_server.domain.common.auth.admin.exception.ManyRequestException;
-import com.command.toyvillage_server.domain.common.auth.admin.exception.VerificationCodeExpiredException;
-import com.command.toyvillage_server.domain.common.auth.admin.exception.VerificationCodeNotMatchedException;
+import com.command.toyvillage_server.domain.common.auth.common.domain.EmailVerification;
+import com.command.toyvillage_server.domain.common.auth.common.domain.PasswordResetToken;
+import com.command.toyvillage_server.domain.common.auth.common.domain.repository.EmailVerificationRepository;
+import com.command.toyvillage_server.domain.common.auth.common.domain.repository.PasswordResetTokenRepository;
+import com.command.toyvillage_server.domain.common.auth.common.exception.ManyRequestException;
+import com.command.toyvillage_server.domain.common.auth.common.exception.VerificationCodeExpiredException;
+import com.command.toyvillage_server.domain.common.auth.common.exception.VerificationCodeNotMatchedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class AdminVerifyEmailCodeService {
+public class VerifyEmailCodeService {
 
     private final PasswordResetTokenRepository passwordResetTokenRepository;
     private final EmailVerificationRepository emailVerificationRepository;

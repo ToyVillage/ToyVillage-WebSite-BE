@@ -90,7 +90,7 @@ public class SecurityConfig {
                     .requestMatchers("/popup", "/popup/**").authenticated()
 
                     // user
-                    .requestMatchers(HttpMethod.POST, "/user/login").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/user/login", "/user/signup", "/user/signup/verification", "/user/signup/verification/confirm").permitAll()
 
                     //reservation
                     .requestMatchers("/reservation", "/reservation/**").authenticated()
