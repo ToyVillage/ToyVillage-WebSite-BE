@@ -88,6 +88,14 @@ public class SecurityConfig {
                     // popup
                     .requestMatchers(HttpMethod.GET, "/popup", "/popup/**").permitAll()
                     .requestMatchers("/popup", "/popup/**").authenticated()
+
+                    // close day
+                    .requestMatchers(HttpMethod.GET, "/close-day", "/close-day/**").permitAll()
+                    .requestMatchers("/close-day", "/close-day/**").authenticated()
+
+                    // open time
+                    .requestMatchers(HttpMethod.GET, "/open-time", "/open-time/**").permitAll()
+                    .requestMatchers("/open-time", "/open-time/**").authenticated()
                     .anyRequest().authenticated()
                 )
                 .with(new SecurityFilterConfig(jwtTokenProvider, objectMapper), Customizer.withDefaults())

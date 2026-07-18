@@ -66,7 +66,15 @@ public enum ErrorCode {
     NOTICE_NOT_FOUND(404, "존재하지 않는 공지사항입니다."),
 
     //document
-    DOCUMENT_NOT_FOUND(404, "존재하지 않는 자료입니다.");
+    DOCUMENT_NOT_FOUND(404, "존재하지 않는 자료입니다."),
+  
+    // close day
+    CLOSE_DAY_NOT_FOUND(404, "존재하지 않는 휴관일입니다."),
+    CLOSE_DAY_INVALID_PERIOD(400, "휴관 종료일은 휴관 시작일보다 빠를 수 없습니다."),
+
+    // open time
+    OPEN_TIME_NOT_FOUND(404, "존재하지 않는 운영시간입니다."),
+    OPEN_TIME_INVALID_PERIOD(400, "운영 종료시간은 운영 시작시간보다 빠를 수 없습니다.");
     private final int statusCode;
     private final String errorMessage;
 }
