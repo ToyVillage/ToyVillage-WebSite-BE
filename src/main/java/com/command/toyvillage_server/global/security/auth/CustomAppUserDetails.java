@@ -1,6 +1,6 @@
 package com.command.toyvillage_server.global.security.auth;
 
-import com.command.toyvillage_server.domain.common.auth.admin.domain.Admin;
+import com.command.toyvillage_server.domain.common.auth.user.domain.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,20 +9,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
-public record CustomUserDetails(Admin admin) implements UserDetails {
+public record CustomAppUserDetails(User user) implements UserDetails {
     @Override
     public String getUsername() {
-        return admin.getEmail();
+        return user.getEmail();
     }
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {    //사용자의 권한 목록을 반환
-        return new ArrayList<>(Collections.singleton(new SimpleGrantedAuthority("ROLE_ADMIN")));
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return new ArrayList<>(Collections.singleton(new SimpleGrantedAuthority("ROLE_USER")));
     }
 
     @Override
     public String getPassword() {
-        return admin.getPassword();
+        return user.getPassword();
     }
 
     @Override
@@ -46,6 +46,6 @@ public record CustomUserDetails(Admin admin) implements UserDetails {
     }
 
     public Long getId() {
-        return admin.getId();
+        return user.getId();
     }
 }

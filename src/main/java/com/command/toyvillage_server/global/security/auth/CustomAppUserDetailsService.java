@@ -1,7 +1,7 @@
 package com.command.toyvillage_server.global.security.auth;
 
-import com.command.toyvillage_server.domain.common.auth.admin.domain.Admin;
-import com.command.toyvillage_server.domain.common.auth.admin.domain.repository.AdminRepository;
+import com.command.toyvillage_server.domain.common.auth.user.domain.User;
+import com.command.toyvillage_server.domain.common.auth.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -10,15 +10,14 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class CustomUserDetailsService implements UserDetailsService {
-    private final AdminRepository adminRepository;
+public class CustomAppUserDetailsService implements UserDetailsService {
+    private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) {
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User Not Found"));
 
-        Admin admin = adminRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Admin Not Found"));
-
-        return new CustomUserDetails(admin);
+        return new CustomAppUserDetails(user);
     }
 }
