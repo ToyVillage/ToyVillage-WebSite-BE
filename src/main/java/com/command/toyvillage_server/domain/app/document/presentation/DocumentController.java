@@ -39,7 +39,7 @@ public class DocumentController {
 
     @GetMapping
     public List<DocumentListResponse> getList(
-        @RequestParam String keyword,
+        @RequestParam(required = false, defaultValue = "") String keyword,
         Pageable pageable
     ) {
         return queryDocumentListService.execute(keyword, pageable);
