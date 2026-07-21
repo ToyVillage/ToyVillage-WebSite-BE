@@ -15,7 +15,7 @@ public record ReservationListResponse(
     Integer reservationCount,
     LocalDate reservationDate
 ) {
-    public static ReservationListResponse of(Reservation reservation) {
+    public static ReservationListResponse from(Reservation reservation) {
         return ReservationListResponse.builder()
             .id(reservation.getId())
             .title(reservation.getTitle())

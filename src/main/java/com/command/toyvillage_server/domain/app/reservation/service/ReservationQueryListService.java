@@ -25,13 +25,13 @@ public class ReservationQueryListService {
         if (authentication.getPrincipal() instanceof CustomAppUserDetails userDetails) {
             return reservationPermissionRepository.findReservationsByUserId(userDetails.getId())
                 .stream()
-                .map(ReservationListResponse::of)
+                .map(ReservationListResponse::from)
                 .toList();
         }
 
         return reservationRepository.findAll()
             .stream()
-            .map(ReservationListResponse::of)
+            .map(ReservationListResponse::from)
             .toList();
     }
 }
