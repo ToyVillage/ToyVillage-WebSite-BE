@@ -16,6 +16,7 @@ public record ReservationResponse(
     LocalDateTime visitDate,
     LocalTime exitTime,
     LocalDateTime visitSiteDate,
+    LocalTime visitTime,
     LocalTime visitSiteExitTime,
     Integer visitSiteCount
 ) {
@@ -29,6 +30,7 @@ public record ReservationResponse(
             .visitDate(reservation.getVisitDate())
             .exitTime(reservation.getExitTime())
             .visitSiteDate(reservation.getVisitSiteDate())
+            .visitTime(reservation.getVisitSiteTime())
             .visitSiteExitTime(reservation.getVisitSiteExitTime())
             .visitSiteCount(reservation.getVisitSiteCount())
             .build();

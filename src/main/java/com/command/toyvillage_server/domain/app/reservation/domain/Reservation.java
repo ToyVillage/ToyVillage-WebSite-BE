@@ -45,6 +45,9 @@ public class Reservation {
     @Column(nullable = false, name = "visit_site_date")
     private LocalDateTime visitSiteDate;
 
+    @Column(nullable = false, name = "visit_site_time")
+    private LocalTime visitSiteTime;
+
     @Column(nullable = false, name = "visit_site_exit_time")
     private LocalTime visitSiteExitTime;
 
