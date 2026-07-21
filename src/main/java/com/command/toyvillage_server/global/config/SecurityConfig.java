@@ -89,6 +89,12 @@ public class SecurityConfig {
                     .requestMatchers(HttpMethod.GET, "/popup", "/popup/**").permitAll()
                     .requestMatchers("/popup", "/popup/**").authenticated()
 
+                    // user
+                    .requestMatchers(HttpMethod.POST, "/user/login", "/user/signup", "/user/signup/verification", "/user/signup/verification/confirm").permitAll()
+
+                    //reservation
+                    .requestMatchers("/reservation", "/reservation/**").authenticated()
+
                     // close day
                     .requestMatchers(HttpMethod.GET, "/close-day", "/close-day/**").permitAll()
                     .requestMatchers("/close-day", "/close-day/**").authenticated()

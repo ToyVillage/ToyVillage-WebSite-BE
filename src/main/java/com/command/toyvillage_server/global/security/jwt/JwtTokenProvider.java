@@ -1,12 +1,15 @@
 package com.command.toyvillage_server.global.security.jwt;
 
-import com.command.toyvillage_server.domain.web.auth.domain.RefreshToken;
-import com.command.toyvillage_server.domain.web.auth.domain.repository.AdminRepository;
-import com.command.toyvillage_server.domain.web.auth.domain.repository.RefreshTokenRepository;
-import com.command.toyvillage_server.domain.web.auth.exception.AdminNotFoundException;
-import com.command.toyvillage_server.domain.web.auth.exception.ExpiredTokenException;
-import com.command.toyvillage_server.domain.web.auth.exception.InvalidTokenException;
-import com.command.toyvillage_server.domain.web.auth.presentation.dto.response.TokenResponse;
+import com.command.toyvillage_server.domain.common.auth.user.domain.repository.UserRepository;
+import com.command.toyvillage_server.domain.common.auth.user.exception.UserNotFoundException;
+import com.command.toyvillage_server.domain.common.auth.common.domain.RefreshToken;
+import com.command.toyvillage_server.domain.common.auth.admin.domain.repository.AdminRepository;
+import com.command.toyvillage_server.domain.common.auth.common.domain.repository.RefreshTokenRepository;
+import com.command.toyvillage_server.domain.common.auth.admin.exception.AdminNotFoundException;
+import com.command.toyvillage_server.domain.common.auth.common.exception.ExpiredTokenException;
+import com.command.toyvillage_server.domain.common.auth.common.exception.InvalidTokenException;
+import com.command.toyvillage_server.domain.common.auth.common.presentation.dto.response.TokenResponse;
+import com.command.toyvillage_server.global.security.auth.CustomAppUserDetailsService;
 import com.command.toyvillage_server.global.security.auth.CustomUserDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -29,12 +32,18 @@ public class JwtTokenProvider {
 
     private final JwtProperties jwtProperties;
     private final AdminRepository adminRepository;
+    private final UserRepository userRepository;
     private final CustomUserDetailsService customUserDetailsService;
+    private final CustomAppUserDetailsService customAppUserDetailsService;
     private final RefreshTokenRepository refreshTokenRepository;
 
     private static final String CLAIM_TYPE = "type";
     private static final String ACCESS_TYPE = "access";
     private static final String REFRESH_TYPE = "refresh";
+
+    private static final String CLAIM_ROLE = "role";
+    private static final String ROLE_ADMIN = "ADMIN";
+    private static final String ROLE_USER = "USER";
 
     private SecretKey getSigningKey() {
         return Keys.hmacShaKeyFor(
@@ -42,26 +51,28 @@ public class JwtTokenProvider {
         );
     }
 
-    public String createAccessToken(String adminName) {
+    public String createAccessToken(String subject, String role) {
 
         Date now = new Date();
 
         return Jwts.builder()
-                .subject(adminName)
+                .subject(subject)
                 .claim(CLAIM_TYPE, ACCESS_TYPE)
+                .claim(CLAIM_ROLE, role)
                 .issuedAt(now)
                 .expiration(new Date(now.getTime() + jwtProperties.getAccessExpiration()))
                 .signWith(getSigningKey(), Jwts.SIG.HS512)
                 .compact();
     }
 
-    public String createRefreshToken(String adminName) {
+    public String createRefreshToken(String subject, String role) {
 
         Date now = new Date();
 
         String refreshToken = Jwts.builder()
-                .subject(adminName)
+                .subject(subject)
                 .claim(CLAIM_TYPE, REFRESH_TYPE)
+                .claim(CLAIM_ROLE, role)
                 .issuedAt(now)
                 .expiration(new Date(now.getTime() + jwtProperties.getRefreshExpiration()))
                 .signWith(getSigningKey(), Jwts.SIG.HS512)
@@ -69,7 +80,7 @@ public class JwtTokenProvider {
 
         refreshTokenRepository.save(
                 RefreshToken.builder()
-                        .username(adminName)
+                        .username(subject)
                         .token(refreshToken)
                         .timeToLive(jwtProperties.getRefreshExpiration())
                         .build()
@@ -81,9 +92,11 @@ public class JwtTokenProvider {
     public Authentication getAuthentication(String token) {
 
         Claims claims = getClaims(token);
+        String role = claims.get(CLAIM_ROLE, String.class);
 
-        UserDetails userDetails =
-                customUserDetailsService.loadUserByUsername(claims.getSubject());
+        UserDetails userDetails = ROLE_USER.equals(role)
+                ? customAppUserDetailsService.loadUserByUsername(claims.getSubject())
+                : customUserDetailsService.loadUserByUsername(claims.getSubject());
 
         return new UsernamePasswordAuthenticationToken(
                 userDetails,
@@ -114,8 +127,19 @@ public class JwtTokenProvider {
                 .orElseThrow(() -> AdminNotFoundException.EXCEPTION);
 
         return TokenResponse.of(
-                createAccessToken(email),
-                createRefreshToken(email)
+                createAccessToken(email, ROLE_ADMIN),
+                createRefreshToken(email, ROLE_ADMIN)
+        );
+    }
+
+    public TokenResponse receiveUserToken(String email) {
+
+        userRepository.findByEmail(email)
+                .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+
+        return TokenResponse.of(
+                createAccessToken(email, ROLE_USER),
+                createRefreshToken(email, ROLE_USER)
         );
     }
 

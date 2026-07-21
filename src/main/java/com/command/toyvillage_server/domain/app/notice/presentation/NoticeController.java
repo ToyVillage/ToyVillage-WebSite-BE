@@ -56,7 +56,7 @@ public class NoticeController {
         );
     }
 
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<MessageResponse> createNotice(@RequestBody @Valid NoticeRequestDto request) {
         noticeCreateService.execute(request);
 

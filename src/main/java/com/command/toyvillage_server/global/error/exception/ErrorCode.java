@@ -28,6 +28,7 @@ public enum ErrorCode {
 
     //faq
     FAQ_NOT_FOUND(404, "존재하지 않는 질문 입니다."),
+
     // animal
     ANIMAL_NOT_FOUND(404, "존재하지 않는 동물소개 입니다."),
 
@@ -64,6 +65,13 @@ public enum ErrorCode {
 
     //notice
     NOTICE_NOT_FOUND(404, "존재하지 않는 공지사항입니다."),
+
+    // reservation
+    RESERVATION_NOT_FOUND(404, "존재하지 않는 단체예약 목록입니다."),
+
+    // user
+    USER_NOT_FOUND(404, "존재하지 않는 유저입니다."),
+    USER_EXIST(409, "이미 가입된 이메일입니다.");
 
     //document
     DOCUMENT_NOT_FOUND(404, "존재하지 않는 자료입니다."),
