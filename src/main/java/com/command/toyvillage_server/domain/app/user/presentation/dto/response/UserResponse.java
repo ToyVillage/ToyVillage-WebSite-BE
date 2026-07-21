@@ -10,6 +10,7 @@ public record UserResponse(
 ) {
     public static UserResponse of(User user) {
         return UserResponse.builder()
+            .id(user.getId())
             .name(user.getName())
             .build();
     }
