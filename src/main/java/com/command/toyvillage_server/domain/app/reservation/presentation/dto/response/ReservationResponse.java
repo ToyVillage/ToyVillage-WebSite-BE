@@ -23,6 +23,7 @@ public record ReservationResponse(
         return ReservationResponse.builder()
             .id(reservation.getId())
             .reservationName(reservation.getReservationName())
+            .leaderCount(reservation.getLeaderCount())
             .reservationCount(reservation.getReservationCount())
             .location(reservation.getLocation())
             .visitDate(reservation.getVisitDate())
