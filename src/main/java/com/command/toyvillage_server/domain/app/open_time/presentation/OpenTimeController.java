@@ -5,11 +5,13 @@ import com.command.toyvillage_server.domain.app.open_time.presentation.dto.respo
 import com.command.toyvillage_server.domain.app.open_time.service.OpenTimeCreateService;
 import com.command.toyvillage_server.domain.app.open_time.service.OpenTimeDeleteService;
 import com.command.toyvillage_server.domain.app.open_time.service.OpenTimeUpdateService;
+import com.command.toyvillage_server.domain.app.open_time.service.QueryOpenTimeByDateService;
 import com.command.toyvillage_server.domain.app.open_time.service.QueryOpenTimeDetailService;
 import com.command.toyvillage_server.domain.app.open_time.service.QueryOpenTimeListService;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,8 +21,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -31,6 +35,7 @@ public class OpenTimeController {
     private final OpenTimeUpdateService openTimeUpdateService;
     private final OpenTimeDeleteService openTimeDeleteService;
     private final QueryOpenTimeListService queryOpenTimeListService;
+    private final QueryOpenTimeByDateService queryOpenTimeByDateService;
     private final QueryOpenTimeDetailService queryOpenTimeDetailService;
 
     @PostMapping
@@ -66,6 +71,13 @@ public class OpenTimeController {
     @GetMapping
     public List<OpenTimeResponse> getOpenTimes() {
         return queryOpenTimeListService.execute();
+    }
+
+    @GetMapping("/date")
+    public List<OpenTimeResponse> getOpenTimesByDate(
+            @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date
+    ) {
+        return queryOpenTimeByDateService.execute(date);
     }
 
     @GetMapping("/{open-time-id}")

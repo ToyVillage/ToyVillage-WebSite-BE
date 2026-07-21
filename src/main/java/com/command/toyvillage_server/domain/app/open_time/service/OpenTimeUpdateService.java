@@ -21,6 +21,7 @@ public class OpenTimeUpdateService {
                 .orElseThrow(() -> OpenTimeNotFoundException.EXCEPTION);
 
         openTime.update(
+                request.openDate(),
                 request.startOpenTime(),
                 request.endOpenTime()
         );
