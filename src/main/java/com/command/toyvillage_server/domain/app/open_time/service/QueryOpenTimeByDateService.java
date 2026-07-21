@@ -6,16 +6,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class QueryOpenTimeListService {
+public class QueryOpenTimeByDateService {
     private final OpenTimeRepository openTimeRepository;
 
     @Transactional(readOnly = true)
-    public List<OpenTimeResponse> execute() {
-        return openTimeRepository.findAllByOrderByOpenDateAscStartOpenTimeAscIdAsc()
+    public List<OpenTimeResponse> execute(LocalDate date) {
+        return openTimeRepository.findAllByOpenDateOrderByStartOpenTimeAscIdAsc(date)
                 .stream()
                 .map(OpenTimeResponse::from)
                 .toList();

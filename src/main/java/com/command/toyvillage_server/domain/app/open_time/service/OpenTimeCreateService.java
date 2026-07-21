@@ -17,6 +17,7 @@ public class OpenTimeCreateService {
         OpenTimePeriodValidator.validate(request.startOpenTime(), request.endOpenTime());
 
         OpenTime openTime = OpenTime.create(
+                request.openDate(),
                 request.startOpenTime(),
                 request.endOpenTime()
         );
