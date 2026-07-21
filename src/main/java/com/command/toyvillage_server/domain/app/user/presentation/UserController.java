@@ -35,7 +35,7 @@ public class UserController {
     private final VerifyEmailCodeService verifyEmailCodeService;
     private final CookieUtil cookieUtil;
 
-    @GetMapping()
+    @GetMapping
     public List<UserResponse> getUserList(){
         return userQueryListService.execute();
     }
