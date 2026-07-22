@@ -71,7 +71,7 @@ public enum ErrorCode {
 
     // user
     USER_NOT_FOUND(404, "존재하지 않는 유저입니다."),
-    USER_EXIST(409, "이미 가입된 이메일입니다.");
+    USER_EXIST(409, "이미 가입된 이메일입니다."),
 
     //document
     DOCUMENT_NOT_FOUND(404, "존재하지 않는 자료입니다."),

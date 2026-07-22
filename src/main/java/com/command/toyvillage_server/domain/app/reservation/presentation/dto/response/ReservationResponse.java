@@ -3,6 +3,7 @@ package com.command.toyvillage_server.domain.app.reservation.presentation.dto.re
 import com.command.toyvillage_server.domain.app.reservation.domain.Reservation;
 import lombok.Builder;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -12,6 +13,8 @@ public record ReservationResponse(
     String reservationName,
     Integer leaderCount,
     Integer reservationCount,
+    LocalDate reservationDate,
+    LocalTime reservationTime,
     String location,
     LocalDateTime visitDate,
     LocalTime exitTime,
