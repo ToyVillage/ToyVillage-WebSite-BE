@@ -21,7 +21,8 @@ public record ReservationResponse(
     LocalDateTime visitSiteDate,
     LocalTime visitTime,
     LocalTime visitSiteExitTime,
-    Integer visitSiteCount
+    Integer visitSiteCount,
+    Integer money
 ) {
     public static ReservationResponse from(Reservation reservation) {
         return ReservationResponse.builder()
@@ -36,6 +37,7 @@ public record ReservationResponse(
             .visitTime(reservation.getVisitSiteTime())
             .visitSiteExitTime(reservation.getVisitSiteExitTime())
             .visitSiteCount(reservation.getVisitSiteCount())
+            .money(reservation.getMoney())
             .build();
     }
 }
