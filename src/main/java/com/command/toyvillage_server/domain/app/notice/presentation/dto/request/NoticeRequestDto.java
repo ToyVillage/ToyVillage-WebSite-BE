@@ -2,8 +2,11 @@ package com.command.toyvillage_server.domain.app.notice.presentation.dto.request
 
 import com.command.toyvillage_server.domain.app.notice.domain.Kind;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
+
+import java.util.List;
 
 @Getter
 public class NoticeRequestDto {
@@ -15,4 +18,6 @@ public class NoticeRequestDto {
 
     @NotBlank(message = "공지사항 내용을 입력해주세요.")
     private String content;
+
+    private List<String> files;
 }
