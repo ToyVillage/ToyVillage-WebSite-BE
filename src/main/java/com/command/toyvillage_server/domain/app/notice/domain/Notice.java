@@ -1,9 +1,12 @@
 package com.command.toyvillage_server.domain.app.notice.domain;
 
+import com.command.toyvillage_server.domain.web.file.domain.File;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -28,20 +31,31 @@ public class Notice {
     @Column(nullable = false)
     private LocalDate createdAt;
 
-    public void update(String title, Kind kind, String content) {
+    @OneToMany
+    @JoinTable(
+        name = "tbl_notice_file",
+        joinColumns = @JoinColumn(name = "notice_id", nullable = false),
+        inverseJoinColumns = @JoinColumn(name = "file_id", unique = true, nullable = false)
+    )
+    private List<File> files = new ArrayList<>();
+
+    public void update(String title, Kind kind, String content, List<File> files) {
         this.title = title;
         this.kind = kind;
         this.content = content;
+        this.files.clear();
+        this.files.addAll(files);
     }
 
-    private Notice(String title, Kind kind, String content) {
+    private Notice(String title, Kind kind, String content,  List<File> files) {
         this.title = title;
         this.kind = kind;
         this.content = content;
         this.createdAt = LocalDate.now();
+        this.files = new ArrayList<>(files);
     }
 
-    public static Notice create(String title, Kind kind, String content) {
-        return new Notice(title, kind, content);
+    public static Notice create(String title, Kind kind, String content,  List<File> files) {
+        return new Notice(title, kind, content,  files);
     }
 }
