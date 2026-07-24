@@ -1,7 +1,8 @@
 package com.command.toyvillage_server.domain.app.notice.presentation;
 
 import com.command.toyvillage_server.domain.app.notice.presentation.dto.request.NoticeRequestDto;
-import com.command.toyvillage_server.domain.app.notice.presentation.dto.response.NoticeResponseDto;
+import com.command.toyvillage_server.domain.app.notice.presentation.dto.response.NoticeListResponseDto;
+import com.command.toyvillage_server.domain.app.notice.presentation.dto.response.NoticeDetailResponse;
 import com.command.toyvillage_server.domain.app.notice.service.NoticeCreateService;
 import com.command.toyvillage_server.domain.app.notice.service.NoticeDeleteService;
 import com.command.toyvillage_server.domain.app.notice.service.NoticeUpdateService;
@@ -42,7 +43,7 @@ public class NoticeController {
     }
 
     @GetMapping
-    public List<NoticeResponseDto> getList(@PageableDefault(page = 0, size = 10) Pageable pageable) {
+    public List<NoticeListResponseDto> getList(@PageableDefault(page = 0, size = 10) Pageable pageable) {
         return queryNoticeListService.execute(pageable);
     }
 
