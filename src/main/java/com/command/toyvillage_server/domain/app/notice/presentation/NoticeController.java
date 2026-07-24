@@ -37,7 +37,7 @@ public class NoticeController {
 
     @GetMapping("/{noticeId}")
     @ResponseStatus(HttpStatus.OK)
-    public NoticeResponseDto getDetail(@PathVariable Long noticeId) {
+    public NoticeDetailResponse getDetail(@PathVariable Long noticeId) {
         return queryNoticeDetailService.execute(noticeId);
     }
 
