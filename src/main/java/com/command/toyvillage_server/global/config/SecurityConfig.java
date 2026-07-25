@@ -92,6 +92,10 @@ public class SecurityConfig {
                     // user
                     .requestMatchers(HttpMethod.POST, "/user/login", "/user/signup", "/user/signup/verification", "/user/signup/verification/confirm").permitAll()
 
+                    // team settings
+                    .requestMatchers("/team", "/team/**").hasRole("ADMIN")
+                    .requestMatchers("/join-team", "/join-team/**").hasRole("ADMIN")
+
                     //reservation
                     .requestMatchers("/reservation", "/reservation/**").authenticated()
 
