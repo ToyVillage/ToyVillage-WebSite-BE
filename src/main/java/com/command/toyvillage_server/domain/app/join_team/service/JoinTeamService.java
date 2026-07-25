@@ -2,7 +2,6 @@ package com.command.toyvillage_server.domain.app.join_team.service;
 
 import com.command.toyvillage_server.domain.app.join_team.domain.JoinTeam;
 import com.command.toyvillage_server.domain.app.join_team.domain.repository.JoinTeamRepository;
-import com.command.toyvillage_server.domain.app.join_team.presentation.dto.request.JoinTeamRequest;
 import com.command.toyvillage_server.domain.app.team.domain.Team;
 import com.command.toyvillage_server.domain.app.team.domain.repository.TeamRepository;
 import com.command.toyvillage_server.domain.app.team.exception.TeamNotFoundException;
@@ -21,11 +20,11 @@ public class JoinTeamService {
     private final TeamRepository teamRepository;
 
     @Transactional
-    public void execute(JoinTeamRequest request) {
-        User user = userRepository.findById(request.userId())
+    public void execute(Long userId, Long teamId) {
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
 
-        Team team = teamRepository.findById(request.teamId())
+        Team team = teamRepository.findById(teamId)
                 .orElseThrow(() -> TeamNotFoundException.EXCEPTION);
 
         JoinTeam joinTeam = joinTeamRepository.findByUser_Id(user.getId())
