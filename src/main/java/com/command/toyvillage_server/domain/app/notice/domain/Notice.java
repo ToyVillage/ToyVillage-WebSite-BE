@@ -43,8 +43,10 @@ public class Notice {
         this.title = title;
         this.kind = kind;
         this.content = content;
-        this.files.clear();
-        this.files.addAll(files);
+        if (files != null) {
+            this.files.clear();
+            this.files.addAll(files);
+        }
     }
 
     private Notice(String title, Kind kind, String content,  List<File> files) {

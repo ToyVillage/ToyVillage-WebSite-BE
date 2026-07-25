@@ -11,7 +11,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -23,13 +22,16 @@ public class NoticeUpdateService {
 
     @Transactional
     public void execute(Long id, NoticeRequestDto dto) {
-        List<String> fileKeys = dto.getFiles() == null ? new ArrayList<>() : dto.getFiles();
-        List<File> files = fileRepository.findAllByFileKeyIn(fileKeys);
-        if (files.size() != fileKeys.size())
-            throw FileNotFoundException.EXCEPTION;
-
         Notice notice = noticeRepository.findById(id)
             .orElseThrow(() -> NoticeNotFoundException.EXCEPTION);
+
+        List<File> files = null;
+        if (dto.getFiles() != null) {
+            List<String> fileKeys = dto.getFiles();
+            files = fileRepository.findAllByFileKeyIn(fileKeys);
+            if (files.size() != fileKeys.size())
+                throw FileNotFoundException.EXCEPTION;
+        }
 
         notice.update(dto.getTitle(), dto.getKind(), dto.getContent(),  files);
         noticeRepository.save(notice);
