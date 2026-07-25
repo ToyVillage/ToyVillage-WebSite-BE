@@ -30,4 +30,8 @@ public class Team {
     public static Team create(String name) {
         return new Team(name);
     }
+
+    public void update(String name) {
+        this.name = name;
+    }
 }
