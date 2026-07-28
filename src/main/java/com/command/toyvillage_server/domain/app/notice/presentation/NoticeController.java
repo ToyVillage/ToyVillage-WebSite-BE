@@ -1,7 +1,8 @@
 package com.command.toyvillage_server.domain.app.notice.presentation;
 
 import com.command.toyvillage_server.domain.app.notice.presentation.dto.request.NoticeRequestDto;
-import com.command.toyvillage_server.domain.app.notice.presentation.dto.response.NoticeResponseDto;
+import com.command.toyvillage_server.domain.app.notice.presentation.dto.response.NoticeListResponseDto;
+import com.command.toyvillage_server.domain.app.notice.presentation.dto.response.NoticeDetailResponse;
 import com.command.toyvillage_server.domain.app.notice.service.NoticeCreateService;
 import com.command.toyvillage_server.domain.app.notice.service.NoticeDeleteService;
 import com.command.toyvillage_server.domain.app.notice.service.NoticeUpdateService;
@@ -28,28 +29,28 @@ public class NoticeController {
     private final NoticeDeleteService noticeDeleteService;
     private final NoticeCreateService noticeCreateService;
 
-    @PutMapping("/{noticeId}")
+    @PutMapping("/{notice-id}")
     @ResponseStatus(HttpStatus.OK)
-    public MessageResponse update(@Valid @RequestBody NoticeRequestDto request, @PathVariable Long noticeId) {
+    public MessageResponse update(@Valid @RequestBody NoticeRequestDto request, @PathVariable("notice-id") Long noticeId) {
         noticeUpdateService.execute(noticeId, request);
         return MessageResponse.of("공지 수정 성공");
     }
 
-    @GetMapping("/{noticeId}")
+    @GetMapping("/{notice-id}")
     @ResponseStatus(HttpStatus.OK)
-    public NoticeResponseDto getDetail(@PathVariable Long noticeId) {
+    public NoticeDetailResponse getDetail(@PathVariable("notice-id") Long noticeId) {
         return queryNoticeDetailService.execute(noticeId);
     }
 
     @GetMapping
-    public List<NoticeResponseDto> getList(@PageableDefault(page = 0, size = 10) Pageable pageable) {
+    public List<NoticeListResponseDto> getList(@PageableDefault(page = 0, size = 10) Pageable pageable) {
         return queryNoticeListService.execute(pageable);
     }
 
 
-    @DeleteMapping("/{noticeId}")
+    @DeleteMapping("/{notice-id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity<MessageResponse> deleteNotice(@PathVariable("noticeId") Long noticeId) {
+    public ResponseEntity<MessageResponse> deleteNotice(@PathVariable("notice-id") Long noticeId) {
         noticeDeleteService.execute(noticeId);
         return ResponseEntity.ok(
                 new MessageResponse("공지 삭제가 완료되었습니다.")

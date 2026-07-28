@@ -1,7 +1,7 @@
 package com.command.toyvillage_server.domain.app.notice.service;
 
 import com.command.toyvillage_server.domain.app.notice.domain.repository.NoticeRepository;
-import com.command.toyvillage_server.domain.app.notice.presentation.dto.response.NoticeResponseDto;
+import com.command.toyvillage_server.domain.app.notice.presentation.dto.response.NoticeListResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +17,7 @@ public class QueryNoticeListService {
     private final NoticeRepository noticeRepository;
 
     @Transactional(readOnly = true)
-    public List<NoticeResponseDto> execute(Pageable p) {
+    public List<NoticeListResponseDto> execute(Pageable p) {
         Pageable pageable = PageRequest.of(
             p.getPageNumber(),
             p.getPageSize(),
@@ -25,7 +25,7 @@ public class QueryNoticeListService {
         );
 
         return noticeRepository.findAll(pageable)
-            .map(NoticeResponseDto::from)
+            .map(NoticeListResponseDto::from)
             .toList();
     }
 }
