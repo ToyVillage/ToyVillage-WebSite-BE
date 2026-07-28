@@ -30,12 +30,12 @@ public class ReservationPermissionSettingService {
         if (permission) {
             grant(reservation, user);
         } else {
-            reservationPermissionRepository.deleteByReservationIdAndUserId(reservationId, userId);
+            revoke(reservationId, userId);
         }
     }
 
     private void grant(Reservation reservation, User user) {
-        if (!reservationPermissionRepository.existsByReservationIdAndUserId(reservation.getId(), user.getId())) {
+        if (!reservationPermissionRepository.existsByReservation_IdAndUser_Id(reservation.getId(), user.getId())) {
             reservationPermissionRepository.save(
                 ReservationPermission.builder()
                     .reservation(reservation)
@@ -43,5 +43,11 @@ public class ReservationPermissionSettingService {
                     .build()
             );
         }
+    }
+
+    private void revoke(Long reservationId, Long userId) {
+        reservationPermissionRepository
+            .findByReservation_IdAndUser_Id(reservationId, userId)
+            .ifPresent(reservationPermissionRepository::delete);
     }
 }

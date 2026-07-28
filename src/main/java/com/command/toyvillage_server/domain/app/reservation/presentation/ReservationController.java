@@ -3,11 +3,13 @@ package com.command.toyvillage_server.domain.app.reservation.presentation;
 import com.command.toyvillage_server.domain.app.reservation.presentation.dto.response.ReservationListResponse;
 import com.command.toyvillage_server.domain.app.reservation.presentation.dto.response.ReservationPermissionResponse;
 import com.command.toyvillage_server.domain.app.reservation.presentation.dto.response.ReservationResponse;
+import com.command.toyvillage_server.domain.app.reservation.service.ReservationPermissionDeleteService;
 import com.command.toyvillage_server.domain.app.reservation.service.ReservationPermissionQueryListService;
 import com.command.toyvillage_server.domain.app.reservation.service.ReservationPermissionSettingService;
 import com.command.toyvillage_server.domain.app.reservation.service.ReservationQueryListService;
 import com.command.toyvillage_server.domain.app.reservation.service.ReservationQueryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,6 +22,7 @@ public class ReservationController {
     private final ReservationQueryListService reservationQueryListService;
     private final ReservationPermissionSettingService reservationPermissionSettingService;
     private final ReservationPermissionQueryListService reservationPermissionQueryListService;
+    private final ReservationPermissionDeleteService reservationPermissionDeleteService;
 
     @GetMapping("/{id}")
     public ReservationResponse getDetail(@PathVariable Long id) {
@@ -43,5 +46,14 @@ public class ReservationController {
     @GetMapping("/permission/{reservationId}")
     public List<ReservationPermissionResponse> getPermissionList(@PathVariable("reservationId") Long reservationId) {
         return reservationPermissionQueryListService.execute(reservationId);
+    }
+
+    @DeleteMapping("/permission/{reservationId}/{userId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletePermission(
+        @PathVariable Long reservationId,
+        @PathVariable Long userId
+    ) {
+        reservationPermissionDeleteService.execute(reservationId, userId);
     }
 }
