@@ -97,8 +97,7 @@ public class SecurityConfig {
                     .requestMatchers("/join-team", "/join-team/**").hasRole("ADMIN")
 
                     //reservation
-                    .requestMatchers("/reservation", "/reservation/**").authenticated()
-
+                    .requestMatchers( "/reservation", "/reservation/**", "/reservation/permission/**").authenticated()
                     // close day
                     .requestMatchers(HttpMethod.GET, "/close-day", "/close-day/**").permitAll()
                     .requestMatchers("/close-day", "/close-day/**").authenticated()

@@ -17,5 +17,5 @@ public interface ReservationPermissionRepository extends JpaRepository<Reservati
     @Query("select rp.reservation from ReservationPermission rp where rp.user.id = :userId")
     List<Reservation> findReservationsByUserId(@Param("userId") Long userId);
 
-    List<User> findAllByReservationId(Long reservationId);
+    List<ReservationPermission> findAllByReservationId(Long reservationId);
 }

@@ -1,6 +1,7 @@
 package com.command.toyvillage_server.domain.app.reservation.service;
 
 import com.command.toyvillage_server.domain.app.reservation.domain.Reservation;
+import com.command.toyvillage_server.domain.app.reservation.domain.ReservationPermission;
 import com.command.toyvillage_server.domain.app.reservation.domain.repository.ReservationPermissionRepository;
 import com.command.toyvillage_server.domain.app.reservation.domain.repository.ReservationRepository;
 import com.command.toyvillage_server.domain.app.reservation.exception.ReservationNotFoundException;
@@ -23,14 +24,14 @@ public class ReservationPermissionQueryListService {
 
     @Transactional(readOnly = true)
     public List<ReservationPermissionResponse> execute(Long reservationId) {
-        Reservation reservation = reservationRepository.findById(reservationId)
+        reservationRepository.findById(reservationId)
             .orElseThrow(() -> ReservationNotFoundException.EXCEPTION);
 
-        List<User> users = reservationPermissionRepository.findAllByReservationId(reservationId);
+        List<ReservationPermission> users = reservationPermissionRepository.findAllByReservationId(reservationId);
 
         List<ReservationPermissionResponse> responses = new ArrayList<>();
-        for(User user : users) {
-            ReservationPermissionResponse response = ReservationPermissionResponse.of(user.getName());
+        for(ReservationPermission user : users) {
+            ReservationPermissionResponse response = ReservationPermissionResponse.of(user.getUser().getName());
             responses.add(response);
         }
 
