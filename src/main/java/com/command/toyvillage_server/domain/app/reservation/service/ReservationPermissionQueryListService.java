@@ -9,6 +9,7 @@ import com.command.toyvillage_server.domain.common.auth.user.domain.User;
 import com.command.toyvillage_server.domain.common.auth.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ public class ReservationPermissionQueryListService {
     private final UserRepository userRepository;
     private final ReservationPermissionRepository reservationPermissionRepository;
 
-
+    @Transactional(readOnly = true)
     public List<ReservationPermissionResponse> execute(Long reservationId) {
         Reservation reservation = reservationRepository.findById(reservationId)
             .orElseThrow(() -> ReservationNotFoundException.EXCEPTION);

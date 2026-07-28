@@ -1,7 +1,9 @@
 package com.command.toyvillage_server.domain.app.reservation.presentation;
 
 import com.command.toyvillage_server.domain.app.reservation.presentation.dto.response.ReservationListResponse;
+import com.command.toyvillage_server.domain.app.reservation.presentation.dto.response.ReservationPermissionResponse;
 import com.command.toyvillage_server.domain.app.reservation.presentation.dto.response.ReservationResponse;
+import com.command.toyvillage_server.domain.app.reservation.service.ReservationPermissionQueryListService;
 import com.command.toyvillage_server.domain.app.reservation.service.ReservationPermissionSettingService;
 import com.command.toyvillage_server.domain.app.reservation.service.ReservationQueryListService;
 import com.command.toyvillage_server.domain.app.reservation.service.ReservationQueryService;
@@ -17,6 +19,7 @@ public class ReservationController {
     private final ReservationQueryService reservationQueryService;
     private final ReservationQueryListService reservationQueryListService;
     private final ReservationPermissionSettingService reservationPermissionSettingService;
+    private final ReservationPermissionQueryListService reservationPermissionQueryListService;
 
     @GetMapping("/{id}")
     public ReservationResponse getDetail(@PathVariable Long id) {
@@ -37,4 +40,8 @@ public class ReservationController {
         reservationPermissionSettingService.execute(reservationId, userId, reservationPermission);
     }
 
+    @GetMapping("/permission/{reservationId}")
+    public List<ReservationPermissionResponse> getPermissionList(@PathVariable("reservationId") Long reservationId) {
+        return reservationPermissionQueryListService.execute(reservationId);
+    }
 }
