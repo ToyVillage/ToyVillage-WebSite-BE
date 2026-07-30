@@ -1,4 +1,4 @@
-package com.command.toyvillage_server.domain.common.auth.admin.presentation.dto.request;
+package com.command.toyvillage_server.domain.web.auth.admin.presentation.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;

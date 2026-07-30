@@ -1,6 +1,6 @@
-package com.command.toyvillage_server.domain.common.auth.admin.domain.repository;
+package com.command.toyvillage_server.domain.web.auth.admin.domain.repository;
 
-import com.command.toyvillage_server.domain.common.auth.admin.domain.Admin;
+import com.command.toyvillage_server.domain.web.auth.admin.domain.Admin;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

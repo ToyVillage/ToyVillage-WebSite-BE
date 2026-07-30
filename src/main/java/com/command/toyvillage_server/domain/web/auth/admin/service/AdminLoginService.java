@@ -1,9 +1,9 @@
-package com.command.toyvillage_server.domain.common.auth.admin.service;
+package com.command.toyvillage_server.domain.web.auth.admin.service;
 
-import com.command.toyvillage_server.domain.common.auth.admin.domain.Admin;
-import com.command.toyvillage_server.domain.common.auth.admin.domain.repository.AdminRepository;
+import com.command.toyvillage_server.domain.web.auth.admin.domain.Admin;
+import com.command.toyvillage_server.domain.web.auth.admin.domain.repository.AdminRepository;
 import com.command.toyvillage_server.domain.common.auth.common.exception.LoginInfoNotMatchedException;
-import com.command.toyvillage_server.domain.common.auth.admin.presentation.dto.request.AdminLoginRequest;
+import com.command.toyvillage_server.domain.web.auth.admin.presentation.dto.request.AdminLoginRequest;
 import com.command.toyvillage_server.domain.common.auth.common.presentation.dto.response.TokenResponse;
 import com.command.toyvillage_server.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;

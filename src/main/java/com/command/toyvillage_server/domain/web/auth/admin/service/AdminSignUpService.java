@@ -1,9 +1,9 @@
-package com.command.toyvillage_server.domain.common.auth.admin.service;
+package com.command.toyvillage_server.domain.web.auth.admin.service;
 
-import com.command.toyvillage_server.domain.common.auth.admin.domain.Admin;
-import com.command.toyvillage_server.domain.common.auth.admin.domain.repository.AdminRepository;
-import com.command.toyvillage_server.domain.common.auth.admin.exception.AdminAlreadyException;
-import com.command.toyvillage_server.domain.common.auth.admin.presentation.dto.request.AdminSignUpRequest;
+import com.command.toyvillage_server.domain.web.auth.admin.domain.Admin;
+import com.command.toyvillage_server.domain.web.auth.admin.domain.repository.AdminRepository;
+import com.command.toyvillage_server.domain.web.auth.admin.exception.AdminAlreadyException;
+import com.command.toyvillage_server.domain.web.auth.admin.presentation.dto.request.AdminSignUpRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

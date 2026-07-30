@@ -1,6 +1,6 @@
 package com.command.toyvillage_server.global.security.auth;
 
-import com.command.toyvillage_server.domain.common.auth.admin.domain.Admin;
+import com.command.toyvillage_server.domain.web.auth.admin.domain.Admin;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

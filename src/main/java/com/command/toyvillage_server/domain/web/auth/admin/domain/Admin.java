@@ -1,4 +1,4 @@
-package com.command.toyvillage_server.domain.common.auth.admin.domain;
+package com.command.toyvillage_server.domain.web.auth.admin.domain;
 
 import jakarta.persistence.*;
 import lombok.*;

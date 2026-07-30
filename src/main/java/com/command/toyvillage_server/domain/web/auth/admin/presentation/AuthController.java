@@ -1,11 +1,12 @@
-package com.command.toyvillage_server.domain.common.auth.admin.presentation;
+package com.command.toyvillage_server.domain.web.auth.admin.presentation;
 
 import com.command.toyvillage_server.domain.common.auth.admin.presentation.dto.request.*;
-import com.command.toyvillage_server.domain.common.auth.admin.presentation.dto.response.AdminVerifyEmailCodeResponse;
-import com.command.toyvillage_server.domain.common.auth.admin.service.AdminChangePasswordService;
-import com.command.toyvillage_server.domain.common.auth.admin.service.AdminLoginService;
-import com.command.toyvillage_server.domain.common.auth.admin.service.AdminReissueService;
-import com.command.toyvillage_server.domain.common.auth.admin.service.AdminSignUpService;
+import com.command.toyvillage_server.domain.web.auth.admin.presentation.dto.request.*;
+import com.command.toyvillage_server.domain.web.auth.admin.presentation.dto.response.AdminVerifyEmailCodeResponse;
+import com.command.toyvillage_server.domain.web.auth.admin.service.AdminChangePasswordService;
+import com.command.toyvillage_server.domain.web.auth.admin.service.AdminLoginService;
+import com.command.toyvillage_server.domain.web.auth.admin.service.AdminReissueService;
+import com.command.toyvillage_server.domain.web.auth.admin.service.AdminSignUpService;
 import com.command.toyvillage_server.domain.common.auth.common.service.SendVerificationCodeService;
 import com.command.toyvillage_server.domain.common.auth.common.service.VerifyEmailCodeService;
 import com.command.toyvillage_server.global.common.response.MessageResponse;

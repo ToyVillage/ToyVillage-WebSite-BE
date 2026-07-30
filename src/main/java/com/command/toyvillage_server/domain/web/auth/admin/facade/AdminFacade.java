@@ -1,8 +1,8 @@
-package com.command.toyvillage_server.domain.common.auth.admin.facade;
+package com.command.toyvillage_server.domain.web.auth.admin.facade;
 
-import com.command.toyvillage_server.domain.common.auth.admin.domain.Admin;
-import com.command.toyvillage_server.domain.common.auth.admin.domain.repository.AdminRepository;
-import com.command.toyvillage_server.domain.common.auth.admin.exception.AdminNotFoundException;
+import com.command.toyvillage_server.domain.web.auth.admin.domain.Admin;
+import com.command.toyvillage_server.domain.web.auth.admin.domain.repository.AdminRepository;
+import com.command.toyvillage_server.domain.web.auth.admin.exception.AdminNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

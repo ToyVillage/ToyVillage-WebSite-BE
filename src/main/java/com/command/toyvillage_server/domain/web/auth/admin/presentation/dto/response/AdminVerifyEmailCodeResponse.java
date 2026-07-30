@@ -1,4 +1,4 @@
-package com.command.toyvillage_server.domain.common.auth.admin.presentation.dto.response;
+package com.command.toyvillage_server.domain.web.auth.admin.presentation.dto.response;
 
 public record AdminVerifyEmailCodeResponse(
         String token
