@@ -1,5 +1,6 @@
 package com.command.toyvillage_server.domain.app.open_time.presentation;
 
+import com.command.toyvillage_server.domain.app.open_time.presentation.dto.request.OpenTimeCreateRequest;
 import com.command.toyvillage_server.domain.app.open_time.presentation.dto.request.OpenTimeRequest;
 import com.command.toyvillage_server.domain.app.open_time.presentation.dto.response.OpenTimeResponse;
 import com.command.toyvillage_server.domain.app.open_time.service.OpenTimeCreateService;
@@ -39,7 +40,7 @@ public class OpenTimeController {
     private final QueryOpenTimeDetailService queryOpenTimeDetailService;
 
     @PostMapping
-    public ResponseEntity<MessageResponse> createOpenTime(@RequestBody @Valid OpenTimeRequest request) {
+    public ResponseEntity<MessageResponse> createOpenTime(@RequestBody @Valid OpenTimeCreateRequest request) {
         openTimeCreateService.execute(request);
 
         return ResponseEntity
