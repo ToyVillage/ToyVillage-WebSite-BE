@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface JoinTeamRepository extends JpaRepository<JoinTeam, Long> {
-    Optional<JoinTeam> findByUser_Id(Long userId);
+    Optional<JoinTeam> findByAppAccount_Id(Long appAccountId);
 }

@@ -1,7 +1,7 @@
 package com.command.toyvillage_server.domain.app.join_team.domain;
 
 import com.command.toyvillage_server.domain.app.team.domain.Team;
-import com.command.toyvillage_server.domain.app.user.domain.User;
+import com.command.toyvillage_server.domain.app.auth.account.domain.AppAccount;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -21,8 +21,8 @@ import lombok.NoArgsConstructor;
 @Table(
         name = "tbl_join_team",
         uniqueConstraints = @UniqueConstraint(
-                name = "uk_join_team_user",
-                columnNames = "user_id"
+                name = "uk_join_team_app_account",
+                columnNames = "app_account_id"
         )
 )
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -34,20 +34,20 @@ public class JoinTeam {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "app_account_id", nullable = false)
+    private AppAccount appAccount;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id", nullable = false)
     private Team team;
 
-    private JoinTeam(User user, Team team) {
-        this.user = user;
+    private JoinTeam(AppAccount appAccount, Team team) {
+        this.appAccount = appAccount;
         this.team = team;
     }
 
-    public static JoinTeam create(User user, Team team) {
-        return new JoinTeam(user, team);
+    public static JoinTeam create(AppAccount appAccount, Team team) {
+        return new JoinTeam(appAccount, team);
     }
 
     public void updateTeam(Team team) {
