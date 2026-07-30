@@ -1,5 +1,6 @@
 package com.command.toyvillage_server.domain.app.document.presentation;
 
+import com.command.toyvillage_server.domain.app.document.domain.DocumentType;
 import com.command.toyvillage_server.domain.app.document.presentation.dto.request.DocumentRequest;
 import com.command.toyvillage_server.domain.app.document.presentation.dto.response.DocumentDetailResponse;
 import com.command.toyvillage_server.domain.app.document.presentation.dto.response.DocumentListResponse;
@@ -40,9 +41,10 @@ public class DocumentController {
     @GetMapping
     public List<DocumentListResponse> getList(
         @RequestParam(required = false, defaultValue = "") String keyword,
+        @RequestParam(required = false) List<DocumentType> types,
         Pageable pageable
     ) {
-        return queryDocumentListService.execute(keyword, pageable);
+        return queryDocumentListService.execute(keyword, types, pageable);
     }
 
     @PutMapping("/{id}")
