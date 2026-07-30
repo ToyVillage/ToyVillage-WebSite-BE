@@ -68,6 +68,7 @@ public enum ErrorCode {
 
     // reservation
     RESERVATION_NOT_FOUND(404, "존재하지 않는 단체예약 목록입니다."),
+    RESERVATION_PERMISSION_NOT_FOUND(404, "존재하지 않는 단체예약 조회 권한입니다."),
 
     // user
     USER_NOT_FOUND(404, "존재하지 않는 유저입니다."),
