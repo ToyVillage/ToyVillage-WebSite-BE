@@ -1,8 +1,9 @@
 package com.command.toyvillage_server.global.config;
 
 import com.command.toyvillage_server.global.error.GlobalExceptionFilter;
-import com.command.toyvillage_server.global.security.jwt.JwtTokenFilter;
-import com.command.toyvillage_server.global.security.jwt.JwtTokenProvider;
+import com.command.toyvillage_server.global.security.jwt.AppJwtTokenProvider;
+import com.command.toyvillage_server.global.security.jwt.JwtAuthenticationFilter;
+import com.command.toyvillage_server.global.security.jwt.WebJwtTokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
@@ -12,16 +13,20 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @RequiredArgsConstructor
 public class SecurityFilterConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
-    private final JwtTokenProvider jwtTokenProvider;
+    private final WebJwtTokenProvider webJwtTokenProvider;
+    private final AppJwtTokenProvider appJwtTokenProvider;
     private final ObjectMapper objectMapper;
 
     @Override
     public void configure(HttpSecurity http) {
 
-        JwtTokenFilter jwtTokenFilter = new JwtTokenFilter(jwtTokenProvider);
+        JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(
+                webJwtTokenProvider,
+                appJwtTokenProvider
+        );
         GlobalExceptionFilter globalExceptionFilter = new GlobalExceptionFilter(objectMapper);
 
-        http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
-                .addFilterBefore(globalExceptionFilter, JwtTokenFilter.class);
+        http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(globalExceptionFilter, JwtAuthenticationFilter.class);
     }
 }

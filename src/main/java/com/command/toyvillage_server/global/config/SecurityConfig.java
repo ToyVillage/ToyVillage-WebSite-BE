@@ -1,6 +1,7 @@
 package com.command.toyvillage_server.global.config;
 
-import com.command.toyvillage_server.global.security.jwt.JwtTokenProvider;
+import com.command.toyvillage_server.global.security.jwt.AppJwtTokenProvider;
+import com.command.toyvillage_server.global.security.jwt.WebJwtTokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,7 +26,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final ObjectMapper objectMapper;
-    private final JwtTokenProvider jwtTokenProvider;
+    private final WebJwtTokenProvider webJwtTokenProvider;
+    private final AppJwtTokenProvider appJwtTokenProvider;
 
     @Value("${cors.allowed-origins.main}")
     private String prodUrl;
@@ -53,64 +55,85 @@ public class SecurityConfig {
                 .sessionManagement(sessionManagement -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                                                          
-                    // auth
-                    .requestMatchers("/auth/login", "/auth/signup", "/auth/password", "/auth/password/verification", "/auth/password/verification/confirm").permitAll()
-                    .requestMatchers("/auth/reissue").authenticated()
-                     
-                    // faq
-                    .requestMatchers(HttpMethod.GET, "/faq").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/faq/{id}").permitAll()
+                    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
-                    // file
-                    .requestMatchers(HttpMethod.POST, "/file").permitAll()
+                    // web administrator auth
+                    .requestMatchers(
+                            "/web/auth/login",
+                            "/web/auth/signup",
+                            "/web/auth/reissue",
+                            "/web/auth/password",
+                            "/web/auth/password/verification",
+                            "/web/auth/password/verification/confirm"
+                    ).permitAll()
 
-                    // gallery
-                    .requestMatchers(HttpMethod.GET, "/gallery").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/gallery/{id}").permitAll()
+                    // app account auth and administration
+                    .requestMatchers("/app/auth/login", "/app/auth/reissue").permitAll()
+                    .requestMatchers(HttpMethod.PATCH, "/app/auth/password")
+                            .hasAnyRole("APP_ADMIN", "EMPLOYEE")
+                    .requestMatchers("/app/admin", "/app/admin/**").hasRole("APP_ADMIN")
 
-                    // news
-                    .requestMatchers(HttpMethod.GET, "/news", "/news/**").permitAll()
-                    .requestMatchers("/news", "/news/**").authenticated()
+                    // public website reads
+                    .requestMatchers(HttpMethod.GET,
+                            "/faq", "/faq/**",
+                            "/gallery", "/gallery/**",
+                            "/news", "/news/**",
+                            "/events", "/events/**",
+                            "/animal", "/animal/**",
+                            "/popup", "/popup/**"
+                    ).permitAll()
 
-                    // events
-                    .requestMatchers(HttpMethod.GET, "/events", "/events/**").permitAll()
-                    .requestMatchers("/events", "/events/**").authenticated()
-
-                    // partnership
+                    // public partnership submission
                     .requestMatchers(HttpMethod.POST, "/partnership").permitAll()
-                    .requestMatchers("/partnership", "/partnership/**").authenticated()
 
-                    // animal
-                    .requestMatchers(HttpMethod.GET, "/animal", "/animal/**").permitAll()
-                    .requestMatchers("/animal", "/animal/**").authenticated()
+                    // web administrator writes
+                    .requestMatchers(
+                            "/faq", "/faq/**",
+                            "/gallery", "/gallery/**",
+                            "/news", "/news/**",
+                            "/events", "/events/**",
+                            "/animal", "/animal/**",
+                            "/popup", "/popup/**",
+                            "/partnership", "/partnership/**"
+                    ).hasRole("WEB_ADMIN")
 
-                    // popup
-                    .requestMatchers(HttpMethod.GET, "/popup", "/popup/**").permitAll()
-                    .requestMatchers("/popup", "/popup/**").authenticated()
+                    // file upload is shared by the two administrator systems
+                    .requestMatchers(HttpMethod.POST, "/file")
+                            .hasAnyRole("WEB_ADMIN", "APP_ADMIN")
 
-                    // user
-                    .requestMatchers(HttpMethod.POST, "/user/login", "/user/signup", "/user/signup/verification", "/user/signup/verification/confirm").permitAll()
+                    // app workflow administration
+                    .requestMatchers("/team", "/team/**", "/join-team", "/join-team/**")
+                            .hasRole("APP_ADMIN")
+                    .requestMatchers("/reservation/permission", "/reservation/permission/**")
+                            .hasRole("APP_ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/reservation", "/reservation/**")
+                            .hasAnyRole("APP_ADMIN", "EMPLOYEE")
+                    .requestMatchers("/reservation", "/reservation/**").hasRole("APP_ADMIN")
 
-                    // team settings
-                    .requestMatchers("/team", "/team/**").hasRole("ADMIN")
-                    .requestMatchers("/join-team", "/join-team/**").hasRole("ADMIN")
+                    // app workflow reads and writes
+                    .requestMatchers(HttpMethod.GET,
+                            "/close-day", "/close-day/**",
+                            "/open-time", "/open-time/**",
+                            "/notice", "/notice/**",
+                            "/documents", "/documents/**"
+                    ).hasAnyRole("APP_ADMIN", "EMPLOYEE")
+                    .requestMatchers(
+                            "/close-day", "/close-day/**",
+                            "/open-time", "/open-time/**",
+                            "/notice", "/notice/**",
+                            "/documents", "/documents/**"
+                    ).hasRole("APP_ADMIN")
 
-                    //reservation
-                    .requestMatchers("/reservation/permission/**").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.GET, "/reservation", "/reservation/**").authenticated()
-                    .requestMatchers("/reservation", "/reservation/**").hasRole("ADMIN")
-
-                    // close day
-                    .requestMatchers(HttpMethod.GET, "/close-day", "/close-day/**").permitAll()
-                    .requestMatchers("/close-day", "/close-day/**").authenticated()
-
-                    // open time
-                    .requestMatchers(HttpMethod.GET, "/open-time", "/open-time/**").permitAll()
-                    .requestMatchers("/open-time", "/open-time/**").authenticated()
-                    .anyRequest().authenticated()
+                    .anyRequest().denyAll()
                 )
-                .with(new SecurityFilterConfig(jwtTokenProvider, objectMapper), Customizer.withDefaults())
+                .with(
+                        new SecurityFilterConfig(
+                                webJwtTokenProvider,
+                                appJwtTokenProvider,
+                                objectMapper
+                        ),
+                        Customizer.withDefaults()
+                )
                 .build();
     }
 
