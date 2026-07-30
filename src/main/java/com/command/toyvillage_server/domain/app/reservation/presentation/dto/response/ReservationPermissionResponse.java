@@ -4,12 +4,12 @@ import lombok.Builder;
 
 @Builder
 public record ReservationPermissionResponse(
-    Long appAccountId,
+    Long appAdminId,
     String name
 ) {
-    public static ReservationPermissionResponse of(Long appAccountId, String name){
+    public static ReservationPermissionResponse of(Long appAdminId, String name){
         return ReservationPermissionResponse.builder()
-            .appAccountId(appAccountId)
+            .appAdminId(appAdminId)
             .name(name)
             .build();
     }

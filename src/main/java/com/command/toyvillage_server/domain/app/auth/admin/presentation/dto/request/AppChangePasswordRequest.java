@@ -1,4 +1,4 @@
-package com.command.toyvillage_server.domain.app.auth.account.presentation.dto.request;
+package com.command.toyvillage_server.domain.app.auth.admin.presentation.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 

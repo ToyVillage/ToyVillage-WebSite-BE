@@ -24,8 +24,8 @@ public class ReservationPermissionQueryListService {
         return reservationPermissionRepository.findAllByReservation_Id(reservationId)
             .stream()
             .map(permission -> ReservationPermissionResponse.of(
-                    permission.getAppAccount().getId(),
-                    permission.getAppAccount().getName()
+                    permission.getAppAdmin().getId(),
+                    permission.getAppAdmin().getName()
             ))
             .toList();
     }

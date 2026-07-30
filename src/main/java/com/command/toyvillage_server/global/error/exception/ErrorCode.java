@@ -70,9 +70,9 @@ public enum ErrorCode {
     RESERVATION_NOT_FOUND(404, "존재하지 않는 단체예약 목록입니다."),
     RESERVATION_PERMISSION_NOT_FOUND(404, "존재하지 않는 단체예약 조회 권한입니다."),
 
-    // app account
-    APP_ACCOUNT_NOT_FOUND(404, "존재하지 않는 앱 계정입니다."),
-    APP_ACCOUNT_EXIST(409, "이미 사용 중인 앱 아이디입니다."),
+    // app admin
+    APP_ADMIN_NOT_FOUND(404, "존재하지 않는 앱 관리자입니다."),
+    APP_ADMIN_EXIST(409, "이미 사용 중인 앱 관리자 아이디입니다."),
 
     //document
     DOCUMENT_NOT_FOUND(404, "존재하지 않는 자료입니다."),

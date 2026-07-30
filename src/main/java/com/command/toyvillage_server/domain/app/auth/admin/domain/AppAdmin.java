@@ -1,4 +1,4 @@
-package com.command.toyvillage_server.domain.app.auth.account.domain;
+package com.command.toyvillage_server.domain.app.auth.admin.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,11 +20,11 @@ import lombok.NoArgsConstructor;
 @Table(name = "tbl_app_admin")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class AppAccount {
+public class AppAdmin {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "app_account_id")
+    @Column(name = "app_admin_id")
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -38,18 +38,18 @@ public class AppAccount {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private AppRole role;
+    private AppAdminRole role;
 
-    public static AppAccount createAdmin(String username, String name, String encodedPassword) {
-        return create(username, name, encodedPassword, AppRole.APP_ADMIN);
+    public static AppAdmin createAppAdmin(String username, String name, String encodedPassword) {
+        return create(username, name, encodedPassword, AppAdminRole.APP_ADMIN);
     }
 
-    public static AppAccount createEmployee(String username, String name, String encodedPassword) {
-        return create(username, name, encodedPassword, AppRole.EMPLOYEE);
+    public static AppAdmin createEmployee(String username, String name, String encodedPassword) {
+        return create(username, name, encodedPassword, AppAdminRole.EMPLOYEE);
     }
 
-    private static AppAccount create(String username, String name, String encodedPassword, AppRole role) {
-        return AppAccount.builder()
+    private static AppAdmin create(String username, String name, String encodedPassword, AppAdminRole role) {
+        return AppAdmin.builder()
                 .username(username)
                 .name(name)
                 .password(encodedPassword)

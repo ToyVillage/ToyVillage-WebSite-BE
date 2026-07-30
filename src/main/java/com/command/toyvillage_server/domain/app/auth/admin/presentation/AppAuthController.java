@@ -1,11 +1,11 @@
-package com.command.toyvillage_server.domain.app.auth.account.presentation;
+package com.command.toyvillage_server.domain.app.auth.admin.presentation;
 
-import com.command.toyvillage_server.domain.app.auth.account.presentation.dto.request.AppChangePasswordRequest;
-import com.command.toyvillage_server.domain.app.auth.account.presentation.dto.request.AppLoginRequest;
-import com.command.toyvillage_server.domain.app.auth.account.presentation.dto.response.AppLoginResponse;
-import com.command.toyvillage_server.domain.app.auth.account.service.AppChangePasswordService;
-import com.command.toyvillage_server.domain.app.auth.account.service.AppLoginService;
-import com.command.toyvillage_server.domain.app.auth.account.service.AppReissueService;
+import com.command.toyvillage_server.domain.app.auth.admin.presentation.dto.request.AppChangePasswordRequest;
+import com.command.toyvillage_server.domain.app.auth.admin.presentation.dto.request.AppLoginRequest;
+import com.command.toyvillage_server.domain.app.auth.admin.presentation.dto.response.AppLoginResponse;
+import com.command.toyvillage_server.domain.app.auth.admin.service.AppChangePasswordService;
+import com.command.toyvillage_server.domain.app.auth.admin.service.AppLoginService;
+import com.command.toyvillage_server.domain.app.auth.admin.service.AppReissueService;
 import com.command.toyvillage_server.domain.web.auth.admin.presentation.dto.response.TokenResponse;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
 import com.command.toyvillage_server.global.security.jwt.RefreshTokenRequest;

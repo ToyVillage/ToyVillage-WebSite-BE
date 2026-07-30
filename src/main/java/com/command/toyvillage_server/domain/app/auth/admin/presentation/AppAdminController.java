@@ -1,7 +1,7 @@
-package com.command.toyvillage_server.domain.app.auth.account.presentation;
+package com.command.toyvillage_server.domain.app.auth.admin.presentation;
 
-import com.command.toyvillage_server.domain.app.auth.account.presentation.dto.request.EmployeeCreateRequest;
-import com.command.toyvillage_server.domain.app.auth.account.service.EmployeeCreateService;
+import com.command.toyvillage_server.domain.app.auth.admin.presentation.dto.request.EmployeeCreateRequest;
+import com.command.toyvillage_server.domain.app.auth.admin.service.EmployeeCreateService;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +25,6 @@ public class AppAdminController {
         employeeCreateService.execute(request);
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body(MessageResponse.of("직원 계정이 생성되었습니다."));
+                .body(MessageResponse.of("직원이 생성되었습니다."));
     }
 }

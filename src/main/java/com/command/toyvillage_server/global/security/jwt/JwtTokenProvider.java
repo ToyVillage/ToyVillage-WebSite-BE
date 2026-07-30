@@ -1,8 +1,8 @@
 package com.command.toyvillage_server.global.security.jwt;
 
-import com.command.toyvillage_server.domain.app.auth.account.domain.AppAccount;
-import com.command.toyvillage_server.domain.app.auth.account.domain.repository.AppAccountRepository;
-import com.command.toyvillage_server.domain.app.auth.account.exception.AppAccountNotFoundException;
+import com.command.toyvillage_server.domain.app.auth.admin.domain.AppAdmin;
+import com.command.toyvillage_server.domain.app.auth.admin.domain.repository.AppAdminRepository;
+import com.command.toyvillage_server.domain.app.auth.admin.exception.AppAdminNotFoundException;
 import com.command.toyvillage_server.domain.web.auth.admin.domain.RefreshToken;
 import com.command.toyvillage_server.domain.web.auth.admin.domain.repository.RefreshTokenRepository;
 import com.command.toyvillage_server.domain.web.auth.admin.domain.repository.WebAdminRepository;
@@ -10,7 +10,7 @@ import com.command.toyvillage_server.domain.web.auth.admin.exception.ExpiredToke
 import com.command.toyvillage_server.domain.web.auth.admin.exception.InvalidTokenException;
 import com.command.toyvillage_server.domain.web.auth.admin.exception.WebAdminNotFoundException;
 import com.command.toyvillage_server.domain.web.auth.admin.presentation.dto.response.TokenResponse;
-import com.command.toyvillage_server.global.security.auth.AppAccountDetailsService;
+import com.command.toyvillage_server.global.security.auth.AppAdminDetailsService;
 import com.command.toyvillage_server.global.security.auth.WebAdminDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -41,9 +41,9 @@ public class JwtTokenProvider {
 
     private final JwtProperties jwtProperties;
     private final WebAdminRepository webAdminRepository;
-    private final AppAccountRepository appAccountRepository;
+    private final AppAdminRepository appAdminRepository;
     private final WebAdminDetailsService webAdminDetailsService;
-    private final AppAccountDetailsService appAccountDetailsService;
+    private final AppAdminDetailsService appAdminDetailsService;
     private final RefreshTokenRepository refreshTokenRepository;
 
     public TokenResponse receiveWebToken(String email) {
@@ -57,12 +57,12 @@ public class JwtTokenProvider {
     }
 
     public TokenResponse receiveAppToken(String username) {
-        AppAccount account = appAccountRepository.findByUsername(username)
-                .orElseThrow(() -> AppAccountNotFoundException.EXCEPTION);
+        AppAdmin appAdmin = appAdminRepository.findByUsername(username)
+                .orElseThrow(() -> AppAdminNotFoundException.EXCEPTION);
 
         return TokenResponse.of(
-                createAccessToken(username, account.getRole().name(), true),
-                createRefreshToken(username, account.getRole().name(), true)
+                createAccessToken(username, appAdmin.getRole().name(), true),
+                createRefreshToken(username, appAdmin.getRole().name(), true)
         );
     }
 
@@ -72,7 +72,7 @@ public class JwtTokenProvider {
 
         UserDetails userDetails = WEB_ADMIN_ROLE.equals(role)
                 ? webAdminDetailsService.loadUserByUsername(claims.getSubject())
-                : appAccountDetailsService.loadUserByUsername(claims.getSubject());
+                : appAdminDetailsService.loadUserByUsername(claims.getSubject());
 
         return new UsernamePasswordAuthenticationToken(
                 userDetails,

@@ -1,4 +1,4 @@
-package com.command.toyvillage_server.domain.app.auth.account.service;
+package com.command.toyvillage_server.domain.app.auth.admin.service;
 
 import com.command.toyvillage_server.domain.web.auth.admin.domain.RefreshToken;
 import com.command.toyvillage_server.domain.web.auth.admin.domain.repository.RefreshTokenRepository;

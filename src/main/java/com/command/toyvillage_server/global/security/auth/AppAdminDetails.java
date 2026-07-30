@@ -1,6 +1,6 @@
 package com.command.toyvillage_server.global.security.auth;
 
-import com.command.toyvillage_server.domain.app.auth.account.domain.AppAccount;
+import com.command.toyvillage_server.domain.app.auth.admin.domain.AppAdmin;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,21 +8,21 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-public record AppAccountDetails(AppAccount appAccount) implements UserDetails {
+public record AppAdminDetails(AppAdmin appAdmin) implements UserDetails {
 
     @Override
     public String getUsername() {
-        return appAccount.getUsername();
+        return appAdmin.getUsername();
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_" + appAccount.getRole().name()));
+        return List.of(new SimpleGrantedAuthority("ROLE_" + appAdmin.getRole().name()));
     }
 
     @Override
     public String getPassword() {
-        return appAccount.getPassword();
+        return appAdmin.getPassword();
     }
 
     @Override
@@ -46,6 +46,6 @@ public record AppAccountDetails(AppAccount appAccount) implements UserDetails {
     }
 
     public Long getId() {
-        return appAccount.getId();
+        return appAdmin.getId();
     }
 }

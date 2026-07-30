@@ -15,15 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class JoinTeamController {
     private final JoinTeamService joinTeamService;
 
-    @PutMapping("/{appAccountId}/{teamId}")
+    @PutMapping("/{appAdminId}/{teamId}")
     public ResponseEntity<MessageResponse> joinTeam(
-            @PathVariable Long appAccountId,
+            @PathVariable Long appAdminId,
             @PathVariable Long teamId
     ) {
-        joinTeamService.execute(appAccountId, teamId);
+        joinTeamService.execute(appAdminId, teamId);
 
         return ResponseEntity.ok(
-                MessageResponse.of("앱 계정이 팀에 배정되었습니다.")
+                MessageResponse.of("앱 관리자가 팀에 배정되었습니다.")
         );
     }
 }

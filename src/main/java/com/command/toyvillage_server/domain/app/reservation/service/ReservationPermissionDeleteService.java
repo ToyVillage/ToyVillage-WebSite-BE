@@ -13,9 +13,9 @@ public class ReservationPermissionDeleteService {
     private final ReservationPermissionRepository reservationPermissionRepository;
 
     @Transactional
-    public void execute(Long reservationId, Long appAccountId) {
+    public void execute(Long reservationId, Long appAdminId) {
         ReservationPermission permission = reservationPermissionRepository
-            .findByReservation_IdAndAppAccount_Id(reservationId, appAccountId)
+            .findByReservation_IdAndAppAdmin_Id(reservationId, appAdminId)
             .orElseThrow(() -> ReservationPermissionNotFoundException.EXCEPTION);
 
         reservationPermissionRepository.delete(permission);

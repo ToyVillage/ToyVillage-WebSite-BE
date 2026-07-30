@@ -1,8 +1,8 @@
 package com.command.toyvillage_server.domain.app.join_team.service;
 
-import com.command.toyvillage_server.domain.app.auth.account.domain.AppAccount;
-import com.command.toyvillage_server.domain.app.auth.account.domain.repository.AppAccountRepository;
-import com.command.toyvillage_server.domain.app.auth.account.exception.AppAccountNotFoundException;
+import com.command.toyvillage_server.domain.app.auth.admin.domain.AppAdmin;
+import com.command.toyvillage_server.domain.app.auth.admin.domain.repository.AppAdminRepository;
+import com.command.toyvillage_server.domain.app.auth.admin.exception.AppAdminNotFoundException;
 import com.command.toyvillage_server.domain.app.join_team.domain.JoinTeam;
 import com.command.toyvillage_server.domain.app.join_team.domain.repository.JoinTeamRepository;
 import com.command.toyvillage_server.domain.app.team.domain.Team;
@@ -16,23 +16,23 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class JoinTeamService {
     private final JoinTeamRepository joinTeamRepository;
-    private final AppAccountRepository appAccountRepository;
+    private final AppAdminRepository appAdminRepository;
     private final TeamRepository teamRepository;
 
     @Transactional
-    public void execute(Long appAccountId, Long teamId) {
-        AppAccount appAccount = appAccountRepository.findById(appAccountId)
-                .orElseThrow(() -> AppAccountNotFoundException.EXCEPTION);
+    public void execute(Long appAdminId, Long teamId) {
+        AppAdmin appAdmin = appAdminRepository.findById(appAdminId)
+                .orElseThrow(() -> AppAdminNotFoundException.EXCEPTION);
 
         Team team = teamRepository.findById(teamId)
                 .orElseThrow(() -> TeamNotFoundException.EXCEPTION);
 
-        JoinTeam joinTeam = joinTeamRepository.findByAppAccount_Id(appAccount.getId())
+        JoinTeam joinTeam = joinTeamRepository.findByAppAdmin_Id(appAdmin.getId())
                 .map(savedJoinTeam -> {
                     savedJoinTeam.updateTeam(team);
                     return savedJoinTeam;
                 })
-                .orElseGet(() -> JoinTeam.create(appAccount, team));
+                .orElseGet(() -> JoinTeam.create(appAdmin, team));
 
         joinTeamRepository.save(joinTeam);
     }
