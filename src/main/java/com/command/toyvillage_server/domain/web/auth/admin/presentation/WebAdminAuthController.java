@@ -1,6 +1,7 @@
 package com.command.toyvillage_server.domain.web.auth.admin.presentation;
 
 import com.command.toyvillage_server.domain.web.auth.admin.presentation.dto.request.*;
+import com.command.toyvillage_server.domain.web.auth.admin.presentation.dto.response.TokenResponse;
 import com.command.toyvillage_server.domain.web.auth.admin.presentation.dto.response.WebAdminVerifyEmailCodeResponse;
 import com.command.toyvillage_server.domain.web.auth.admin.service.WebAdminChangePasswordService;
 import com.command.toyvillage_server.domain.web.auth.admin.service.WebAdminLoginService;
@@ -9,9 +10,7 @@ import com.command.toyvillage_server.domain.web.auth.admin.service.WebAdminSendV
 import com.command.toyvillage_server.domain.web.auth.admin.service.WebAdminSignUpService;
 import com.command.toyvillage_server.domain.web.auth.admin.service.WebAdminVerifyEmailCodeService;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
-import com.command.toyvillage_server.global.security.jwt.AuthTokenResponse;
 import com.command.toyvillage_server.global.security.jwt.RefreshTokenRequest;
-import com.command.toyvillage_server.global.security.jwt.TokenPair;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -30,11 +29,10 @@ public class WebAdminAuthController {
     private final WebAdminVerifyEmailCodeService webAdminVerifyEmailCodeService;
 
     @PostMapping("/login")
-    public ResponseEntity<AuthTokenResponse> login(@RequestBody @Valid WebAdminLoginRequest request) {
-        TokenPair result = webAdminLoginService.execute(request);
+    public ResponseEntity<TokenResponse> login(@RequestBody @Valid WebAdminLoginRequest request) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(AuthTokenResponse.from(result));
+                .body(webAdminLoginService.execute(request));
     }
 
     @PostMapping("/signup")
@@ -49,10 +47,8 @@ public class WebAdminAuthController {
     }
 
     @PostMapping("/reissue")
-    public ResponseEntity<AuthTokenResponse> reissue(@RequestBody @Valid RefreshTokenRequest request) {
-        return ResponseEntity.ok(
-                AuthTokenResponse.from(webAdminReissueService.execute(request.refreshToken()))
-        );
+    public ResponseEntity<TokenResponse> reissue(@RequestBody @Valid RefreshTokenRequest request) {
+        return ResponseEntity.ok(webAdminReissueService.execute(request.refreshToken()));
     }
 
     @PostMapping("/password/verification")

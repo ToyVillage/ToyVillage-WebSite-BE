@@ -47,14 +47,12 @@ redis:
   host: ${REDIS_HOST}
   port: ${REDIS_PORT}
 
-web:
-  jwt:
-    secret-key: ${WEB_JWT_SECRET_KEY}
-    access-expiration: ${WEB_ACCESS_EXPIRATION:3600000}
-    refresh-expiration: ${WEB_REFRESH_EXPIRATION:604800000}
-
-app:
-  jwt:
-    secret-key: ${APP_JWT_SECRET_KEY}
-    access-expiration: ${APP_ACCESS_EXPIRATION:3600000}
-    refresh-expiration: ${APP_REFRESH_EXPIRATION:604800000}
+jwt:
+  web-secret-key: ${WEB_JWT_SECRET_KEY}
+  app-secret-key: ${APP_JWT_SECRET_KEY}
+  web-access-expiration: ${WEB_ACCESS_EXPIRATION:3600000}
+  web-refresh-expiration: ${WEB_REFRESH_EXPIRATION:604800000}
+  app-access-expiration: ${APP_ACCESS_EXPIRATION:3600000}
+  app-refresh-expiration: ${APP_REFRESH_EXPIRATION:604800000}
+  header: Authorization
+  prefix: Bearer

@@ -1,7 +1,6 @@
 package com.command.toyvillage_server.global.config;
 
-import com.command.toyvillage_server.global.security.jwt.AppJwtTokenProvider;
-import com.command.toyvillage_server.global.security.jwt.WebJwtTokenProvider;
+import com.command.toyvillage_server.global.security.jwt.JwtTokenProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,8 +25,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final ObjectMapper objectMapper;
-    private final WebJwtTokenProvider webJwtTokenProvider;
-    private final AppJwtTokenProvider appJwtTokenProvider;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @Value("${cors.allowed-origins.main}")
     private String prodUrl;
@@ -55,85 +53,81 @@ public class SecurityConfig {
                 .sessionManagement(sessionManagement -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                    .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-
-                    // web administrator auth
+                    // web auth
                     .requestMatchers(
-                            "/web/auth/login",
-                            "/web/auth/signup",
-                            "/web/auth/reissue",
-                            "/web/auth/password",
-                            "/web/auth/password/verification",
+                            "/web/auth/login", "/web/auth/signup", "/web/auth/reissue",
+                            "/web/auth/password", "/web/auth/password/verification",
                             "/web/auth/password/verification/confirm"
                     ).permitAll()
 
-                    // app account auth and administration
+                    // app auth
                     .requestMatchers("/app/auth/login", "/app/auth/reissue").permitAll()
                     .requestMatchers(HttpMethod.PATCH, "/app/auth/password")
                             .hasAnyRole("APP_ADMIN", "EMPLOYEE")
                     .requestMatchers("/app/admin", "/app/admin/**").hasRole("APP_ADMIN")
 
-                    // public website reads
-                    .requestMatchers(HttpMethod.GET,
-                            "/faq", "/faq/**",
-                            "/gallery", "/gallery/**",
-                            "/news", "/news/**",
-                            "/events", "/events/**",
-                            "/animal", "/animal/**",
-                            "/popup", "/popup/**"
-                    ).permitAll()
+                    // faq
+                    .requestMatchers(HttpMethod.GET, "/faq", "/faq/**").permitAll()
+                    .requestMatchers("/faq", "/faq/**").hasRole("WEB_ADMIN")
 
-                    // public partnership submission
+                    // file
+                    .requestMatchers(HttpMethod.POST, "/file").permitAll()
+
+                    // gallery
+                    .requestMatchers(HttpMethod.GET, "/gallery", "/gallery/**").permitAll()
+                    .requestMatchers("/gallery", "/gallery/**").hasRole("WEB_ADMIN")
+
+                    // news
+                    .requestMatchers(HttpMethod.GET, "/news", "/news/**").permitAll()
+                    .requestMatchers("/news", "/news/**").hasRole("WEB_ADMIN")
+
+                    // events
+                    .requestMatchers(HttpMethod.GET, "/events", "/events/**").permitAll()
+                    .requestMatchers("/events", "/events/**").hasRole("WEB_ADMIN")
+
+                    // partnership
                     .requestMatchers(HttpMethod.POST, "/partnership").permitAll()
+                    .requestMatchers("/partnership", "/partnership/**").hasRole("WEB_ADMIN")
 
-                    // web administrator writes
-                    .requestMatchers(
-                            "/faq", "/faq/**",
-                            "/gallery", "/gallery/**",
-                            "/news", "/news/**",
-                            "/events", "/events/**",
-                            "/animal", "/animal/**",
-                            "/popup", "/popup/**",
-                            "/partnership", "/partnership/**"
-                    ).hasRole("WEB_ADMIN")
+                    // animal
+                    .requestMatchers(HttpMethod.GET, "/animal", "/animal/**").permitAll()
+                    .requestMatchers("/animal", "/animal/**").hasRole("WEB_ADMIN")
 
-                    // file upload is shared by the two administrator systems
-                    .requestMatchers(HttpMethod.POST, "/file")
-                            .hasAnyRole("WEB_ADMIN", "APP_ADMIN")
+                    // popup
+                    .requestMatchers(HttpMethod.GET, "/popup", "/popup/**").permitAll()
+                    .requestMatchers("/popup", "/popup/**").hasRole("WEB_ADMIN")
 
-                    // app workflow administration
-                    .requestMatchers("/team", "/team/**", "/join-team", "/join-team/**")
-                            .hasRole("APP_ADMIN")
-                    .requestMatchers("/reservation/permission", "/reservation/permission/**")
-                            .hasRole("APP_ADMIN")
+                    // team settings
+                    .requestMatchers("/team", "/team/**").hasRole("APP_ADMIN")
+                    .requestMatchers("/join-team", "/join-team/**").hasRole("APP_ADMIN")
+
+                    // reservation
+                    .requestMatchers("/reservation/permission/**").hasRole("APP_ADMIN")
                     .requestMatchers(HttpMethod.GET, "/reservation", "/reservation/**")
                             .hasAnyRole("APP_ADMIN", "EMPLOYEE")
                     .requestMatchers("/reservation", "/reservation/**").hasRole("APP_ADMIN")
 
-                    // app workflow reads and writes
-                    .requestMatchers(HttpMethod.GET,
-                            "/close-day", "/close-day/**",
-                            "/open-time", "/open-time/**",
-                            "/notice", "/notice/**",
-                            "/documents", "/documents/**"
-                    ).hasAnyRole("APP_ADMIN", "EMPLOYEE")
-                    .requestMatchers(
-                            "/close-day", "/close-day/**",
-                            "/open-time", "/open-time/**",
-                            "/notice", "/notice/**",
-                            "/documents", "/documents/**"
-                    ).hasRole("APP_ADMIN")
+                    // close day
+                    .requestMatchers(HttpMethod.GET, "/close-day", "/close-day/**").permitAll()
+                    .requestMatchers("/close-day", "/close-day/**").hasRole("APP_ADMIN")
 
-                    .anyRequest().denyAll()
+                    // open time
+                    .requestMatchers(HttpMethod.GET, "/open-time", "/open-time/**").permitAll()
+                    .requestMatchers("/open-time", "/open-time/**").hasRole("APP_ADMIN")
+
+                    // notice
+                    .requestMatchers(HttpMethod.GET, "/notice", "/notice/**")
+                            .hasAnyRole("APP_ADMIN", "EMPLOYEE")
+                    .requestMatchers("/notice", "/notice/**").hasRole("APP_ADMIN")
+
+                    // documents
+                    .requestMatchers(HttpMethod.GET, "/documents", "/documents/**")
+                            .hasAnyRole("APP_ADMIN", "EMPLOYEE")
+                    .requestMatchers("/documents", "/documents/**").hasRole("APP_ADMIN")
+
+                    .anyRequest().authenticated()
                 )
-                .with(
-                        new SecurityFilterConfig(
-                                webJwtTokenProvider,
-                                appJwtTokenProvider,
-                                objectMapper
-                        ),
-                        Customizer.withDefaults()
-                )
+                .with(new SecurityFilterConfig(jwtTokenProvider, objectMapper), Customizer.withDefaults())
                 .build();
     }
 

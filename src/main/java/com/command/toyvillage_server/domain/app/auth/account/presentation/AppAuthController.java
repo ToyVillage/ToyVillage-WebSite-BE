@@ -6,8 +6,8 @@ import com.command.toyvillage_server.domain.app.auth.account.presentation.dto.re
 import com.command.toyvillage_server.domain.app.auth.account.service.AppChangePasswordService;
 import com.command.toyvillage_server.domain.app.auth.account.service.AppLoginService;
 import com.command.toyvillage_server.domain.app.auth.account.service.AppReissueService;
+import com.command.toyvillage_server.domain.web.auth.admin.presentation.dto.response.TokenResponse;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
-import com.command.toyvillage_server.global.security.jwt.AuthTokenResponse;
 import com.command.toyvillage_server.global.security.jwt.RefreshTokenRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -40,7 +40,7 @@ public class AppAuthController {
     }
 
     @PostMapping("/reissue")
-    public ResponseEntity<AuthTokenResponse> reissue(@RequestBody @Valid RefreshTokenRequest request) {
-        return ResponseEntity.ok(AuthTokenResponse.from(appReissueService.execute(request.refreshToken())));
+    public ResponseEntity<TokenResponse> reissue(@RequestBody @Valid RefreshTokenRequest request) {
+        return ResponseEntity.ok(appReissueService.execute(request.refreshToken()));
     }
 }

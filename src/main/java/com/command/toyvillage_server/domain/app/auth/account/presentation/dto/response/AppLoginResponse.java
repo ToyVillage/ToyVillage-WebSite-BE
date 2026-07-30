@@ -1,7 +1,7 @@
 package com.command.toyvillage_server.domain.app.auth.account.presentation.dto.response;
 
 import com.command.toyvillage_server.domain.app.auth.account.domain.AppAccount;
-import com.command.toyvillage_server.global.security.jwt.TokenPair;
+import com.command.toyvillage_server.domain.web.auth.admin.presentation.dto.response.TokenResponse;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public record AppLoginResponse(
@@ -15,7 +15,7 @@ public record AppLoginResponse(
 
         String role
 ) {
-    public static AppLoginResponse of(TokenPair tokens, AppAccount account) {
+    public static AppLoginResponse of(TokenResponse tokens, AppAccount account) {
         return new AppLoginResponse(
                 tokens.accessToken(),
                 tokens.refreshToken(),
