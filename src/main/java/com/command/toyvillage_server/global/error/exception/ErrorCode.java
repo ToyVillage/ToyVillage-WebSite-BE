@@ -36,11 +36,7 @@ public enum ErrorCode {
     WEB_ADMIN_NOT_FOUND(404, "해당 웹 관리자가 존재하지 않습니다."),
     WEB_ADMIN_EXIST(409, "이미 가입된 웹 관리자 이메일입니다."),
 
-    // legacy admin
-    ADMIN_NOT_FOUND(404, "해당 관리자가 존재하지 않습니다."),
-    ADMIN_MISMATCH(401, "유저가 일치하지 않습니다."),
     PASSWORD_MISMATCH(401, "비밀번호가 일치하지 않습니다."),
-    ADMIN_EXIST(409, "유저가 이미 존재합니다."),
 
     //event
     EVENT_NOT_FOUND(404, "해당 이벤트가 존재하지 않습니다."),
@@ -77,10 +73,6 @@ public enum ErrorCode {
     // app account
     APP_ACCOUNT_NOT_FOUND(404, "존재하지 않는 앱 계정입니다."),
     APP_ACCOUNT_EXIST(409, "이미 사용 중인 앱 아이디입니다."),
-
-    // legacy user
-    USER_NOT_FOUND(404, "존재하지 않는 유저입니다."),
-    USER_EXIST(409, "이미 가입된 이메일입니다."),
 
     //document
     DOCUMENT_NOT_FOUND(404, "존재하지 않는 자료입니다."),
