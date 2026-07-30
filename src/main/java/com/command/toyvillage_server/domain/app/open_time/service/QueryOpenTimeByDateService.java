@@ -16,9 +16,15 @@ public class QueryOpenTimeByDateService {
 
     @Transactional(readOnly = true)
     public List<OpenTimeResponse> execute(LocalDate date) {
-        return openTimeRepository.findAllByOpenDateOrderByStartOpenTimeAscIdAsc(date)
+        List<OpenTimeResponse> openTimes = openTimeRepository.findAllByOpenDateOrderByStartOpenTimeAscIdAsc(date)
                 .stream()
                 .map(OpenTimeResponse::from)
                 .toList();
+
+        if (openTimes.isEmpty()) {
+            return List.of(OpenTimeResponse.defaultFor(date));
+        }
+
+        return openTimes;
     }
 }

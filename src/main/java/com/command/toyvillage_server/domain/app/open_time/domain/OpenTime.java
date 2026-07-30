@@ -14,9 +14,6 @@ import java.time.LocalTime;
 @Table(name = "tbl_open_time")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class OpenTime {
-    private static final LocalTime DEFAULT_START_OPEN_TIME = LocalTime.of(11, 0);
-    private static final LocalTime DEFAULT_END_OPEN_TIME = LocalTime.of(18, 0);
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -37,11 +34,11 @@ public class OpenTime {
         this.endOpenTime = endOpenTime;
     }
 
-    public static OpenTime create(LocalDate openDate) {
+    public static OpenTime create(LocalDate openDate, LocalTime startOpenTime, LocalTime endOpenTime) {
         return OpenTime.builder()
                 .openDate(openDate)
-                .startOpenTime(DEFAULT_START_OPEN_TIME)
-                .endOpenTime(DEFAULT_END_OPEN_TIME)
+                .startOpenTime(startOpenTime)
+                .endOpenTime(endOpenTime)
                 .build();
     }
 
