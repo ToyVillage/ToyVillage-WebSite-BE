@@ -2,7 +2,7 @@ package com.command.toyvillage_server.domain.web.auth.admin.presentation.dto.req
 
 import jakarta.validation.constraints.NotBlank;
 
-public record AdminVerifyEmailCodeRequest(
+public record WebAdminVerifyEmailCodeRequest(
         @NotBlank(message = "인증코드를 입력해주세요.")
         String code,
 

@@ -3,7 +3,7 @@ package com.command.toyvillage_server.domain.web.auth.admin.presentation.dto.req
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
-public record AdminLoginRequest(
+public record WebAdminLoginRequest(
         @Email(message = "올바른 이메일 형식으로 입력해주세요.")
         @NotBlank(message = "이메일을 공백으로 둘 순 없습니다.")
         String email,
