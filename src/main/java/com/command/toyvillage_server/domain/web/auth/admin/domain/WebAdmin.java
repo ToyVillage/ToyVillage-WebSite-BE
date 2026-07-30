@@ -4,15 +4,15 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "tbl_admin")
+@Table(name = "tbl_web_admin")
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Builder
-public class Admin {
+public class WebAdmin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "admin_id")
+    @Column(name = "web_admin_id")
     private Long id;
 
     @Column(nullable = false, unique = true)
@@ -21,8 +21,8 @@ public class Admin {
     @Column(nullable = false)
     private String password;
 
-    public static Admin create(String email, String password) {
-        return Admin.builder()
+    public static WebAdmin create(String email, String password) {
+        return WebAdmin.builder()
                 .email(email)
                 .password(password)
                 .build();
