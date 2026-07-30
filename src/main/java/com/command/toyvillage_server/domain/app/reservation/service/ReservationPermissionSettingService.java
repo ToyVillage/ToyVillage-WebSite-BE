@@ -1,13 +1,13 @@
 package com.command.toyvillage_server.domain.app.reservation.service;
 
+import com.command.toyvillage_server.domain.app.auth.account.domain.AppAccount;
+import com.command.toyvillage_server.domain.app.auth.account.domain.repository.AppAccountRepository;
+import com.command.toyvillage_server.domain.app.auth.account.exception.AppAccountNotFoundException;
 import com.command.toyvillage_server.domain.app.reservation.domain.Reservation;
 import com.command.toyvillage_server.domain.app.reservation.domain.ReservationPermission;
 import com.command.toyvillage_server.domain.app.reservation.domain.repository.ReservationPermissionRepository;
 import com.command.toyvillage_server.domain.app.reservation.domain.repository.ReservationRepository;
 import com.command.toyvillage_server.domain.app.reservation.exception.ReservationNotFoundException;
-import com.command.toyvillage_server.domain.app.user.domain.User;
-import com.command.toyvillage_server.domain.app.user.domain.repository.UserRepository;
-import com.command.toyvillage_server.domain.app.user.exception.UserNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,37 +17,40 @@ import org.springframework.stereotype.Service;
 public class ReservationPermissionSettingService {
     private final ReservationRepository reservationRepository;
     private final ReservationPermissionRepository reservationPermissionRepository;
-    private final UserRepository userRepository;
+    private final AppAccountRepository appAccountRepository;
 
     @Transactional
-    public void execute(Long reservationId, Long userId, boolean permission) {
+    public void execute(Long reservationId, Long appAccountId, boolean permission) {
         Reservation reservation = reservationRepository.findById(reservationId)
             .orElseThrow(() -> ReservationNotFoundException.EXCEPTION);
 
-        User user = userRepository.findById(userId)
-            .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+        AppAccount appAccount = appAccountRepository.findById(appAccountId)
+            .orElseThrow(() -> AppAccountNotFoundException.EXCEPTION);
 
         if (permission) {
-            grant(reservation, user);
+            grant(reservation, appAccount);
         } else {
-            revoke(reservationId, userId);
+            revoke(reservationId, appAccountId);
         }
     }
 
-    private void grant(Reservation reservation, User user) {
-        if (!reservationPermissionRepository.existsByReservation_IdAndUser_Id(reservation.getId(), user.getId())) {
+    private void grant(Reservation reservation, AppAccount appAccount) {
+        if (!reservationPermissionRepository.existsByReservation_IdAndAppAccount_Id(
+                reservation.getId(),
+                appAccount.getId()
+        )) {
             reservationPermissionRepository.save(
                 ReservationPermission.builder()
                     .reservation(reservation)
-                    .user(user)
+                    .appAccount(appAccount)
                     .build()
             );
         }
     }
 
-    private void revoke(Long reservationId, Long userId) {
+    private void revoke(Long reservationId, Long appAccountId) {
         reservationPermissionRepository
-            .findByReservation_IdAndUser_Id(reservationId, userId)
+            .findByReservation_IdAndAppAccount_Id(reservationId, appAccountId)
             .ifPresent(reservationPermissionRepository::delete);
     }
 }

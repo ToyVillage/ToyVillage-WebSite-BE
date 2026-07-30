@@ -1,6 +1,6 @@
 package com.command.toyvillage_server.domain.app.reservation.domain;
 
-import com.command.toyvillage_server.domain.app.user.domain.User;
+import com.command.toyvillage_server.domain.app.auth.account.domain.AppAccount;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -24,6 +24,6 @@ public class ReservationPermission {
     private Reservation reservation;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "app_account_id", nullable = false)
+    private AppAccount appAccount;
 }

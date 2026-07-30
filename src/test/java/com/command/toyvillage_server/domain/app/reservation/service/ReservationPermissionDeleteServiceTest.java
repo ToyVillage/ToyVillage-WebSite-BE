@@ -37,11 +37,11 @@ class ReservationPermissionDeleteServiceTest {
     @Test
     void 예약과_사용자의_조회_권한을_삭제한다() {
         Long reservationId = 1L;
-        Long userId = 2L;
-        when(reservationPermissionRepository.findByReservation_IdAndUser_Id(reservationId, userId))
+        Long appAccountId = 2L;
+        when(reservationPermissionRepository.findByReservation_IdAndAppAccount_Id(reservationId, appAccountId))
             .thenReturn(Optional.of(reservationPermission));
 
-        reservationPermissionDeleteService.execute(reservationId, userId);
+        reservationPermissionDeleteService.execute(reservationId, appAccountId);
 
         verify(reservationPermissionRepository).delete(reservationPermission);
     }
@@ -49,13 +49,13 @@ class ReservationPermissionDeleteServiceTest {
     @Test
     void 조회_권한이_없으면_예외가_발생한다() {
         Long reservationId = 1L;
-        Long userId = 2L;
-        when(reservationPermissionRepository.findByReservation_IdAndUser_Id(reservationId, userId))
+        Long appAccountId = 2L;
+        when(reservationPermissionRepository.findByReservation_IdAndAppAccount_Id(reservationId, appAccountId))
             .thenReturn(Optional.empty());
 
         ReservationPermissionNotFoundException exception = assertThrows(
             ReservationPermissionNotFoundException.class,
-            () -> reservationPermissionDeleteService.execute(reservationId, userId)
+            () -> reservationPermissionDeleteService.execute(reservationId, appAccountId)
         );
 
         assertSame(ReservationPermissionNotFoundException.EXCEPTION, exception);

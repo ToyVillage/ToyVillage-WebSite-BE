@@ -9,12 +9,15 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ReservationPermissionRepository extends JpaRepository<ReservationPermission, Long> {
-    boolean existsByReservation_IdAndUser_Id(Long reservationId, Long userId);
+    boolean existsByReservation_IdAndAppAccount_Id(Long reservationId, Long appAccountId);
 
-    @Query("select rp.reservation from ReservationPermission rp where rp.user.id = :userId")
-    List<Reservation> findReservationsByUserId(@Param("userId") Long userId);
+    @Query("select rp.reservation from ReservationPermission rp where rp.appAccount.id = :appAccountId")
+    List<Reservation> findReservationsByAppAccountId(@Param("appAccountId") Long appAccountId);
 
     List<ReservationPermission> findAllByReservation_Id(Long reservationId);
 
-    Optional<ReservationPermission> findByReservation_IdAndUser_Id(Long reservationId, Long userId);
+    Optional<ReservationPermission> findByReservation_IdAndAppAccount_Id(
+            Long reservationId,
+            Long appAccountId
+    );
 }

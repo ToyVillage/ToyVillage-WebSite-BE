@@ -35,13 +35,13 @@ public class ReservationController {
         return reservationQueryListService.execute();
     }
 
-    @PostMapping("/permission/{reservationId}/{userId}")
+    @PostMapping("/permission/{reservationId}/{appAccountId}")
     public void setReservationPermission(
         @PathVariable("reservationId") Long reservationId,
-        @PathVariable("userId") Long userId,
+        @PathVariable("appAccountId") Long appAccountId,
         @RequestBody boolean reservationPermission
     ) {
-        reservationPermissionSettingService.execute(reservationId, userId, reservationPermission);
+        reservationPermissionSettingService.execute(reservationId, appAccountId, reservationPermission);
     }
 
     @GetMapping("/permission/{reservationId}")
@@ -49,13 +49,13 @@ public class ReservationController {
         return reservationPermissionQueryListService.execute(reservationId);
     }
 
-    @DeleteMapping("/permission/{reservationId}/{userId}")
+    @DeleteMapping("/permission/{reservationId}/{appAccountId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public MessageResponse deletePermission(
         @PathVariable Long reservationId,
-        @PathVariable Long userId
+        @PathVariable Long appAccountId
     ) {
-        reservationPermissionDeleteService.execute(reservationId, userId);
+        reservationPermissionDeleteService.execute(reservationId, appAccountId);
         return MessageResponse.of("단체예약 삭제가 완료되었습니다.");
     }
 }
