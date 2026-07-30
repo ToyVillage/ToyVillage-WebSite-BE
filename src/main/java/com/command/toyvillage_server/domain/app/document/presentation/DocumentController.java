@@ -39,7 +39,7 @@ public class DocumentController {
     }
 
     @GetMapping
-    public List<DocumentListResponse> getList(
+    public DocumentListResponse getList(
         @RequestParam(required = false, defaultValue = "") String keyword,
         @RequestParam(required = false) List<DocumentType> types,
         Pageable pageable
