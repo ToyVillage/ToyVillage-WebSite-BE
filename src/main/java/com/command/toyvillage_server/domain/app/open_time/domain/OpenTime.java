@@ -22,10 +22,10 @@ public class OpenTime {
     private LocalDate openDate;
 
     @Column(name = "start_open_time", nullable = false)
-    private LocalTime startOpenTime;
+    private LocalTime startOpenTime = LocalTime.of(11, 0);
 
     @Column(name = "end_open_time" , nullable = false)
-    private LocalTime endOpenTime;
+    private LocalTime endOpenTime = LocalTime.of(18, 0);
 
     @Builder
     private OpenTime(LocalDate openDate, LocalTime startOpenTime, LocalTime endOpenTime) {
