@@ -39,13 +39,14 @@ redis:
   host: localhost
   port: 6379
 
-jwt:
-  secret-key: test-secret-key-test-secret-key-test-secret-key-test-secret-key
-  accessExpiration: 3600000
-  refreshExpiration: 604800000
-  header: Authorization
-  prefix: Bearer
+web:
+  jwt:
+    secret-key: 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef
+    access-expiration: 3600000
+    refresh-expiration: 604800000
 
 app:
-  cookie:
-    secure: false
+  jwt:
+    secret-key: abcdef0123456789abcdef0123456789abcdef0123456789abcdef0123456789
+    access-expiration: 3600000
+    refresh-expiration: 604800000
