@@ -25,6 +25,7 @@ import javax.crypto.SecretKey;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.Objects;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -85,6 +86,7 @@ public class AppJwtTokenProvider {
     private String createToken(String subject, String role, String type, long expiration) {
         Date now = new Date();
         return Jwts.builder()
+                .id(UUID.randomUUID().toString())
                 .issuer(ISSUER)
                 .subject(subject)
                 .claim(CLAIM_TYPE, type)
