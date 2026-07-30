@@ -1,6 +1,6 @@
 package com.command.toyvillage_server.domain.app.reservation.domain;
 
-import com.command.toyvillage_server.domain.common.auth.user.domain.User;
+import com.command.toyvillage_server.domain.app.user.domain.User;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;

@@ -1,11 +1,11 @@
 package com.command.toyvillage_server.domain.web.auth.admin.service;
 
 import com.command.toyvillage_server.domain.web.auth.admin.domain.Admin;
-import com.command.toyvillage_server.domain.common.auth.common.domain.RefreshToken;
-import com.command.toyvillage_server.domain.common.auth.common.domain.repository.RefreshTokenRepository;
-import com.command.toyvillage_server.domain.common.auth.common.exception.RefreshTokenNotFoundException;
+import com.command.toyvillage_server.domain.web.auth.admin.domain.RefreshToken;
+import com.command.toyvillage_server.domain.web.auth.admin.domain.repository.RefreshTokenRepository;
+import com.command.toyvillage_server.domain.web.auth.admin.exception.RefreshTokenNotFoundException;
 import com.command.toyvillage_server.domain.web.auth.admin.facade.AdminFacade;
-import com.command.toyvillage_server.domain.common.auth.common.presentation.dto.response.TokenResponse;
+import com.command.toyvillage_server.domain.web.auth.admin.presentation.dto.response.TokenResponse;
 import com.command.toyvillage_server.global.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

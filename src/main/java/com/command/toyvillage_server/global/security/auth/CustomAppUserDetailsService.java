@@ -1,7 +1,7 @@
 package com.command.toyvillage_server.global.security.auth;
 
-import com.command.toyvillage_server.domain.common.auth.user.domain.User;
-import com.command.toyvillage_server.domain.common.auth.user.domain.repository.UserRepository;
+import com.command.toyvillage_server.domain.app.user.domain.User;
+import com.command.toyvillage_server.domain.app.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

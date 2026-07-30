@@ -7,11 +7,11 @@ import com.command.toyvillage_server.domain.web.auth.admin.service.AdminChangePa
 import com.command.toyvillage_server.domain.web.auth.admin.service.AdminLoginService;
 import com.command.toyvillage_server.domain.web.auth.admin.service.AdminReissueService;
 import com.command.toyvillage_server.domain.web.auth.admin.service.AdminSignUpService;
-import com.command.toyvillage_server.domain.common.auth.common.service.SendVerificationCodeService;
-import com.command.toyvillage_server.domain.common.auth.common.service.VerifyEmailCodeService;
+import com.command.toyvillage_server.domain.web.auth.admin.service.SendVerificationCodeService;
+import com.command.toyvillage_server.domain.web.auth.admin.service.VerifyEmailCodeService;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
-import com.command.toyvillage_server.domain.common.auth.common.presentation.dto.response.AccessTokenResponse;
-import com.command.toyvillage_server.domain.common.auth.common.presentation.dto.response.TokenResponse;
+import com.command.toyvillage_server.domain.web.auth.admin.presentation.dto.response.AccessTokenResponse;
+import com.command.toyvillage_server.domain.web.auth.admin.presentation.dto.response.TokenResponse;
 import com.command.toyvillage_server.global.util.CookieUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;

@@ -5,9 +5,9 @@ import com.command.toyvillage_server.domain.app.join_team.domain.repository.Join
 import com.command.toyvillage_server.domain.app.team.domain.Team;
 import com.command.toyvillage_server.domain.app.team.domain.repository.TeamRepository;
 import com.command.toyvillage_server.domain.app.team.exception.TeamNotFoundException;
-import com.command.toyvillage_server.domain.common.auth.user.domain.User;
-import com.command.toyvillage_server.domain.common.auth.user.domain.repository.UserRepository;
-import com.command.toyvillage_server.domain.common.auth.user.exception.UserNotFoundException;
+import com.command.toyvillage_server.domain.app.user.domain.User;
+import com.command.toyvillage_server.domain.app.user.domain.repository.UserRepository;
+import com.command.toyvillage_server.domain.app.user.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

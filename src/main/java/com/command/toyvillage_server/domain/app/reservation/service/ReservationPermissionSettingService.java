@@ -5,9 +5,9 @@ import com.command.toyvillage_server.domain.app.reservation.domain.ReservationPe
 import com.command.toyvillage_server.domain.app.reservation.domain.repository.ReservationPermissionRepository;
 import com.command.toyvillage_server.domain.app.reservation.domain.repository.ReservationRepository;
 import com.command.toyvillage_server.domain.app.reservation.exception.ReservationNotFoundException;
-import com.command.toyvillage_server.domain.common.auth.user.domain.User;
-import com.command.toyvillage_server.domain.common.auth.user.domain.repository.UserRepository;
-import com.command.toyvillage_server.domain.common.auth.user.exception.UserNotFoundException;
+import com.command.toyvillage_server.domain.app.user.domain.User;
+import com.command.toyvillage_server.domain.app.user.domain.repository.UserRepository;
+import com.command.toyvillage_server.domain.app.user.exception.UserNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package com.command.toyvillage_server.domain.app.join_team.domain;
 
 import com.command.toyvillage_server.domain.app.team.domain.Team;
-import com.command.toyvillage_server.domain.common.auth.user.domain.User;
+import com.command.toyvillage_server.domain.app.user.domain.User;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

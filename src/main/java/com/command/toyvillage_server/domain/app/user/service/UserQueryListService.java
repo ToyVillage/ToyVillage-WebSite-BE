@@ -1,6 +1,6 @@
 package com.command.toyvillage_server.domain.app.user.service;
 
-import com.command.toyvillage_server.domain.common.auth.user.domain.repository.UserRepository;
+import com.command.toyvillage_server.domain.app.user.domain.repository.UserRepository;
 import com.command.toyvillage_server.domain.app.user.presentation.dto.response.UserResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
