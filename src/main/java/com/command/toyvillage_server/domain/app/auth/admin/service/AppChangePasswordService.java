@@ -43,6 +43,7 @@ public class AppChangePasswordService {
         }
 
         appAdmin.changePassword(passwordEncoder.encode(request.newPassword()));
+        appAdminRepository.saveAndFlush(appAdmin);
 
         String refreshTokenKey = jwtTokenProvider.getAppRefreshTokenKey(appAdmin.getUsername());
         refreshTokenRepository.deleteById(refreshTokenKey);
