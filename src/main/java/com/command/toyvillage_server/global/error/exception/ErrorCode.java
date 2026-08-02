@@ -32,11 +32,11 @@ public enum ErrorCode {
     // animal
     ANIMAL_NOT_FOUND(404, "존재하지 않는 동물소개 입니다."),
 
-    //admin
-    ADMIN_NOT_FOUND(404, "해당 관리자가 존재하지 않습니다."),
-    ADMIN_MISMATCH(401, "유저가 일치하지 않습니다."),
+    // web administrator
+    WEB_ADMIN_NOT_FOUND(404, "해당 웹 관리자가 존재하지 않습니다."),
+    WEB_ADMIN_EXIST(409, "이미 가입된 웹 관리자 이메일입니다."),
+
     PASSWORD_MISMATCH(401, "비밀번호가 일치하지 않습니다."),
-    ADMIN_EXIST(409, "유저가 이미 존재합니다."),
 
     //event
     EVENT_NOT_FOUND(404, "해당 이벤트가 존재하지 않습니다."),
@@ -70,9 +70,9 @@ public enum ErrorCode {
     RESERVATION_NOT_FOUND(404, "존재하지 않는 단체예약 목록입니다."),
     RESERVATION_PERMISSION_NOT_FOUND(404, "존재하지 않는 단체예약 조회 권한입니다."),
 
-    // user
-    USER_NOT_FOUND(404, "존재하지 않는 유저입니다."),
-    USER_EXIST(409, "이미 가입된 이메일입니다."),
+    // app admin
+    APP_ADMIN_NOT_FOUND(404, "존재하지 않는 앱 관리자입니다."),
+    APP_ADMIN_EXIST(409, "이미 사용 중인 앱 관리자 아이디입니다."),
 
     //document
     DOCUMENT_NOT_FOUND(404, "존재하지 않는 자료입니다."),

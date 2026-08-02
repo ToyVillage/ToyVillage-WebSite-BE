@@ -53,61 +53,78 @@ public class SecurityConfig {
                 .sessionManagement(sessionManagement -> sessionManagement
                         .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                                                          
-                    // auth
-                    .requestMatchers("/auth/login", "/auth/signup", "/auth/password", "/auth/password/verification", "/auth/password/verification/confirm").permitAll()
-                    .requestMatchers("/auth/reissue").authenticated()
-                     
+                    // web auth
+                    .requestMatchers(
+                            "/web/auth/login", "/web/auth/signup", "/web/auth/reissue",
+                            "/web/auth/password", "/web/auth/password/verification",
+                            "/web/auth/password/verification/confirm"
+                    ).permitAll()
+
+                    // app auth
+                    .requestMatchers("/app/auth/login", "/app/auth/reissue").permitAll()
+                    .requestMatchers(HttpMethod.PATCH, "/app/auth/password")
+                            .hasAnyRole("APP_ADMIN", "EMPLOYEE")
+                    .requestMatchers("/app/admin", "/app/admin/**").hasRole("APP_ADMIN")
+
                     // faq
-                    .requestMatchers(HttpMethod.GET, "/faq").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/faq/{id}").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/faq", "/faq/**").permitAll()
+                    .requestMatchers("/faq", "/faq/**").hasRole("WEB_ADMIN")
 
                     // file
                     .requestMatchers(HttpMethod.POST, "/file").permitAll()
 
                     // gallery
-                    .requestMatchers(HttpMethod.GET, "/gallery").permitAll()
-                    .requestMatchers(HttpMethod.GET, "/gallery/{id}").permitAll()
+                    .requestMatchers(HttpMethod.GET, "/gallery", "/gallery/**").permitAll()
+                    .requestMatchers("/gallery", "/gallery/**").hasRole("WEB_ADMIN")
 
                     // news
                     .requestMatchers(HttpMethod.GET, "/news", "/news/**").permitAll()
-                    .requestMatchers("/news", "/news/**").authenticated()
+                    .requestMatchers("/news", "/news/**").hasRole("WEB_ADMIN")
 
                     // events
                     .requestMatchers(HttpMethod.GET, "/events", "/events/**").permitAll()
-                    .requestMatchers("/events", "/events/**").authenticated()
+                    .requestMatchers("/events", "/events/**").hasRole("WEB_ADMIN")
 
                     // partnership
                     .requestMatchers(HttpMethod.POST, "/partnership").permitAll()
-                    .requestMatchers("/partnership", "/partnership/**").authenticated()
+                    .requestMatchers("/partnership", "/partnership/**").hasRole("WEB_ADMIN")
 
                     // animal
                     .requestMatchers(HttpMethod.GET, "/animal", "/animal/**").permitAll()
-                    .requestMatchers("/animal", "/animal/**").authenticated()
+                    .requestMatchers("/animal", "/animal/**").hasRole("WEB_ADMIN")
 
                     // popup
                     .requestMatchers(HttpMethod.GET, "/popup", "/popup/**").permitAll()
-                    .requestMatchers("/popup", "/popup/**").authenticated()
-
-                    // user
-                    .requestMatchers(HttpMethod.POST, "/user/login", "/user/signup", "/user/signup/verification", "/user/signup/verification/confirm").permitAll()
+                    .requestMatchers("/popup", "/popup/**").hasRole("WEB_ADMIN")
 
                     // team settings
-                    .requestMatchers("/team", "/team/**").hasRole("ADMIN")
-                    .requestMatchers("/join-team", "/join-team/**").hasRole("ADMIN")
+                    .requestMatchers("/team", "/team/**").hasRole("APP_ADMIN")
+                    .requestMatchers("/join-team", "/join-team/**").hasRole("APP_ADMIN")
 
-                    //reservation
-                    .requestMatchers("/reservation/permission/**").hasRole("ADMIN")
-                    .requestMatchers(HttpMethod.GET, "/reservation", "/reservation/**").authenticated()
-                    .requestMatchers("/reservation", "/reservation/**").hasRole("ADMIN")
+                    // reservation
+                    .requestMatchers("/reservation/permission/**").hasRole("APP_ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/reservation", "/reservation/**")
+                            .hasAnyRole("APP_ADMIN", "EMPLOYEE")
+                    .requestMatchers("/reservation", "/reservation/**").hasRole("APP_ADMIN")
 
                     // close day
                     .requestMatchers(HttpMethod.GET, "/close-day", "/close-day/**").permitAll()
-                    .requestMatchers("/close-day", "/close-day/**").authenticated()
+                    .requestMatchers("/close-day", "/close-day/**").hasRole("APP_ADMIN")
 
                     // open time
                     .requestMatchers(HttpMethod.GET, "/open-time", "/open-time/**").permitAll()
-                    .requestMatchers("/open-time", "/open-time/**").authenticated()
+                    .requestMatchers("/open-time", "/open-time/**").hasRole("APP_ADMIN")
+
+                    // notice
+                    .requestMatchers(HttpMethod.GET, "/notice", "/notice/**")
+                            .hasAnyRole("APP_ADMIN", "EMPLOYEE")
+                    .requestMatchers("/notice", "/notice/**").hasRole("APP_ADMIN")
+
+                    // documents
+                    .requestMatchers(HttpMethod.GET, "/documents", "/documents/**")
+                            .hasAnyRole("APP_ADMIN", "EMPLOYEE")
+                    .requestMatchers("/documents", "/documents/**").hasRole("APP_ADMIN")
+
                     .anyRequest().authenticated()
                 )
                 .with(new SecurityFilterConfig(jwtTokenProvider, objectMapper), Customizer.withDefaults())

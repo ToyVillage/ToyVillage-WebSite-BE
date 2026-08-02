@@ -48,13 +48,11 @@ redis:
   port: ${REDIS_PORT}
 
 jwt:
-  secret-key: ${SECRET_KEY}
-  accessExpiration: 3600000
-  refreshExpiration: 604800000
-
+  web-secret-key: ${WEB_JWT_SECRET_KEY}
+  app-secret-key: ${APP_JWT_SECRET_KEY}
+  web-access-expiration: ${WEB_ACCESS_EXPIRATION:3600000}
+  web-refresh-expiration: ${WEB_REFRESH_EXPIRATION:604800000}
+  app-access-expiration: ${APP_ACCESS_EXPIRATION:3600000}
+  app-refresh-expiration: ${APP_REFRESH_EXPIRATION:604800000}
   header: Authorization
   prefix: Bearer
-
-app:
-  cookie:
-    secure: false # 테스트 환경에선 false, 운영 환경에선 https를 사용함, 따라서 true로 바꾼뒤 운영해야함

@@ -1,13 +1,13 @@
 package com.command.toyvillage_server.domain.app.reservation.service;
 
+import com.command.toyvillage_server.domain.app.auth.admin.domain.AppAdmin;
+import com.command.toyvillage_server.domain.app.auth.admin.domain.repository.AppAdminRepository;
+import com.command.toyvillage_server.domain.app.auth.admin.exception.AppAdminNotFoundException;
 import com.command.toyvillage_server.domain.app.reservation.domain.Reservation;
 import com.command.toyvillage_server.domain.app.reservation.domain.ReservationPermission;
 import com.command.toyvillage_server.domain.app.reservation.domain.repository.ReservationPermissionRepository;
 import com.command.toyvillage_server.domain.app.reservation.domain.repository.ReservationRepository;
 import com.command.toyvillage_server.domain.app.reservation.exception.ReservationNotFoundException;
-import com.command.toyvillage_server.domain.common.auth.user.domain.User;
-import com.command.toyvillage_server.domain.common.auth.user.domain.repository.UserRepository;
-import com.command.toyvillage_server.domain.common.auth.user.exception.UserNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,37 +17,40 @@ import org.springframework.stereotype.Service;
 public class ReservationPermissionSettingService {
     private final ReservationRepository reservationRepository;
     private final ReservationPermissionRepository reservationPermissionRepository;
-    private final UserRepository userRepository;
+    private final AppAdminRepository appAdminRepository;
 
     @Transactional
-    public void execute(Long reservationId, Long userId, boolean permission) {
+    public void execute(Long reservationId, Long appAdminId, boolean permission) {
         Reservation reservation = reservationRepository.findById(reservationId)
             .orElseThrow(() -> ReservationNotFoundException.EXCEPTION);
 
-        User user = userRepository.findById(userId)
-            .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+        AppAdmin appAdmin = appAdminRepository.findById(appAdminId)
+            .orElseThrow(() -> AppAdminNotFoundException.EXCEPTION);
 
         if (permission) {
-            grant(reservation, user);
+            grant(reservation, appAdmin);
         } else {
-            revoke(reservationId, userId);
+            revoke(reservationId, appAdminId);
         }
     }
 
-    private void grant(Reservation reservation, User user) {
-        if (!reservationPermissionRepository.existsByReservation_IdAndUser_Id(reservation.getId(), user.getId())) {
+    private void grant(Reservation reservation, AppAdmin appAdmin) {
+        if (!reservationPermissionRepository.existsByReservation_IdAndAppAdmin_Id(
+                reservation.getId(),
+                appAdmin.getId()
+        )) {
             reservationPermissionRepository.save(
                 ReservationPermission.builder()
                     .reservation(reservation)
-                    .user(user)
+                    .appAdmin(appAdmin)
                     .build()
             );
         }
     }
 
-    private void revoke(Long reservationId, Long userId) {
+    private void revoke(Long reservationId, Long appAdminId) {
         reservationPermissionRepository
-            .findByReservation_IdAndUser_Id(reservationId, userId)
+            .findByReservation_IdAndAppAdmin_Id(reservationId, appAdminId)
             .ifPresent(reservationPermissionRepository::delete);
     }
 }
