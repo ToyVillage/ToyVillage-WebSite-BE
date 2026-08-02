@@ -35,9 +35,7 @@ public class AppChangePasswordService {
 
         AppAdmin appAdmin = appAdminRepository.findById(details.getId())
                 .orElseThrow(() -> AppAdminNotFoundException.EXCEPTION);
-
-
-
+        
         if (!passwordEncoder.matches(request.currentPassword(), appAdmin.getPassword())) {
             throw new ToyVillageException(ErrorCode.PASSWORD_MISMATCH);
         }
