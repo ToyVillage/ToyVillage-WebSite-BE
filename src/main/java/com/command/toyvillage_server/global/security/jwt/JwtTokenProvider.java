@@ -14,6 +14,7 @@ import com.command.toyvillage_server.global.security.auth.AppAdminDetailsService
 import com.command.toyvillage_server.global.security.auth.WebAdminDetailsService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
@@ -121,7 +122,7 @@ public class JwtTokenProvider {
 
         refreshTokenRepository.save(
                 RefreshToken.builder()
-                        .username(tokenKey)
+                        .tokenKey(tokenKey)
                         .token(refreshToken)
                         .timeToLive(getRefreshExpiration(appToken))
                         .build()
@@ -148,12 +149,12 @@ public class JwtTokenProvider {
             return parseClaims(token, false);
         } catch (ExpiredJwtException e) {
             throw ExpiredTokenException.EXCEPTION;
-        } catch (Exception ignored) {
+        } catch (JwtException ignored) {
             try {
                 return parseClaims(token, true);
             } catch (ExpiredJwtException e) {
                 throw ExpiredTokenException.EXCEPTION;
-            } catch (Exception e) {
+            } catch (JwtException e) {
                 throw InvalidTokenException.EXCEPTION;
             }
         }
@@ -169,7 +170,7 @@ public class JwtTokenProvider {
             return claims;
         } catch (ExpiredJwtException e) {
             throw ExpiredTokenException.EXCEPTION;
-        } catch (Exception e) {
+        } catch (JwtException e) {
             throw InvalidTokenException.EXCEPTION;
         }
     }

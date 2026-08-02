@@ -1,11 +1,14 @@
 package com.command.toyvillage_server.global.security.jwt;
 
+import com.command.toyvillage_server.domain.web.auth.admin.exception.ExpiredTokenException;
+import com.command.toyvillage_server.domain.web.auth.admin.exception.InvalidTokenException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -24,7 +27,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             try {
                 Authentication authentication = jwtTokenProvider.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(authentication);
-            } catch (Exception e) {
+            } catch (ExpiredTokenException | InvalidTokenException | AuthenticationException e) {
                 SecurityContextHolder.clearContext();
             }
         }
