@@ -19,11 +19,11 @@ public class WebAdminReissueService {
         Claims claims = jwtTokenProvider.getWebRefreshClaims(token);
         String tokenKey = jwtTokenProvider.getWebRefreshTokenKey(claims.getSubject());
 
-        RefreshToken refreshToken = refreshTokenRepository.findByUsername(tokenKey)
+        RefreshToken refreshToken = refreshTokenRepository.findById(tokenKey)
                 .filter(savedToken -> savedToken.getToken().equals(token))
                 .orElseThrow(() -> RefreshTokenNotFoundException.EXCEPTION);
 
-        refreshTokenRepository.delete(refreshToken);
+        refreshTokenRepository.deleteById(tokenKey);
         return jwtTokenProvider.receiveWebToken(claims.getSubject());
     }
 }
