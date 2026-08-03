@@ -3,11 +3,11 @@ package com.command.toyvillage_server.domain.app.reservation.presentation;
 import com.command.toyvillage_server.domain.app.reservation.presentation.dto.response.ReservationListResponse;
 import com.command.toyvillage_server.domain.app.reservation.presentation.dto.response.ReservationPermissionResponse;
 import com.command.toyvillage_server.domain.app.reservation.presentation.dto.response.ReservationResponse;
-import com.command.toyvillage_server.domain.app.reservation.service.ReservationPermissionDeleteService;
-import com.command.toyvillage_server.domain.app.reservation.service.ReservationPermissionQueryListService;
-import com.command.toyvillage_server.domain.app.reservation.service.ReservationPermissionSettingService;
-import com.command.toyvillage_server.domain.app.reservation.service.ReservationQueryListService;
-import com.command.toyvillage_server.domain.app.reservation.service.ReservationQueryService;
+import com.command.toyvillage_server.domain.app.reservation.service.admin.ReservationPermissionDeleteService;
+import com.command.toyvillage_server.domain.app.reservation.service.admin.ReservationPermissionQueryListService;
+import com.command.toyvillage_server.domain.app.reservation.service.admin.ReservationPermissionSettingService;
+import com.command.toyvillage_server.domain.app.reservation.service.employee.ReservationQueryListService;
+import com.command.toyvillage_server.domain.app.reservation.service.employee.ReservationQueryService;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,12 +25,12 @@ public class ReservationController {
     private final ReservationPermissionQueryListService reservationPermissionQueryListService;
     private final ReservationPermissionDeleteService reservationPermissionDeleteService;
 
-    @GetMapping("/{id}")
+    @GetMapping("/employee/{id}")
     public ReservationResponse getDetail(@PathVariable Long id) {
         return reservationQueryService.execute(id);
     }
 
-    @GetMapping()
+    @GetMapping("/employee")
     public List<ReservationListResponse> getList() {
         return reservationQueryListService.execute();
     }

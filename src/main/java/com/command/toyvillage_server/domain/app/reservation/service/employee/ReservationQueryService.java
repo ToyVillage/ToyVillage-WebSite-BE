@@ -1,4 +1,4 @@
-package com.command.toyvillage_server.domain.app.reservation.service;
+package com.command.toyvillage_server.domain.app.reservation.service.employee;
 
 import com.command.toyvillage_server.domain.app.reservation.domain.Reservation;
 import com.command.toyvillage_server.domain.app.reservation.domain.repository.ReservationRepository;

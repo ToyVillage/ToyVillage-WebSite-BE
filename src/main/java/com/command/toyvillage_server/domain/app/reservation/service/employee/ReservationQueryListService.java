@@ -1,7 +1,7 @@
-package com.command.toyvillage_server.domain.app.reservation.service;
+package com.command.toyvillage_server.domain.app.reservation.service.employee;
 
+import com.command.toyvillage_server.domain.app.auth.admin.exception.AppAdminNotFoundException;
 import com.command.toyvillage_server.domain.app.reservation.domain.repository.ReservationPermissionRepository;
-import com.command.toyvillage_server.domain.app.reservation.domain.repository.ReservationRepository;
 import com.command.toyvillage_server.domain.app.reservation.presentation.dto.response.ReservationListResponse;
 import com.command.toyvillage_server.global.security.auth.AppAdminDetails;
 import lombok.RequiredArgsConstructor;
@@ -15,21 +15,17 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class ReservationQueryListService {
-    private final ReservationRepository reservationRepository;
     private final ReservationPermissionRepository reservationPermissionRepository;
 
     @Transactional(readOnly = true)
     public List<ReservationListResponse> execute() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        if (authentication.getPrincipal() instanceof AppAdminDetails appAdminDetails) {
-            return reservationPermissionRepository.findReservationsByAppAdminId(appAdminDetails.getId())
-                .stream()
-                .map(ReservationListResponse::from)
-                .toList();
+        if (authentication == null || !(authentication.getPrincipal() instanceof AppAdminDetails appAdminDetails)) {
+            throw AppAdminNotFoundException.EXCEPTION;
         }
 
-        return reservationRepository.findAll()
+        return reservationPermissionRepository.findReservationsByAppAdminId(appAdminDetails.getId())
             .stream()
             .map(ReservationListResponse::from)
             .toList();

@@ -103,7 +103,9 @@ public class SecurityConfig {
 
                     // reservation
                     .requestMatchers("/reservation/permission/**").hasRole("APP_ADMIN")
-                    .requestMatchers(HttpMethod.GET, "/reservation", "/reservation/**")
+                    .requestMatchers(HttpMethod.GET, "/reservation", "/reservation/")
+                            .hasRole("EMPLOYEE")
+                    .requestMatchers(HttpMethod.GET, "/reservation/**")
                             .hasAnyRole("APP_ADMIN", "EMPLOYEE")
                     .requestMatchers("/reservation", "/reservation/**").hasRole("APP_ADMIN")
 

@@ -1,4 +1,4 @@
-package com.command.toyvillage_server.domain.app.reservation.service;
+package com.command.toyvillage_server.domain.app.reservation.service.admin;
 
 import com.command.toyvillage_server.domain.app.reservation.domain.ReservationPermission;
 import com.command.toyvillage_server.domain.app.reservation.domain.repository.ReservationPermissionRepository;
