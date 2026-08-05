@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class ReservationPermissionQueryListService {
+public class ReservationAdminPermissionQueryListService {
     private final ReservationRepository reservationRepository;
     private final ReservationPermissionRepository reservationPermissionRepository;
 

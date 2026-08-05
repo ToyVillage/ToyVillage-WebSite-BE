@@ -3,9 +3,9 @@ package com.command.toyvillage_server.domain.app.reservation.presentation;
 import com.command.toyvillage_server.domain.app.reservation.presentation.dto.response.ReservationListResponse;
 import com.command.toyvillage_server.domain.app.reservation.presentation.dto.response.ReservationPermissionResponse;
 import com.command.toyvillage_server.domain.app.reservation.presentation.dto.response.ReservationResponse;
-import com.command.toyvillage_server.domain.app.reservation.service.admin.ReservationPermissionDeleteService;
-import com.command.toyvillage_server.domain.app.reservation.service.admin.ReservationPermissionQueryListService;
-import com.command.toyvillage_server.domain.app.reservation.service.admin.ReservationPermissionSettingService;
+import com.command.toyvillage_server.domain.app.reservation.service.admin.ReservationAdminPermissionDeleteService;
+import com.command.toyvillage_server.domain.app.reservation.service.admin.ReservationAdminPermissionQueryListService;
+import com.command.toyvillage_server.domain.app.reservation.service.admin.ReservationAdminPermissionSettingService;
 import com.command.toyvillage_server.domain.app.reservation.service.employee.ReservationQueryListService;
 import com.command.toyvillage_server.domain.app.reservation.service.employee.ReservationQueryService;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
@@ -21,9 +21,9 @@ import java.util.List;
 public class ReservationController {
     private final ReservationQueryService reservationQueryService;
     private final ReservationQueryListService reservationQueryListService;
-    private final ReservationPermissionSettingService reservationPermissionSettingService;
-    private final ReservationPermissionQueryListService reservationPermissionQueryListService;
-    private final ReservationPermissionDeleteService reservationPermissionDeleteService;
+    private final ReservationAdminPermissionSettingService reservationAdminPermissionSettingService;
+    private final ReservationAdminPermissionQueryListService reservationAdminPermissionQueryListService;
+    private final ReservationAdminPermissionDeleteService reservationAdminPermissionDeleteService;
 
     @GetMapping("/employee/{id}")
     public ReservationResponse getDetail(@PathVariable Long id) {
@@ -41,12 +41,12 @@ public class ReservationController {
         @PathVariable("appAdminId") Long appAdminId,
         @RequestBody boolean reservationPermission
     ) {
-        reservationPermissionSettingService.execute(reservationId, appAdminId, reservationPermission);
+        reservationAdminPermissionSettingService.execute(reservationId, appAdminId, reservationPermission);
     }
 
     @GetMapping("/permission/{reservationId}")
     public List<ReservationPermissionResponse> getPermissionList(@PathVariable("reservationId") Long reservationId) {
-        return reservationPermissionQueryListService.execute(reservationId);
+        return reservationAdminPermissionQueryListService.execute(reservationId);
     }
 
     @DeleteMapping("/permission/{reservationId}/{appAdminId}")
@@ -55,7 +55,7 @@ public class ReservationController {
         @PathVariable Long reservationId,
         @PathVariable Long appAdminId
     ) {
-        reservationPermissionDeleteService.execute(reservationId, appAdminId);
+        reservationAdminPermissionDeleteService.execute(reservationId, appAdminId);
         return MessageResponse.of("단체예약 삭제가 완료되었습니다.");
     }
 }

@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ReservationPermissionSettingService {
+public class ReservationAdminPermissionSettingService {
     private final ReservationRepository reservationRepository;
     private final ReservationPermissionRepository reservationPermissionRepository;
     private final AppAdminRepository appAdminRepository;
