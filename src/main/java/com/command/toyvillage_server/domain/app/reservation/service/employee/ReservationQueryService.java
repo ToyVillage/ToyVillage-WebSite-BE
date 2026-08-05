@@ -14,9 +14,8 @@ public class ReservationQueryService {
     private final ReservationRepository reservationRepository;
 
     @Transactional(readOnly = true)
-    public ReservationResponse execute(Long id) {
-
-        Reservation reservation = reservationRepository.findById(id)
+    public ReservationResponse execute(Long reservationId) {
+        Reservation reservation = reservationRepository.findById(reservationId)
             .orElseThrow(() -> ReservationNotFoundException.EXCEPTION);
 
         return ReservationResponse.from(reservation);
