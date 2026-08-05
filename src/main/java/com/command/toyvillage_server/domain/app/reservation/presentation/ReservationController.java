@@ -14,6 +14,9 @@ import com.command.toyvillage_server.domain.app.reservation.service.employee.Res
 import com.command.toyvillage_server.domain.app.reservation.service.employee.ReservationQueryService;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -42,8 +45,10 @@ public class ReservationController {
     }
 
     @GetMapping
-    public ReservationAdminQueryListResponse getReservationList() {
-        return reservationAdminQueryListService.execute();
+    public ReservationAdminQueryListResponse getReservationList(
+        @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable
+    ) {
+        return reservationAdminQueryListService.execute(pageable);
     }
 
     @GetMapping("/{id}")
