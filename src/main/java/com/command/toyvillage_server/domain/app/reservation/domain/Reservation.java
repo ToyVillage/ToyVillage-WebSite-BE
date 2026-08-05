@@ -68,4 +68,12 @@ public class Reservation {
 
     @Column(nullable = false)
     private Integer money;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, name = "status")
+    private ReservationStatus status;
+
+    public void updateStatus(LocalDate today) {
+        this.status = ReservationStatus.from(visitSiteDate, visitDate, today);
+    }
 }
