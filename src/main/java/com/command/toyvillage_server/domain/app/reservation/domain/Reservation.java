@@ -60,6 +60,9 @@ public class Reservation {
     @Column(nullable = false, name = "out_time")
     private LocalTime exitTime;
 
+    @Column(nullable = false, name = "counsel_date")
+    private LocalDate counselDate;
+
     @Column(nullable = false)
     private String location;
 

@@ -14,4 +14,8 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     List<Reservation> findAll();
 
     int countByVisitSiteDateBefore(LocalDate date);
+
+    int countByVisitSiteDateAfter(LocalDate date);
+
+    int countByVisitDateAfter(LocalDate date);
 }
