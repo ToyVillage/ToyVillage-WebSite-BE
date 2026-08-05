@@ -9,6 +9,7 @@ import java.time.LocalTime;
 
 @Builder
 public record ReservationAdminQueryListObjectResponse(
+    Long id,
     String title,
     LocalDate counselDate,
     LocalDate reservationDate,
@@ -21,6 +22,7 @@ public record ReservationAdminQueryListObjectResponse(
         Reservation reservation
     ) {
         return ReservationAdminQueryListObjectResponse.builder()
+            .id(reservation.getId())
             .title(reservation.getTitle())
             .counselDate(reservation.getCounselDate())
             .reservationDate(reservation.getReservationDate())
