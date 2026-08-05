@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -16,14 +17,22 @@ import java.util.List;
 public class ReservationAdminQueryListService {
     private final ReservationRepository reservationRepository;
 
-    @Transactional
+    @Transactional(readOnly = true)
     public ReservationAdminQueryListResponse execute() {
-        int beforeVisitSite = reservationRepository.countByVisitSiteDateBefore(LocalDate.now());
-        int doneVisitSite = reservationRepository.countByVisitSiteDateAfter(LocalDate.now());
-        int doneVisit = reservationRepository.countByVisitDateAfter(LocalDate.now());
+        LocalDate today = LocalDate.now();
+
+        int beforeVisitSite = reservationRepository.countByVisitSiteDateGreaterThanEqual(today);
+        int doneVisitSite = reservationRepository
+            .countByVisitSiteDateBeforeAndVisitDateGreaterThanEqual(today, today);
+        int doneVisit = reservationRepository.countByVisitDateBefore(today);
 
         List<Reservation> reservations = reservationRepository.findAll();
+        List<ReservationAdminQueryListObjectResponse> reservationAdminQueryListObjectResponseList = new ArrayList<>();
 
-        ReservationAdminQueryListObjectResponse reservationList = ReservationAdminQueryListObjectResponse.of()
+        for (Reservation reservation : reservations) {
+            reservationAdminQueryListObjectResponseList.add(ReservationAdminQueryListObjectResponse.from(reservation));
+        }
+
+        return ReservationAdminQueryListResponse.of(beforeVisitSite, doneVisitSite, doneVisit, reservationAdminQueryListObjectResponseList);
     }
 }

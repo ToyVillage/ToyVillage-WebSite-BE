@@ -1,5 +1,6 @@
 package com.command.toyvillage_server.domain.app.reservation.presentation.dto.response;
 
+import com.command.toyvillage_server.domain.app.reservation.domain.Reservation;
 import lombok.Builder;
 
 import java.time.LocalDate;
@@ -13,19 +14,15 @@ public record ReservationAdminQueryListObjectResponse(
     String location,
     int count
 ) {
-    public static ReservationAdminQueryListObjectResponse of(
-        LocalDate counselDate,
-        LocalDate reservationDate,
-        LocalTime reservationTime,
-        String location,
-        int count
+    public static ReservationAdminQueryListObjectResponse from(
+        Reservation reservation
     ) {
         return ReservationAdminQueryListObjectResponse.builder()
-            .counselDate(counselDate)
-            .reservationDate(reservationDate)
-            .reservationTime(reservationTime)
-            .location(location)
-            .count(count)
+            .counselDate(reservation.getCounselDate())
+            .reservationDate(reservation.getReservationDate())
+            .reservationTime(reservation.getReservationTime())
+            .location(reservation.getLocation())
+            .count(reservation.getReservationCount())
             .build();
     }
 }
