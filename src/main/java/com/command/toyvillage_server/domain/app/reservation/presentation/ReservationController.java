@@ -1,6 +1,7 @@
 package com.command.toyvillage_server.domain.app.reservation.presentation;
 
 import com.command.toyvillage_server.domain.app.reservation.presentation.dto.response.ReservationAdminQueryListResponse;
+import com.command.toyvillage_server.domain.app.reservation.presentation.dto.response.ReservationAdminQueryResponse;
 import com.command.toyvillage_server.domain.app.reservation.presentation.dto.response.ReservationListResponse;
 import com.command.toyvillage_server.domain.app.reservation.presentation.dto.response.ReservationPermissionResponse;
 import com.command.toyvillage_server.domain.app.reservation.presentation.dto.response.ReservationResponse;
@@ -8,6 +9,7 @@ import com.command.toyvillage_server.domain.app.reservation.service.admin.Reserv
 import com.command.toyvillage_server.domain.app.reservation.service.admin.ReservationAdminPermissionQueryListService;
 import com.command.toyvillage_server.domain.app.reservation.service.admin.ReservationAdminPermissionSettingService;
 import com.command.toyvillage_server.domain.app.reservation.service.admin.ReservationAdminQueryListService;
+import com.command.toyvillage_server.domain.app.reservation.service.admin.ReservationAdminQueryService;
 import com.command.toyvillage_server.domain.app.reservation.service.employee.ReservationQueryListService;
 import com.command.toyvillage_server.domain.app.reservation.service.employee.ReservationQueryService;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
@@ -27,6 +29,7 @@ public class ReservationController {
     private final ReservationAdminPermissionQueryListService reservationAdminPermissionQueryListService;
     private final ReservationAdminPermissionDeleteService reservationAdminPermissionDeleteService;
     private final ReservationAdminQueryListService reservationAdminQueryListService;
+    private final ReservationAdminQueryService reservationAdminQueryService;
 
     @GetMapping("/employee/{id}")
     public ReservationResponse getDetail(@PathVariable Long id) {
@@ -41,6 +44,11 @@ public class ReservationController {
     @GetMapping
     public ReservationAdminQueryListResponse getReservationList() {
         return reservationAdminQueryListService.execute();
+    }
+
+    @GetMapping("/{id}")
+    public ReservationAdminQueryResponse getReservationDetail(@PathVariable Long id) {
+        return reservationAdminQueryService.execute(id);
     }
 
     @PostMapping("/permission/{reservationId}/{appAdminId}")
