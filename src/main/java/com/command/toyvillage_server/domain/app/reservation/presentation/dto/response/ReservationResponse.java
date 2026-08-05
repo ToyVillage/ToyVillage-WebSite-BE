@@ -4,39 +4,42 @@ import com.command.toyvillage_server.domain.app.reservation.domain.Reservation;
 import lombok.Builder;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Builder
 public record ReservationResponse(
     Long id,
     String reservationName,
-    Integer leaderCount,
     Integer reservationCount,
     LocalDate reservationDate,
     LocalTime reservationTime,
-    String location,
-    LocalDateTime visitDate,
-    LocalTime exitTime,
-    LocalDateTime visitSiteDate,
-    LocalTime visitTime,
+    LocalDate visitSiteDate,
+    LocalTime visitSiteTime,
     LocalTime visitSiteExitTime,
     Integer visitSiteCount,
+    LocalDate visitDate,
+    LocalTime visitTime,
+    LocalTime exitTime,
+    Integer leaderCount,
+    String location,
     Integer money
 ) {
     public static ReservationResponse from(Reservation reservation) {
         return ReservationResponse.builder()
             .id(reservation.getId())
             .reservationName(reservation.getReservationName())
-            .leaderCount(reservation.getLeaderCount())
             .reservationCount(reservation.getReservationCount())
-            .location(reservation.getLocation())
-            .visitDate(reservation.getVisitDate())
-            .exitTime(reservation.getExitTime())
+            .reservationDate(reservation.getReservationDate())
+            .reservationTime(reservation.getReservationTime())
             .visitSiteDate(reservation.getVisitSiteDate())
-            .visitTime(reservation.getVisitSiteTime())
+            .visitSiteTime(reservation.getVisitSiteTime())
             .visitSiteExitTime(reservation.getVisitSiteExitTime())
             .visitSiteCount(reservation.getVisitSiteCount())
+            .visitDate(reservation.getVisitDate())
+            .visitTime(reservation.getVisitTime())
+            .exitTime(reservation.getExitTime())
+            .leaderCount(reservation.getLeaderCount())
+            .location(reservation.getLocation())
             .money(reservation.getMoney())
             .build();
     }
