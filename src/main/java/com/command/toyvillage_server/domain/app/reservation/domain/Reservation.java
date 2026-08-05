@@ -51,6 +51,9 @@ public class Reservation {
     @Column(nullable = false, name = "leader_count")
     private Integer leaderCount;
 
+    @Column(nullable = false, name = "leader_phone_number", length = 15)
+    private String leaderPhoneNumber;
+
     @Column(nullable = false, name = "visit_date")
     private LocalDate visitDate;
 
