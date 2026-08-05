@@ -102,10 +102,10 @@ public class SecurityConfig {
                     .requestMatchers("/join-team", "/join-team/**").hasRole("APP_ADMIN")
 
                     // reservation
-                    .requestMatchers("/reservation/permission/**", "/reservation")
-                            .hasRole("APP_ADMIN")
                     .requestMatchers(HttpMethod.GET, "/reservation/employee", "/reservation/employee/**")
                             .hasRole("EMPLOYEE")
+                    .requestMatchers("/reservation", "/reservation/**")
+                            .hasRole("APP_ADMIN")
 
                     // close day
                     .requestMatchers(HttpMethod.GET, "/close-day", "/close-day/**").permitAll()
