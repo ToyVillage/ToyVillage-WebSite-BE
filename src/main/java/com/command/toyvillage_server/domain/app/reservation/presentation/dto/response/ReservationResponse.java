@@ -9,6 +9,7 @@ import java.time.LocalTime;
 @Builder
 public record ReservationResponse(
     Long id,
+    String title,
     String reservationName,
     Integer reservationCount,
     LocalDate reservationDate,
@@ -27,6 +28,7 @@ public record ReservationResponse(
     public static ReservationResponse from(Reservation reservation) {
         return ReservationResponse.builder()
             .id(reservation.getId())
+            .title(reservation.getTitle())
             .reservationName(reservation.getReservationName())
             .reservationCount(reservation.getReservationCount())
             .reservationDate(reservation.getReservationDate())
