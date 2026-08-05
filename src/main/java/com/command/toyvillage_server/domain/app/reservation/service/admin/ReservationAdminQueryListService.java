@@ -1,6 +1,7 @@
 package com.command.toyvillage_server.domain.app.reservation.service.admin;
 
 import com.command.toyvillage_server.domain.app.reservation.domain.Reservation;
+import com.command.toyvillage_server.domain.app.reservation.domain.ReservationStatus;
 import com.command.toyvillage_server.domain.app.reservation.domain.repository.ReservationRepository;
 import com.command.toyvillage_server.domain.app.reservation.presentation.dto.response.ReservationAdminQueryListObjectResponse;
 import com.command.toyvillage_server.domain.app.reservation.presentation.dto.response.ReservationAdminQueryListResponse;
@@ -17,16 +18,17 @@ import java.util.List;
 public class ReservationAdminQueryListService {
     private final ReservationRepository reservationRepository;
 
-    @Transactional(readOnly = true)
+    @Transactional
     public ReservationAdminQueryListResponse execute() {
         LocalDate today = LocalDate.now();
-
-        int beforeVisitSite = reservationRepository.countByVisitSiteDateGreaterThanEqual(today);
-        int doneVisitSite = reservationRepository
-            .countByVisitSiteDateBeforeAndVisitDateGreaterThanEqual(today, today);
-        int doneVisit = reservationRepository.countByVisitDateBefore(today);
-
         List<Reservation> reservations = reservationRepository.findAll();
+
+        reservations.forEach(reservation -> reservation.updateStatus(today));
+
+        int beforeVisitSite = reservationRepository.countByStatus(ReservationStatus.BEFORE_SITE_VISIT);
+        int doneVisitSite = reservationRepository.countByStatus(ReservationStatus.SITE_VISIT_COMPLETED);
+        int doneVisit = reservationRepository.countByStatus(ReservationStatus.VISIT_COMPLETED);
+
         List<ReservationAdminQueryListObjectResponse> reservationAdminQueryListObjectResponseList = new ArrayList<>();
 
         for (Reservation reservation : reservations) {

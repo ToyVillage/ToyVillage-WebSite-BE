@@ -1,9 +1,9 @@
 package com.command.toyvillage_server.domain.app.reservation.domain.repository;
 
 import com.command.toyvillage_server.domain.app.reservation.domain.Reservation;
+import com.command.toyvillage_server.domain.app.reservation.domain.ReservationStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,12 +12,5 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
     List<Reservation> findAll();
 
-    int countByVisitSiteDateGreaterThanEqual(LocalDate date);
-
-    int countByVisitSiteDateBeforeAndVisitDateGreaterThanEqual(
-        LocalDate visitSiteDate,
-        LocalDate visitDate
-    );
-
-    int countByVisitDateBefore(LocalDate date);
+    int countByStatus(ReservationStatus status);
 }
