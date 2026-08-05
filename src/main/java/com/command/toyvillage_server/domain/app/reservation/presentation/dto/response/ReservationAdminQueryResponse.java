@@ -10,7 +10,7 @@ import java.time.LocalTime;
 @Builder
 public record ReservationAdminQueryResponse(
     LocalDate counselDate,
-    LocalDate reservationDate,
+    LocalDate visitDate,
     LocalTime visitTime,
     LocalTime exitTime,
     String reservationName,
@@ -25,7 +25,7 @@ public record ReservationAdminQueryResponse(
     public static ReservationAdminQueryResponse from(Reservation reservation) {
         return ReservationAdminQueryResponse.builder()
             .counselDate(reservation.getCounselDate())
-            .reservationDate(reservation.getReservationDate())
+            .visitDate(reservation.getVisitDate())
             .visitTime(reservation.getVisitTime())
             .exitTime(reservation.getExitTime())
             .reservationName(reservation.getReservationName())
