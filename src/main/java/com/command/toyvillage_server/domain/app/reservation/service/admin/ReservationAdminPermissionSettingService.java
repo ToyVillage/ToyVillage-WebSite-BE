@@ -1,4 +1,4 @@
-package com.command.toyvillage_server.domain.app.reservation.service;
+package com.command.toyvillage_server.domain.app.reservation.service.admin;
 
 import com.command.toyvillage_server.domain.app.auth.admin.domain.AppAdmin;
 import com.command.toyvillage_server.domain.app.auth.admin.domain.repository.AppAdminRepository;
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ReservationPermissionSettingService {
+public class ReservationAdminPermissionSettingService {
     private final ReservationRepository reservationRepository;
     private final ReservationPermissionRepository reservationPermissionRepository;
     private final AppAdminRepository appAdminRepository;
