@@ -17,8 +17,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/notice")
@@ -43,7 +41,7 @@ public class NoticeController {
     }
 
     @GetMapping
-    public List<NoticeListResponseDto> getList(@PageableDefault(page = 0, size = 10) Pageable pageable) {
+    public NoticeListResponseDto getList(@PageableDefault(page = 0, size = 10) Pageable pageable) {
         return queryNoticeListService.execute(pageable);
     }
 
