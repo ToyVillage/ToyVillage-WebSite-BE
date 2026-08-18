@@ -1,0 +1,8 @@
+.git
+.github
+.gradle
+.idea
+build
+.env
+src/main/resources/.env
+*.iml
