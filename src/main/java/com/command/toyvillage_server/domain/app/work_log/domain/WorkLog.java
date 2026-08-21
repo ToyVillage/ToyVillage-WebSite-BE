@@ -22,7 +22,6 @@ import java.time.LocalDate;
 @Getter
 @Entity
 @Table(name = "tbl_work_log")
-@EntityListeners(AuditingEntityListener.class)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class WorkLog {
 
