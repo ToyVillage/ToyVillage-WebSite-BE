@@ -1,5 +1,6 @@
 package com.command.toyvillage_server.domain.app.work_log.domain;
 
+import com.command.toyvillage_server.domain.app.work_log.domain.enums.QuestionType;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -11,7 +12,20 @@ public class WorkLogTemplateQuestion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false, length = 80)
     private String question;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "question_type", nullable = false)
+    private QuestionType questionType;
+
+    @Column(name = "short_text", length = 100)
+    private String shortText;
+
+    @Column(name = "long_text", length = 500)
+    private String longText;
+
+    @Column(name = "multiple_choice")
     private
+
 }

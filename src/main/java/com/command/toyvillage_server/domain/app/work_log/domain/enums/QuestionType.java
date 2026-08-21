@@ -1,4 +1,4 @@
-package com.command.toyvillage_server.domain.app.work_log.domain.repository;
+package com.command.toyvillage_server.domain.app.work_log.domain.enums;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 public enum QuestionType {
-    SHOT_TEXT("주관식"),
+    SHORT_TEXT("주관식"),
     LONG_TEXT("장문형"),
     MULTIPLE_CHOICE("객관식"),
     CHECK_BOX("체크박스"),
