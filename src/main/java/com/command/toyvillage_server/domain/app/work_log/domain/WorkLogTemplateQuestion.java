@@ -3,11 +3,14 @@ package com.command.toyvillage_server.domain.app.work_log.domain;
 import com.command.toyvillage_server.domain.app.work_log.domain.enums.QuestionType;
 import com.command.toyvillage_server.domain.web.file.domain.File;
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
 
 @Entity
 @Getter
 @Table(name = "tbl_work_log_question")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class WorkLogTemplateQuestion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

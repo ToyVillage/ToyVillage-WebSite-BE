@@ -1,6 +1,6 @@
 package com.command.toyvillage_server.domain.app.work_log.presentation;
 
-import com.command.toyvillage_server.domain.app.work_log.presentation.dto.request.WorkLogTemplateCreateRequest;
+import com.command.toyvillage_server.domain.app.work_log.presentation.dto.request.WorkLogTemplateRequest;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.response.WorkLogDetailResponse;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.response.WorkLogListResponse;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.response.WorkLogTemplateDetailResponse;
@@ -64,7 +64,7 @@ public class WorkLogController {
 
     @PostMapping("/template")
     public ResponseEntity<MessageResponse> createWorkLogTemplate(
-            @RequestBody @Valid WorkLogTemplateCreateRequest request
+            @RequestBody @Valid WorkLogTemplateRequest request
     ) {
         workLogTemplateCreateService.execute(request);
 
