@@ -2,8 +2,6 @@ package com.command.toyvillage_server.domain.app.work_log.service;
 
 import com.command.toyvillage_server.domain.app.auth.admin.domain.AppAdminRole;
 import com.command.toyvillage_server.domain.app.auth.admin.exception.AppAdminNotFoundException;
-import com.command.toyvillage_server.domain.app.work_log.domain.WorkLog;
-import com.command.toyvillage_server.domain.app.work_log.domain.repository.WorkLogRepository;
 import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogNotFoundException;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.response.WorkLogDetailResponse;
 import com.command.toyvillage_server.global.security.auth.AppAdminDetails;

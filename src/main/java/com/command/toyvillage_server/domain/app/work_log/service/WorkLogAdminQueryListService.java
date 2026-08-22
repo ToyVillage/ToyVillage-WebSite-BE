@@ -1,6 +1,5 @@
 package com.command.toyvillage_server.domain.app.work_log.service;
 
-import com.command.toyvillage_server.domain.app.work_log.domain.repository.WorkLogRepository;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.response.WorkLogListResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

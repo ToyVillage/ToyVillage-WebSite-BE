@@ -27,6 +27,4 @@ public class WorkLogTemplate {
 
     @Column(name = "template_title", nullable = false, length = 50)
     private String templateTitle;
-
-    private
 }

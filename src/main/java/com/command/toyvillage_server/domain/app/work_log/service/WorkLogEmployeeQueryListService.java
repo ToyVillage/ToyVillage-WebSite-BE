@@ -1,7 +1,6 @@
 package com.command.toyvillage_server.domain.app.work_log.service;
 
 import com.command.toyvillage_server.domain.app.auth.admin.exception.AppAdminNotFoundException;
-import com.command.toyvillage_server.domain.app.work_log.domain.repository.WorkLogRepository;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.response.WorkLogListResponse;
 import com.command.toyvillage_server.global.security.auth.AppAdminDetails;
 import lombok.RequiredArgsConstructor;
