@@ -30,13 +30,13 @@ public class WorkLogTemplateQuestion {
     @Column(name = "long_text", length = 500)
     private String longText;
 
-    @Column(name = "nultiple_choice")
+    @Column(name = "nultiple_choice", length = 50)
     private String multipleChoice;
 
-    @Column(name = "check_box")
+    @Column(name = "check_box",  length = 50)
     private String checkBox;
 
-    @Column(name = "drop_down")
+    @Column(name = "drop_down",  length = 50)
     private String dropDown;
 
     @JoinColumn(name = "file_upload")
