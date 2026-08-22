@@ -1,11 +1,14 @@
-package com.command.toyvillage_server.domain.app.work_log.presentation.dto.request;
+package com.command.toyvillage_server.domain.app.work_log.presentation.dto.response;
 
+import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogTemplateQuestion;
 import com.command.toyvillage_server.domain.app.work_log.domain.enums.QuestionType;
 import com.command.toyvillage_server.domain.web.file.domain.File;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
 
+@Builder
 public record WorkLogTemplateQuestionResponse(
     @NotBlank(message = "질문내용이 공백일 순 없습니다.")
     @Size(max = 80, message = "질문 내용을 80자 미만으로 입력해주세요.")
@@ -31,4 +34,16 @@ public record WorkLogTemplateQuestionResponse(
 
     File fileUpload
 ) {
+    public static WorkLogTemplateQuestionResponse from(WorkLogTemplateQuestion question) {
+        return WorkLogTemplateQuestionResponse.builder()
+            .question(question.getQuestion())
+            .questionType(question.getQuestionType())
+            .shortText(question.getShortText())
+            .longText(question.getLongText())
+            .multipleChoice(question.getMultipleChoice())
+            .checkBox(question.getCheckBox())
+            .dropDown(question.getDropDown())
+            .fileUpload(question.getFileUpload())
+            .build();
+    }
 }

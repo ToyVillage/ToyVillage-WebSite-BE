@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class WorkLogTemplateCreate {
+public class WorkLogTemplateCreateService {
     private final WorkLogTemplateRepository workLogTemplateRepository;
     private final WorkLogTemplateQuestionRepository workLogTemplateQuestionRepository;
 
