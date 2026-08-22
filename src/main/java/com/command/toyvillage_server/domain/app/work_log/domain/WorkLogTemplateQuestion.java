@@ -13,6 +13,10 @@ public class WorkLogTemplateQuestion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "work_log_template_id")
+    private WorkLogTemplate workLogTemplate;
+
     @Column(nullable = false, length = 80)
     private String question;
 
