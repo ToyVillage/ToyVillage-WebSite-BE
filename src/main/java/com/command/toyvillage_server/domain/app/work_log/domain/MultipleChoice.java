@@ -11,6 +11,10 @@ public class MultipleChoice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "question_id")
+    private WorkLogTemplateQuestion questionId;
+
     @Column(nullable = false)
     private Integer number;
 

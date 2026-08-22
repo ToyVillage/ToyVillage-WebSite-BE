@@ -1,6 +1,7 @@
 package com.command.toyvillage_server.domain.app.work_log.domain;
 
 import com.command.toyvillage_server.domain.app.work_log.domain.enums.QuestionType;
+import com.command.toyvillage_server.domain.web.file.domain.File;
 import jakarta.persistence.*;
 import lombok.Getter;
 
@@ -25,7 +26,16 @@ public class WorkLogTemplateQuestion {
     @Column(name = "long_text", length = 500)
     private String longText;
 
-    @Column(name = "multiple_choice")
-    private
+    @Column(name = "nultiple_choice")
+    private String multipleChoice;
 
+    @Column(name = "check_box")
+    private String checkBox;
+
+    @Column(name = "drop_down")
+    private String dropDown;
+
+    @JoinColumn(name = "file_upload")
+    @OneToOne(fetch = FetchType.LAZY)
+    private File fileUpload;
 }
