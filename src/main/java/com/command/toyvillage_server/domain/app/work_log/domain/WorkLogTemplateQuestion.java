@@ -17,7 +17,7 @@ public class WorkLogTemplateQuestion {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "work_log_template_id")
+    @JoinColumn(name = "work_log_template_id", nullable = false)
     private WorkLogTemplate workLogTemplate;
 
     @Column(nullable = false, length = 80)
