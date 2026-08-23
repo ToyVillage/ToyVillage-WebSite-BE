@@ -10,6 +10,8 @@ import lombok.Builder;
 
 @Builder
 public record WorkLogTemplateQuestionResponse(
+    Long questionId,
+
     @NotBlank(message = "질문내용이 공백일 순 없습니다.")
     @Size(max = 80, message = "질문 내용을 80자 미만으로 입력해주세요.")
     String question,
@@ -36,6 +38,7 @@ public record WorkLogTemplateQuestionResponse(
 ) {
     public static WorkLogTemplateQuestionResponse from(WorkLogTemplateQuestion question) {
         return WorkLogTemplateQuestionResponse.builder()
+            .questionId(question.getId())
             .question(question.getQuestion())
             .questionType(question.getQuestionType())
             .shortText(question.getShortText())
