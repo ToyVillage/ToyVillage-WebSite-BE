@@ -79,7 +79,7 @@ public enum ErrorCode {
 
     // work log
     WORK_LOG_NOT_FOUND(404, "존재하지 않는 업무일지입니다."),
-    WORK_LOG_TEMPLATE_NOT_FOUND(404, "존재하지 않는 업무일지 템플릿입니다."),
+    WORK_LOG_TEMPLATE_NOT_FOUND(404, "존재하지 않는 업무일지 입니다."),
     WORK_LOG_TEMPLATE_EXIST(409, "이미 존재하는 업무일지 템플릿 제목입니다."),
   
     // close day

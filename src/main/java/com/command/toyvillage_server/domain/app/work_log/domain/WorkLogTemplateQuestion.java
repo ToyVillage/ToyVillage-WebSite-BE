@@ -36,10 +36,10 @@ public class WorkLogTemplateQuestion {
     @Column(name = "nultiple_choice", length = 50)
     private String multipleChoice;
 
-    @Column(name = "check_box",  length = 50)
+    @Column(name = "check_box", length = 50)
     private String checkBox;
 
-    @Column(name = "drop_down",  length = 50)
+    @Column(name = "drop_down", length = 50)
     private String dropDown;
 
     @JoinColumn(name = "file_upload")
