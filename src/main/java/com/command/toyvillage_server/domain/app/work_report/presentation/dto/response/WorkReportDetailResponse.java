@@ -4,28 +4,37 @@ import com.command.toyvillage_server.domain.app.work_report.domain.Priority;
 import com.command.toyvillage_server.domain.app.work_report.domain.Status;
 import com.command.toyvillage_server.domain.app.work_report.domain.Visibility;
 import com.command.toyvillage_server.domain.app.work_report.domain.WorkReport;
-import java.time.LocalDate;
+import com.command.toyvillage_server.domain.web.file.presentation.dto.response.FileResponse;
 
-public record WorkReportResponse(
+import java.time.LocalDate;
+import java.util.List;
+
+public record WorkReportDetailResponse(
         Long workReportId,
         Long employeeId,
         String employeeName,
-        String title,
         Status status,
         Priority priority,
         LocalDate finishDate,
-        Visibility visibility
+        Visibility visibility,
+        String title,
+        String content,
+        List<FileResponse> files
 ) {
-    public static WorkReportResponse from(WorkReport workReport) {
-        return new WorkReportResponse(
+    public static WorkReportDetailResponse from(WorkReport workReport) {
+        return new WorkReportDetailResponse(
                 workReport.getId(),
                 workReport.getEmployee().getId(),
                 workReport.getEmployee().getName(),
-                workReport.getTitle(),
                 workReport.getStatus(),
                 workReport.getPriority(),
                 workReport.getFinishDate(),
-                workReport.getVisibility()
+                workReport.getVisibility(),
+                workReport.getTitle(),
+                workReport.getContent(),
+                workReport.getFiles().stream()
+                        .map(FileResponse::from)
+                        .toList()
         );
     }
 }

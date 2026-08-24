@@ -86,7 +86,10 @@ public enum ErrorCode {
     OPEN_TIME_INVALID_PERIOD(400, "운영 종료시간은 운영 시작시간보다 빠를 수 없습니다."),
 
     // team
-    TEAM_NOT_FOUND(404, "존재하지 않는 팀입니다.");
+    TEAM_NOT_FOUND(404, "존재하지 않는 팀입니다."),
+
+    // work report
+    WORK_REPORT_NOT_FOUNT(404, "존재하지 않는 업무관리입니다.");
     private final int statusCode;
     private final String errorMessage;
 }

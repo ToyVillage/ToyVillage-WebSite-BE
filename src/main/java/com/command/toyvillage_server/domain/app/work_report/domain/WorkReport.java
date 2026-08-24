@@ -71,4 +71,10 @@ public class WorkReport {
     @JoinColumn(name = "visible_team_id")
     private Team visibleTeam;
 
+    public void approve(){
+        this.status = Status.APPROVED;
+    }
+    public void reject(){
+        this.status = Status.REJECTED;
+    }
 }
