@@ -65,6 +65,10 @@ public class WorkLogAnswer {
         return new WorkLogAnswer(section, question, answerText, file);
     }
 
+    public boolean isFilled() {
+        return file != null || (answerText != null && !answerText.isBlank());
+    }
+
     void setWorkLog(WorkLog workLog) {
         this.workLog = workLog;
     }

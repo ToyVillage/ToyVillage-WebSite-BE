@@ -10,6 +10,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
+import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogAnswerRequiredException;
+import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogQuestionNotFoundException;
+import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogSectionNotFoundException;
+import com.command.toyvillage_server.domain.web.file.domain.File;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +22,10 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Entity
@@ -63,5 +70,42 @@ public class WorkLogTemplate {
     public void addSection(WorkLogSection section) {
         sections.add(section);
         section.setTemplate(this);
+    }
+
+    public WorkLogAnswer createAnswer(Long sectionId, Long questionId, String answerText, File file) {
+        return WorkLogAnswer.create(findSection(sectionId), findQuestion(questionId), answerText, file);
+    }
+
+    public void validateRequiredAnswered(List<WorkLogAnswer> answers) {
+        Set<String> answered = answers.stream()
+            .filter(WorkLogAnswer::isFilled)
+            .map(answer -> key(answer.getSection().getId(), answer.getQuestion().getId()))
+            .collect(Collectors.toCollection(HashSet::new));
+
+        questions.stream()
+            .filter(WorkLogQuestion::isRequired)
+            .forEach(question -> sections.forEach(section -> {
+                if (!answered.contains(key(section.getId(), question.getId()))) {
+                    throw WorkLogAnswerRequiredException.EXCEPTION;
+                }
+            }));
+    }
+
+    private WorkLogSection findSection(Long sectionId) {
+        return sections.stream()
+            .filter(section -> section.getId().equals(sectionId))
+            .findFirst()
+            .orElseThrow(() -> WorkLogSectionNotFoundException.EXCEPTION);
+    }
+
+    private WorkLogQuestion findQuestion(Long questionId) {
+        return questions.stream()
+            .filter(question -> question.getId().equals(questionId))
+            .findFirst()
+            .orElseThrow(() -> WorkLogQuestionNotFoundException.EXCEPTION);
+    }
+
+    private String key(Long sectionId, Long questionId) {
+        return sectionId + ":" + questionId;
     }
 }
