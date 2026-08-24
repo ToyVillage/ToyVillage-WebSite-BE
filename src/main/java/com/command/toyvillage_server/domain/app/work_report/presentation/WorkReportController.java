@@ -35,11 +35,11 @@ public class WorkReportController {
     @PatchMapping("/approve/{id}")
     public MessageResponse approveWorkReport(@PathVariable Long id) {
         workReportApproveService.execute(id);
-        return MessageResponse.of("승인에 성공했습니다.");
+        return MessageResponse.of("업무 보고가 승인되었습니다.");
     }
     @PatchMapping("/reject/{id}")
     public MessageResponse rejectWorkReport(@PathVariable Long id) {
         workReportRejectService.execute(id);
-        return MessageResponse.of("반려에 성공했습니다.");
+        return MessageResponse.of("업무 보고가 반려되었습니다.");
     }
 }

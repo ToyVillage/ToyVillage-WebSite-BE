@@ -89,7 +89,9 @@ public enum ErrorCode {
     TEAM_NOT_FOUND(404, "존재하지 않는 팀입니다."),
 
     // work report
-    WORK_REPORT_NOT_FOUNT(404, "존재하지 않는 업무관리입니다.");
+    WORK_REPORT_NOT_FOUNT(404, "존재하지 않는 업무관리입니다."),
+    WORK_REPORT_ALREADY_APPROVED(409, "이미 승인된 업무관리입니다."),
+    WORK_REPORT_ALREADY_REJECTED(409, "이미 반려된 업무관리입니다.");
     private final int statusCode;
     private final String errorMessage;
 }
