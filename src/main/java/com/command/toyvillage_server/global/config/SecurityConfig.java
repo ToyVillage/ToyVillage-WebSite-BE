@@ -128,6 +128,7 @@ public class SecurityConfig {
                     // work log
                     .requestMatchers(HttpMethod.POST, "/work-log/employee/**").hasRole("EMPLOYEE")
                     .requestMatchers(HttpMethod.PATCH, "/work-log/employee/**").hasRole("EMPLOYEE")
+                    .requestMatchers(HttpMethod.DELETE, "/work-log/employee/**").hasRole("EMPLOYEE")
                     .requestMatchers(HttpMethod.GET, "/work-log/employee").hasRole("EMPLOYEE")
                     .requestMatchers(HttpMethod.GET, "/work-log").hasRole("APP_ADMIN")
                     .requestMatchers(HttpMethod.POST, "/work-log/template").hasRole("APP_ADMIN")

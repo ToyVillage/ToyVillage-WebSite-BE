@@ -7,6 +7,7 @@ import com.command.toyvillage_server.domain.app.work_log.presentation.dto.respon
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.response.WorkLogTemplateQueryListResponse;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.response.WorkLogTemplateResponse;
 import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogAdminQueryListService;
+import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogEmployeeDeleteService;
 import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogEmployeeQueryListService;
 import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogAdminQueryService;
 import com.command.toyvillage_server.domain.app.work_log.service.template.WorkLogTemplateAdminCreateService;
@@ -22,6 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,6 +41,7 @@ public class WorkLogController {
     private final WorkLogTemplateEmployeeQueryService workLogTemplateEmployeeQueryService;
     private final WorkLogEmployeeWriteService workLogEmployeeWriteService;
     private final WorkLogEmployeeUpdateService workLogEmployeeUpdateService;
+    private final WorkLogEmployeeDeleteService workLogEmployeeDeleteService;
     private final WorkLogAdminQueryListService workLogAdminQueryListService;
     private final WorkLogEmployeeQueryListService workLogEmployeeQueryListService;
     private final WorkLogAdminQueryService workLogAdminQueryService;
@@ -86,6 +89,13 @@ public class WorkLogController {
         workLogEmployeeUpdateService.execute(workLogId, request);
 
         return MessageResponse.of("업무일지 수정 성공");
+    }
+
+    @DeleteMapping("/employee/{workLogId}")
+    public MessageResponse deleteWorkLog(@PathVariable Long workLogId) {
+        workLogEmployeeDeleteService.execute(workLogId);
+
+        return MessageResponse.of("업무일지 삭제 성공");
     }
 
     @GetMapping
