@@ -15,18 +15,18 @@ import lombok.NoArgsConstructor;
 
 @Getter
 @Entity
-@Table(name = "tbl_multiple_choice")
+@Table(name = "tbl_work_log_question_option")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class MultipleChoice {
+public class WorkLogQuestionOption {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "multiple_choice_id")
+    @Column(name = "work_log_question_option_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "work_log_question_id", nullable = false)
-    private WorkLogTemplateQuestion question;
+    private WorkLogQuestion question;
 
     @Column(nullable = false)
     private Integer number;
@@ -34,20 +34,20 @@ public class MultipleChoice {
     @Column(nullable = false, length = 30)
     private String content;
 
-    @Column(name = "etc_choice", nullable = false)
-    private boolean etc;
+    @Column(name = "etc_option", nullable = false)
+    private boolean etcOption;
 
-    private MultipleChoice(Integer number, String content, boolean etc) {
+    private WorkLogQuestionOption(Integer number, String content, boolean etcOption) {
         this.number = number;
         this.content = content;
-        this.etc = etc;
+        this.etcOption = etcOption;
     }
 
-    public static MultipleChoice create(Integer number, String content, boolean etc) {
-        return new MultipleChoice(number, content, etc);
+    public static WorkLogQuestionOption create(Integer number, String content, boolean etcOption) {
+        return new WorkLogQuestionOption(number, content, etcOption);
     }
 
-    void setQuestion(WorkLogTemplateQuestion question) {
+    void setQuestion(WorkLogQuestion question) {
         this.question = question;
     }
 }

@@ -41,7 +41,7 @@ public class WorkLogTemplate {
 
     @OrderBy("questionOrder asc")
     @OneToMany(mappedBy = "template", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<WorkLogTemplateQuestion> questions = new ArrayList<>();
+    private List<WorkLogQuestion> questions = new ArrayList<>();
 
     @OrderBy("sectionOrder asc")
     @OneToMany(mappedBy = "template", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -55,7 +55,7 @@ public class WorkLogTemplate {
         return new WorkLogTemplate(templateTitle);
     }
 
-    public void addQuestion(WorkLogTemplateQuestion question) {
+    public void addQuestion(WorkLogQuestion question) {
         questions.add(question);
         question.setTemplate(this);
     }

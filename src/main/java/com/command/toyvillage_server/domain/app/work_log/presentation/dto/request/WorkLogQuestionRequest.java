@@ -19,9 +19,9 @@ public record WorkLogQuestionRequest(
     boolean required,
 
     @Valid
-    List<WorkLogChoiceRequest> choices
+    List<WorkLogQuestionOptionRequest> options
 ) {
-    public List<WorkLogChoiceRequest> choices() {
-        return choices == null ? List.of() : choices;
+    public List<WorkLogQuestionOptionRequest> options() {
+        return options == null ? List.of() : options;
     }
 }

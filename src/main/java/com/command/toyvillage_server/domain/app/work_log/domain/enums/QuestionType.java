@@ -14,9 +14,9 @@ public enum QuestionType {
     FILE_UPLOAD("파일 업로드", false);
 
     private final String description;
-    private final boolean choiceRequired;
+    private final boolean optionRequired;
 
-    public boolean isChoiceRequired() {
-        return choiceRequired;
+    public boolean isOptionRequired() {
+        return optionRequired;
     }
 }

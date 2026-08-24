@@ -1,13 +1,13 @@
 package com.command.toyvillage_server.domain.app.work_log.service;
 
-import com.command.toyvillage_server.domain.app.work_log.domain.MultipleChoice;
+import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogQuestionOption;
 import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogSection;
 import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogTemplate;
-import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogTemplateQuestion;
+import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogQuestion;
 import com.command.toyvillage_server.domain.app.work_log.domain.repository.WorkLogTemplateRepository;
-import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogChoiceRequiredException;
+import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogOptionRequiredException;
 import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogTemplateAlreadyExistsException;
-import com.command.toyvillage_server.domain.app.work_log.presentation.dto.request.WorkLogChoiceRequest;
+import com.command.toyvillage_server.domain.app.work_log.presentation.dto.request.WorkLogQuestionOptionRequest;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.request.WorkLogQuestionRequest;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.request.WorkLogTemplateRequest;
 import lombok.RequiredArgsConstructor;
@@ -33,11 +33,7 @@ public class WorkLogTemplateCreateService {
         addSections(template, request.sections());
         addQuestions(template, request.questions());
 
-        try {
-            workLogTemplateRepository.saveAndFlush(template);
-        } catch (DataIntegrityViolationException exception) {
-            throw WorkLogTemplateAlreadyExistsException.EXCEPTION;
-        }
+        workLogTemplateRepository.save(template);
     }
 
     private void addSections(WorkLogTemplate template, List<String> sectionNames) {
@@ -50,7 +46,7 @@ public class WorkLogTemplateCreateService {
         for (int order = 0; order < questions.size(); order++) {
             WorkLogQuestionRequest questionRequest = questions.get(order);
 
-            WorkLogTemplateQuestion question = WorkLogTemplateQuestion.create(
+            WorkLogQuestion question = WorkLogQuestion.create(
                 questionRequest.question(),
                 questionRequest.questionType(),
                 order,
@@ -63,18 +59,18 @@ public class WorkLogTemplateCreateService {
         }
     }
 
-    private void addChoices(WorkLogTemplateQuestion question, WorkLogQuestionRequest request) {
-        List<WorkLogChoiceRequest> choices = request.choices();
+    private void addChoices(WorkLogQuestion question, WorkLogQuestionRequest request) {
+        List<WorkLogQuestionOptionRequest> options = request.options();
 
-        if (request.questionType().isChoiceRequired() && choices.isEmpty()) {
-            throw WorkLogChoiceRequiredException.EXCEPTION;
+        if (request.questionType().isOptionRequired() && options.isEmpty()) {
+            throw WorkLogOptionRequiredException.EXCEPTION;
         }
 
-        for (int number = 0; number < choices.size(); number++) {
-            question.addChoice(MultipleChoice.create(
+        for (int number = 0; number < options.size(); number++) {
+            question.addOption(WorkLogQuestionOption.create(
                 number,
-                choices.get(number).content(),
-                choices.get(number).etc()
+                options.get(number).content(),
+                options.get(number).etcOption()
             ));
         }
     }

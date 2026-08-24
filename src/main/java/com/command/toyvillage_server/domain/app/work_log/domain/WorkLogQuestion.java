@@ -26,7 +26,7 @@ import java.util.List;
 @Entity
 @Table(name = "tbl_work_log_question")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class WorkLogTemplateQuestion {
+public class WorkLogQuestion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -52,9 +52,9 @@ public class WorkLogTemplateQuestion {
 
     @OrderBy("number asc")
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MultipleChoice> choices = new ArrayList<>();
+    private List<WorkLogQuestionOption> options = new ArrayList<>();
 
-    private WorkLogTemplateQuestion(
+    private WorkLogQuestion(
         String question,
         QuestionType questionType,
         Integer questionOrder,
@@ -66,18 +66,18 @@ public class WorkLogTemplateQuestion {
         this.required = required;
     }
 
-    public static WorkLogTemplateQuestion create(
+    public static WorkLogQuestion create(
         String question,
         QuestionType questionType,
         Integer questionOrder,
         boolean required
     ) {
-        return new WorkLogTemplateQuestion(question, questionType, questionOrder, required);
+        return new WorkLogQuestion(question, questionType, questionOrder, required);
     }
 
-    public void addChoice(MultipleChoice choice) {
-        choices.add(choice);
-        choice.setQuestion(this);
+    public void addOption(WorkLogQuestionOption option) {
+        options.add(option);
+        option.setQuestion(this);
     }
 
     void setTemplate(WorkLogTemplate template) {

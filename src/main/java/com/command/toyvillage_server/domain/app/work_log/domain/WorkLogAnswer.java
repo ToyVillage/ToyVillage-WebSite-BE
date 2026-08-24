@@ -35,7 +35,7 @@ public class WorkLogAnswer {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "work_log_question_id", nullable = false)
-    private WorkLogTemplateQuestion question;
+    private WorkLogQuestion question;
 
     @Column(name = "answer_text", length = 500)
     private String answerText;
@@ -46,7 +46,7 @@ public class WorkLogAnswer {
 
     private WorkLogAnswer(
         WorkLogSection section,
-        WorkLogTemplateQuestion question,
+        WorkLogQuestion question,
         String answerText,
         File file
     ) {
@@ -58,7 +58,7 @@ public class WorkLogAnswer {
 
     public static WorkLogAnswer create(
         WorkLogSection section,
-        WorkLogTemplateQuestion question,
+        WorkLogQuestion question,
         String answerText,
         File file
     ) {

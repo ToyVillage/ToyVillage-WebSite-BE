@@ -3,7 +3,7 @@ package com.command.toyvillage_server.domain.app.work_log.service;
 import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogAnswer;
 import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogSection;
 import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogTemplate;
-import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogTemplateQuestion;
+import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogQuestion;
 import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogAnswerRequiredException;
 import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogQuestionNotFoundException;
 import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogSectionNotFoundException;
@@ -30,8 +30,8 @@ public class WorkLogAnswerConverter {
         Map<Long, WorkLogSection> sections = template.getSections().stream()
             .collect(Collectors.toMap(WorkLogSection::getId, Function.identity()));
 
-        Map<Long, WorkLogTemplateQuestion> questions = template.getQuestions().stream()
-            .collect(Collectors.toMap(WorkLogTemplateQuestion::getId, Function.identity()));
+        Map<Long, WorkLogQuestion> questions = template.getQuestions().stream()
+            .collect(Collectors.toMap(WorkLogQuestion::getId, Function.identity()));
 
         List<WorkLogAnswer> answers = requests.stream()
             .map(request -> toAnswer(request, sections, questions))
@@ -45,14 +45,14 @@ public class WorkLogAnswerConverter {
     private WorkLogAnswer toAnswer(
         WorkLogAnswerRequest request,
         Map<Long, WorkLogSection> sections,
-        Map<Long, WorkLogTemplateQuestion> questions
+        Map<Long, WorkLogQuestion> questions
     ) {
         WorkLogSection section = sections.get(request.sectionId());
         if (section == null) {
             throw WorkLogSectionNotFoundException.EXCEPTION;
         }
 
-        WorkLogTemplateQuestion question = questions.get(request.questionId());
+        WorkLogQuestion question = questions.get(request.questionId());
         if (question == null) {
             throw WorkLogQuestionNotFoundException.EXCEPTION;
         }
@@ -80,7 +80,7 @@ public class WorkLogAnswerConverter {
             .collect(Collectors.toCollection(HashSet::new));
 
         template.getQuestions().stream()
-            .filter(WorkLogTemplateQuestion::isRequired)
+            .filter(WorkLogQuestion::isRequired)
             .forEach(question -> sections.keySet().forEach(sectionId -> {
                 if (!filled.contains(key(sectionId, question.getId()))) {
                     throw WorkLogAnswerRequiredException.EXCEPTION;

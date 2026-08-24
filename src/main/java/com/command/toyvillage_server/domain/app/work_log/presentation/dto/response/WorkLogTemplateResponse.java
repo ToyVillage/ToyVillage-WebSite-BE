@@ -10,7 +10,7 @@ public record WorkLogTemplateResponse(
     Long templateId,
     String templateTitle,
     List<WorkLogSectionResponse> sections,
-    List<WorkLogTemplateQuestionResponse> questions
+    List<WorkLogQuestionResponse> questions
 ) {
     public static WorkLogTemplateResponse from(WorkLogTemplate template) {
         return WorkLogTemplateResponse.builder()
@@ -20,7 +20,7 @@ public record WorkLogTemplateResponse(
                 .map(WorkLogSectionResponse::from)
                 .toList())
             .questions(template.getQuestions().stream()
-                .map(WorkLogTemplateQuestionResponse::from)
+                .map(WorkLogQuestionResponse::from)
                 .toList())
             .build();
     }
