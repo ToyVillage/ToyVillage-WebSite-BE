@@ -84,6 +84,7 @@ public enum ErrorCode {
     WORK_LOG_SECTION_NOT_FOUND(404, "존재하지 않는 업무일지 구역입니다."),
     WORK_LOG_QUESTION_NOT_FOUND(404, "존재하지 않는 업무일지 질문입니다."),
     WORK_LOG_ANSWER_REQUIRED(400, "필수 질문에 답변하지 않았습니다."),
+    WORK_LOG_CHOICE_REQUIRED(400, "해당 질문 타입은 보기를 하나 이상 등록해야 합니다."),
     WORK_LOG_FORBIDDEN(403, "본인이 작성한 업무일지만 수정할 수 있습니다."),
   
     // close day
