@@ -1,24 +1,41 @@
 package com.command.toyvillage_server.domain.app.work_log.domain;
 
 import com.command.toyvillage_server.domain.app.work_log.domain.enums.QuestionType;
-import com.command.toyvillage_server.domain.web.file.domain.File;
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OrderBy;
+import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-@Entity
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
+@Entity
 @Table(name = "tbl_work_log_question")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
 public class WorkLogTemplateQuestion {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "work_log_question_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "work_log_template_id", nullable = false)
-    private WorkLogTemplate workLogTemplate;
+    private WorkLogTemplate template;
 
     @Column(nullable = false, length = 80)
     private String question;
@@ -27,22 +44,43 @@ public class WorkLogTemplateQuestion {
     @Column(name = "question_type", nullable = false)
     private QuestionType questionType;
 
-    @Column(name = "short_text", length = 100)
-    private String shortText;
+    @Column(name = "question_order", nullable = false)
+    private Integer questionOrder;
 
-    @Column(name = "long_text", length = 500)
-    private String longText;
+    @Column(nullable = false)
+    private boolean required;
 
-    @Column(name = "nultiple_choice", length = 50)
-    private String multipleChoice;
+    @OrderBy("number asc")
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<MultipleChoice> choices = new ArrayList<>();
 
-    @Column(name = "check_box", length = 50)
-    private String checkBox;
+    private WorkLogTemplateQuestion(
+        String question,
+        QuestionType questionType,
+        Integer questionOrder,
+        boolean required
+    ) {
+        this.question = question;
+        this.questionType = questionType;
+        this.questionOrder = questionOrder;
+        this.required = required;
+    }
 
-    @Column(name = "drop_down", length = 50)
-    private String dropDown;
+    public static WorkLogTemplateQuestion create(
+        String question,
+        QuestionType questionType,
+        Integer questionOrder,
+        boolean required
+    ) {
+        return new WorkLogTemplateQuestion(question, questionType, questionOrder, required);
+    }
 
-    @JoinColumn(name = "file_upload")
-    @OneToOne(fetch = FetchType.LAZY)
-    private File fileUpload;
+    public void addChoice(MultipleChoice choice) {
+        choices.add(choice);
+        choice.setQuestion(this);
+    }
+
+    void setTemplate(WorkLogTemplate template) {
+        this.template = template;
+    }
 }
