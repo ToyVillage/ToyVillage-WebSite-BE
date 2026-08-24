@@ -4,6 +4,7 @@ import com.command.toyvillage_server.domain.app.work_log.domain.WorkLog;
 import lombok.Builder;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Builder
@@ -12,7 +13,7 @@ public record WorkLogDetailResponse(
     Long templateId,
     String templateTitle,
     String writerName,
-    LocalDate writeAt,
+    LocalDateTime writeAt,
     List<WorkLogSectionAnswerResponse> sections
 ) {
     public static WorkLogDetailResponse of(
