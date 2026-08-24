@@ -6,11 +6,13 @@ import java.util.List;
 
 @Builder
 public record WorkLogTemplateQueryListResponse(
-    List<String> questionTitle
+    List<WorkLogTemplateQueryListObjectResponse> templates
 ) {
-    public static WorkLogTemplateQueryListResponse from(List<String> questionList) {
+    public static WorkLogTemplateQueryListResponse from(
+        List<WorkLogTemplateQueryListObjectResponse> templates
+    ) {
         return WorkLogTemplateQueryListResponse.builder()
-            .questionTitle(questionList)
+            .templates(templates)
             .build();
     }
 }

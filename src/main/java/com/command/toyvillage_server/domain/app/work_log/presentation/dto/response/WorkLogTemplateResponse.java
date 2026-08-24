@@ -1,22 +1,27 @@
 package com.command.toyvillage_server.domain.app.work_log.presentation.dto.response;
 
-import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogTemplateQuestion;
+import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogTemplate;
 import lombok.Builder;
 
 import java.util.List;
 
 @Builder
 public record WorkLogTemplateResponse(
-    String questionTitle,
-    List<WorkLogTemplateQuestionResponse> questionList
+    Long templateId,
+    String templateTitle,
+    List<WorkLogSectionResponse> sections,
+    List<WorkLogTemplateQuestionResponse> questions
 ) {
-    public static WorkLogTemplateResponse of(
-        String questionTitle,
-        List<WorkLogTemplateQuestionResponse> questionList
-    ) {
+    public static WorkLogTemplateResponse from(WorkLogTemplate template) {
         return WorkLogTemplateResponse.builder()
-            .questionTitle(questionTitle)
-            .questionList(questionList)
+            .templateId(template.getId())
+            .templateTitle(template.getTemplateTitle())
+            .sections(template.getSections().stream()
+                .map(WorkLogSectionResponse::from)
+                .toList())
+            .questions(template.getQuestions().stream()
+                .map(WorkLogTemplateQuestionResponse::from)
+                .toList())
             .build();
     }
 }
