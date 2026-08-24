@@ -126,7 +126,8 @@ public class SecurityConfig {
                     .requestMatchers("/documents", "/documents/**").hasRole("APP_ADMIN")
 
                     // work log
-                    .requestMatchers(HttpMethod.POST, "/work-log/employee").hasRole("EMPLOYEE")
+                    .requestMatchers(HttpMethod.POST, "/work-log/employee/**").hasRole("EMPLOYEE")
+                    .requestMatchers(HttpMethod.PATCH, "/work-log/employee/**").hasRole("EMPLOYEE")
                     .requestMatchers(HttpMethod.GET, "/work-log/employee").hasRole("EMPLOYEE")
                     .requestMatchers(HttpMethod.GET, "/work-log").hasRole("APP_ADMIN")
                     .requestMatchers(HttpMethod.POST, "/work-log/template").hasRole("APP_ADMIN")
