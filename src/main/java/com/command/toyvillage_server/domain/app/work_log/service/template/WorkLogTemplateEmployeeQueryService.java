@@ -1,4 +1,4 @@
-package com.command.toyvillage_server.domain.app.work_log.service;
+package com.command.toyvillage_server.domain.app.work_log.service.template;
 
 import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogTemplate;
 import com.command.toyvillage_server.domain.app.work_log.domain.repository.WorkLogTemplateRepository;
@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class WorkLogTemplateQueryService {
+public class WorkLogTemplateEmployeeQueryService {
     private final WorkLogTemplateRepository workLogTemplateRepository;
 
     @Transactional(readOnly = true)

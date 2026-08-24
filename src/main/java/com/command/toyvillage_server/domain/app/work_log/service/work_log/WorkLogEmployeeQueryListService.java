@@ -1,4 +1,4 @@
-package com.command.toyvillage_server.domain.app.work_log.service;
+package com.command.toyvillage_server.domain.app.work_log.service.work_log;
 
 import com.command.toyvillage_server.domain.app.auth.admin.exception.AppAdminNotFoundException;
 import com.command.toyvillage_server.domain.app.work_log.domain.repository.WorkLogRepository;

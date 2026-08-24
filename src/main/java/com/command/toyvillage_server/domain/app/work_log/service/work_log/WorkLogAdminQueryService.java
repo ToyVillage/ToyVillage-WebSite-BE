@@ -1,4 +1,4 @@
-package com.command.toyvillage_server.domain.app.work_log.service;
+package com.command.toyvillage_server.domain.app.work_log.service.work_log;
 
 import com.command.toyvillage_server.domain.app.work_log.domain.WorkLog;
 import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogAnswer;
@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class WorkLogQueryService {
+public class WorkLogAdminQueryService {
     private final WorkLogRepository workLogRepository;
 
     @Transactional(readOnly = true)

@@ -1,4 +1,4 @@
-package com.command.toyvillage_server.domain.app.work_log.service;
+package com.command.toyvillage_server.domain.app.work_log.service.template;
 
 import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogQuestionOption;
 import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogSection;
@@ -11,7 +11,6 @@ import com.command.toyvillage_server.domain.app.work_log.presentation.dto.reques
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.request.WorkLogQuestionRequest;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.request.WorkLogTemplateRequest;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +18,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class WorkLogTemplateCreateService {
+public class WorkLogTemplateAdminCreateService {
     private final WorkLogTemplateRepository workLogTemplateRepository;
 
     @Transactional

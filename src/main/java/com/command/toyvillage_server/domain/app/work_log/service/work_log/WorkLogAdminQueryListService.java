@@ -1,4 +1,4 @@
-package com.command.toyvillage_server.domain.app.work_log.service;
+package com.command.toyvillage_server.domain.app.work_log.service.work_log;
 
 import com.command.toyvillage_server.domain.app.work_log.domain.repository.WorkLogRepository;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.response.WorkLogListResponse;

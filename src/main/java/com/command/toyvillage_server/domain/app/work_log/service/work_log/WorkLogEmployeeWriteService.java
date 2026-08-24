@@ -1,4 +1,4 @@
-package com.command.toyvillage_server.domain.app.work_log.service;
+package com.command.toyvillage_server.domain.app.work_log.service.work_log;
 
 import com.command.toyvillage_server.domain.app.auth.admin.domain.AppAdmin;
 import com.command.toyvillage_server.domain.app.auth.admin.domain.repository.AppAdminRepository;
@@ -24,7 +24,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class WorkLogWriteService {
+public class WorkLogEmployeeWriteService {
     private final WorkLogRepository workLogRepository;
     private final WorkLogTemplateRepository workLogTemplateRepository;
     private final AppAdminRepository appAdminRepository;

@@ -6,14 +6,14 @@ import com.command.toyvillage_server.domain.app.work_log.presentation.dto.respon
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.response.WorkLogListResponse;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.response.WorkLogTemplateQueryListResponse;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.response.WorkLogTemplateResponse;
-import com.command.toyvillage_server.domain.app.work_log.service.WorkLogAdminQueryListService;
-import com.command.toyvillage_server.domain.app.work_log.service.WorkLogEmployeeQueryListService;
-import com.command.toyvillage_server.domain.app.work_log.service.WorkLogQueryService;
-import com.command.toyvillage_server.domain.app.work_log.service.WorkLogTemplateCreateService;
-import com.command.toyvillage_server.domain.app.work_log.service.WorkLogTemplateQueryListService;
-import com.command.toyvillage_server.domain.app.work_log.service.WorkLogTemplateQueryService;
-import com.command.toyvillage_server.domain.app.work_log.service.WorkLogUpdateService;
-import com.command.toyvillage_server.domain.app.work_log.service.WorkLogWriteService;
+import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogAdminQueryListService;
+import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogEmployeeQueryListService;
+import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogAdminQueryService;
+import com.command.toyvillage_server.domain.app.work_log.service.template.WorkLogTemplateAdminCreateService;
+import com.command.toyvillage_server.domain.app.work_log.service.template.WorkLogTemplateEmployeeQueryListService;
+import com.command.toyvillage_server.domain.app.work_log.service.template.WorkLogTemplateEmployeeQueryService;
+import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogEmployeeUpdateService;
+import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogEmployeeWriteService;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -34,20 +34,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/work-log")
 @RequiredArgsConstructor
 public class WorkLogController {
-    private final WorkLogTemplateCreateService workLogTemplateCreateService;
-    private final WorkLogTemplateQueryListService workLogTemplateQueryListService;
-    private final WorkLogTemplateQueryService workLogTemplateQueryService;
-    private final WorkLogWriteService workLogWriteService;
-    private final WorkLogUpdateService workLogUpdateService;
+    private final WorkLogTemplateAdminCreateService workLogTemplateAdminCreateService;
+    private final WorkLogTemplateEmployeeQueryListService workLogTemplateEmployeeQueryListService;
+    private final WorkLogTemplateEmployeeQueryService workLogTemplateEmployeeQueryService;
+    private final WorkLogEmployeeWriteService workLogEmployeeWriteService;
+    private final WorkLogEmployeeUpdateService workLogEmployeeUpdateService;
     private final WorkLogAdminQueryListService workLogAdminQueryListService;
     private final WorkLogEmployeeQueryListService workLogEmployeeQueryListService;
-    private final WorkLogQueryService workLogQueryService;
+    private final WorkLogAdminQueryService workLogAdminQueryService;
 
     @PostMapping("/template")
     public ResponseEntity<MessageResponse> createWorkLogTemplate(
         @RequestBody @Valid WorkLogTemplateRequest request
     ) {
-        workLogTemplateCreateService.execute(request);
+        workLogTemplateAdminCreateService.execute(request);
 
         return ResponseEntity
             .status(HttpStatus.CREATED)
@@ -56,14 +56,14 @@ public class WorkLogController {
 
     @GetMapping("/template")
     public WorkLogTemplateQueryListResponse getWorkLogTemplateList() {
-        return workLogTemplateQueryListService.execute();
+        return workLogTemplateEmployeeQueryListService.execute();
     }
 
     @GetMapping("/template/{workLogTemplateId}")
     public WorkLogTemplateResponse getWorkLogTemplateDetail(
         @PathVariable Long workLogTemplateId
     ) {
-        return workLogTemplateQueryService.execute(workLogTemplateId);
+        return workLogTemplateEmployeeQueryService.execute(workLogTemplateId);
     }
 
     @PostMapping("/employee/{workLogTemplateId}")
@@ -71,7 +71,7 @@ public class WorkLogController {
         @PathVariable Long workLogTemplateId,
         @RequestBody @Valid WorkLogWriteRequest request
     ) {
-        workLogWriteService.execute(workLogTemplateId, request);
+        workLogEmployeeWriteService.execute(workLogTemplateId, request);
 
         return ResponseEntity
             .status(HttpStatus.CREATED)
@@ -83,7 +83,7 @@ public class WorkLogController {
         @PathVariable Long workLogId,
         @RequestBody @Valid WorkLogWriteRequest request
     ) {
-        workLogUpdateService.execute(workLogId, request);
+        workLogEmployeeUpdateService.execute(workLogId, request);
 
         return MessageResponse.of("업무일지 수정 성공");
     }
@@ -104,6 +104,6 @@ public class WorkLogController {
 
     @GetMapping("/{workLogId}")
     public WorkLogDetailResponse getWorkLogDetail(@PathVariable Long workLogId) {
-        return workLogQueryService.execute(workLogId);
+        return workLogAdminQueryService.execute(workLogId);
     }
 }

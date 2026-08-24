@@ -1,4 +1,4 @@
-package com.command.toyvillage_server.domain.app.work_log.service;
+package com.command.toyvillage_server.domain.app.work_log.service.template;
 
 import com.command.toyvillage_server.domain.app.work_log.domain.repository.WorkLogTemplateRepository;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.response.WorkLogTemplateQueryListObjectResponse;
@@ -11,7 +11,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class WorkLogTemplateQueryListService {
+public class WorkLogTemplateEmployeeQueryListService {
     private final WorkLogTemplateRepository workLogTemplateRepository;
 
     @Transactional(readOnly = true)
