@@ -81,7 +81,7 @@ public class Task {
         this.assigneeTeam = assigneeTeam;
         this.finishDate = finishDate;
         this.priority = priority;
-        this.files = new ArrayList<>(files);
+        this.files = files == null ? new ArrayList<>() : new ArrayList<>(files);
     }
 
     public void update(
@@ -104,8 +104,6 @@ public class Task {
         if (files != null) {
             this.files.clear();
             this.files.addAll(files);
-        } else {
-            this
         }
     }
 }
