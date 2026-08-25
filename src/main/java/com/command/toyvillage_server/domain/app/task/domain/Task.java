@@ -51,10 +51,6 @@ public class Task {
     @Column(nullable = false)
     private TaskPriority priority;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private TaskStatus status;
-
     @CreatedDate
     @Column(nullable = false, name = "created_at")
     private LocalDateTime createdAt;
@@ -85,7 +81,6 @@ public class Task {
         this.assigneeTeam = assigneeTeam;
         this.finishDate = finishDate;
         this.priority = priority;
-        this.status = TaskStatus.IN_PROGRESS;
         this.files = new ArrayList<>(files);
     }
 
@@ -109,10 +104,8 @@ public class Task {
         if (files != null) {
             this.files.clear();
             this.files.addAll(files);
+        } else {
+            this
         }
-    }
-
-    public void updateStatus(TaskStatus status) {
-        this.status = status;
     }
 }
