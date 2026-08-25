@@ -1,4 +1,4 @@
-package com.command.toyvillage_server.domain.app.work.domain;
+package com.command.toyvillage_server.domain.app.work_report.domain;
 
 public enum Status {
     PENDING,
