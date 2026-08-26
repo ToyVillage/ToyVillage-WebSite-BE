@@ -43,6 +43,9 @@ public class WorkReport {
     @Column(nullable = false, length = 20)
     private Status status = Status.PENDING;
 
+    @Column(name = "rejection_reason" , length = 1000)
+    private String rejectionReason;
+
     @Builder
     public WorkReport(Task task,String content, String note, List<File> files) {
         this.task = task;
@@ -63,7 +66,8 @@ public class WorkReport {
     public void approve(){
         this.status = Status.APPROVED;
     }
-    public void reject(){
+    public void reject(String rejectionReason){
         this.status = Status.REJECTED;
+        this.rejectionReason = rejectionReason;
     }
 }

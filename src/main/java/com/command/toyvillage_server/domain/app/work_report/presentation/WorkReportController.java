@@ -1,5 +1,6 @@
 package com.command.toyvillage_server.domain.app.work_report.presentation;
 
+import com.command.toyvillage_server.domain.app.work_report.presentation.dto.request.WorkRejectRequest;
 import com.command.toyvillage_server.domain.app.work_report.presentation.dto.request.WorkReportRequest;
 import com.command.toyvillage_server.domain.app.work_report.service.*;
 import com.command.toyvillage_server.domain.app.work_report.service.WorkApproveService;
@@ -7,6 +8,7 @@ import com.command.toyvillage_server.domain.app.work_report.service.WorkRejectSe
 import com.command.toyvillage_server.domain.app.work_report.service.WorkReportCreateService;
 import com.command.toyvillage_server.domain.app.work_report.service.WorkReportUpdateService;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,8 +34,8 @@ public class WorkReportController {
         return MessageResponse.of("업무 보고가 승인되었습니다.");
     }
     @PatchMapping("/reject/{id}")
-    public MessageResponse rejectWork(@PathVariable Long id) {
-        workRejectService.execute(id);
+    public MessageResponse rejectWork(@PathVariable Long id,@Valid @RequestBody WorkRejectRequest workRejectRequest) {
+        workRejectService.execute(id,workRejectRequest);
         return MessageResponse.of("업무 보고가 반려되었습니다.");
     }
 
