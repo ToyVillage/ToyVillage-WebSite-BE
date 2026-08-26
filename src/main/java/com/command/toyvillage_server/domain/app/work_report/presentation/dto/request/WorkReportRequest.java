@@ -3,6 +3,8 @@ package com.command.toyvillage_server.domain.app.work_report.presentation.dto.re
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.List;
+
 public record WorkReportRequest(
         @NotBlank
         @Size(min = 1, max = 2000)
@@ -11,6 +13,6 @@ public record WorkReportRequest(
         @Size(min = 1, max = 2000)
         String note,
 
-        String fileKey
+        List<String> fileKey
 ) {
 }

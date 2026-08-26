@@ -4,9 +4,11 @@ import com.command.toyvillage_server.domain.app.task.domain.Task;
 import com.command.toyvillage_server.domain.web.file.domain.File;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -23,22 +25,40 @@ public class WorkReport {
     @JoinColumn(name = "task_id")
     private Task task;
 
-    @Column(nullable = false)
+    @Column(name = "content",nullable = false)
     private String content;
 
+    @Column(name = "note")
     private String note;
 
     @OneToMany
     @JoinTable(
-            name = "tbl_document_file",
-            joinColumns = @JoinColumn(name = "document_id", nullable = false),
+            name = "tbl_work_report_file",
+            joinColumns = @JoinColumn(name = "work_report_id", nullable = false),
             inverseJoinColumns = @JoinColumn(name = "file_id", unique = true, nullable = false)
     )
     private List<File> files;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 20)
-    private Status status;
+    private Status status = Status.PENDING;
+
+    @Builder
+    public WorkReport(Task task,String content, String note, List<File> files) {
+        this.task = task;
+        this.content = content;
+        this.note = note;
+        this.files = files == null ? new ArrayList<>() : new ArrayList<>(files);
+    }
+
+    public void update(String content, String note, List<File> files) {
+        this.content = content;
+        this.note = note;
+        if (files != null) {
+            this.files.clear();
+            this.files.addAll(files);
+        }
+    }
 
     public void approve(){
         this.status = Status.APPROVED;
