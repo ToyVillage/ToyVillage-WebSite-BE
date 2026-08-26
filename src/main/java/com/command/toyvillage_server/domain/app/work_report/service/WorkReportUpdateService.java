@@ -1,7 +1,5 @@
 package com.command.toyvillage_server.domain.app.work_report.service;
 
-import com.command.toyvillage_server.domain.app.task.domain.Task;
-import com.command.toyvillage_server.domain.app.task.domain.repository.TaskRepository;
 import com.command.toyvillage_server.domain.app.work_report.domain.WorkReport;
 import com.command.toyvillage_server.domain.app.work_report.domain.repository.WorkReportRepository;
 import com.command.toyvillage_server.domain.app.work_report.exception.WorkNotFoundException;
@@ -17,26 +15,24 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class WorkReportCreateService {
+public class WorkReportUpdateService {
     private final WorkReportRepository workReportRepository;
-    private final TaskRepository taskRepository;
     private final FileRepository fileRepository;
 
     @Transactional
-    public void execute(Long taskId,WorkReportRequest workReportRequest) {
-        Task task = taskRepository.findById(taskId)
+    public void execute(Long id,WorkReportRequest workReportRequest) {
+        WorkReport workReport = workReportRepository.findById(id)
                 .orElseThrow(() -> WorkNotFoundException.EXCEPTION);
 
-        List<File> files = fileRepository.findAllByFileKeyIn(workReportRequest.fileKey());
-        if (files.size() != workReportRequest.fileKey().size())
-            throw FileNotFoundException.EXCEPTION;
+        List<File> files = null;
+        if (workReportRequest.fileKey() != null) {
+            List<String> fileKeys = workReportRequest.fileKey();
+            files = fileRepository.findAllByFileKeyIn(fileKeys);
+            if (files.size() != fileKeys.size())
+                throw FileNotFoundException.EXCEPTION;
+        }
 
-        WorkReport workReport = WorkReport.builder()
-                .task(task)
-                .content(workReportRequest.content())
-                .note(workReportRequest.note())
-                .files(files)
-                .build();
+        workReport.update(workReportRequest.content(),workReportRequest.note(),files);
         workReportRepository.save(workReport);
     }
 }
