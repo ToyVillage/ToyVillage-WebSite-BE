@@ -87,7 +87,7 @@ public class ReservationController {
         @RequestParam(required = false) ReservationStatus status,
         @RequestParam(required = false) String title,
         @RequestParam(required = false) ReservationSortType sort,
-        @PageableDefault Pageable pageable
+        @PageableDefault(page = 0, size = 3) Pageable pageable
     ) {
         return reservationAdminQueryListService.execute(status, title, sort, pageable);
     }
