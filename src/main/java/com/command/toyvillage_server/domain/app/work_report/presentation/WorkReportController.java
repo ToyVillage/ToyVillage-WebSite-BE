@@ -2,6 +2,10 @@ package com.command.toyvillage_server.domain.app.work_report.presentation;
 
 import com.command.toyvillage_server.domain.app.work_report.presentation.dto.request.WorkReportRequest;
 import com.command.toyvillage_server.domain.app.work_report.service.*;
+import com.command.toyvillage_server.domain.app.work_report.service.WorkApproveService;
+import com.command.toyvillage_server.domain.app.work_report.service.WorkRejectService;
+import com.command.toyvillage_server.domain.app.work_report.service.WorkReportCreateService;
+import com.command.toyvillage_server.domain.app.work_report.service.WorkReportUpdateService;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
