@@ -59,7 +59,7 @@ public class WorkReportController {
     }
 
     @GetMapping("/my")
-    public WorkReportIdResponse getMyWorkReport() {
-        return myWorkReportQueryService.execute();
+    public WorkReportIdResponse getMyWorkReport(@RequestParam Long id) {
+        return myWorkReportQueryService.execute(id);
     }
 }
