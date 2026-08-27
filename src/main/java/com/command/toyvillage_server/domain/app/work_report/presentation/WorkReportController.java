@@ -2,6 +2,8 @@ package com.command.toyvillage_server.domain.app.work_report.presentation;
 
 import com.command.toyvillage_server.domain.app.work_report.presentation.dto.request.WorkRejectRequest;
 import com.command.toyvillage_server.domain.app.work_report.presentation.dto.request.WorkReportRequest;
+import com.command.toyvillage_server.domain.app.work_report.presentation.dto.response.WorkReportIdResponse;
+import com.command.toyvillage_server.domain.app.work_report.presentation.dto.response.WorkReportResponse;
 import com.command.toyvillage_server.domain.app.work_report.service.*;
 import com.command.toyvillage_server.domain.app.work_report.service.WorkApproveService;
 import com.command.toyvillage_server.domain.app.work_report.service.WorkRejectService;
@@ -22,6 +24,8 @@ public class WorkReportController {
     private final WorkRejectService workRejectService;
     private final WorkReportUpdateService workReportUpdateService;
     private final WorkReportDeleteService workReportDeleteService;
+    private final WorkReportQueryService workReportQueryService;
+    private final MyWorkReportQueryService myWorkReportQueryService;
 
     @PostMapping("/{id}")
     public void createWorkReport(@PathVariable Long id, @RequestBody WorkReportRequest workReportRequest) {
@@ -47,5 +51,15 @@ public class WorkReportController {
     @DeleteMapping("/{id}")
     public void deleteWorkReport(@PathVariable Long id) {
         workReportDeleteService.execute(id);
+    }
+
+    @GetMapping("/{id}")
+    public WorkReportResponse getWorkReport(@PathVariable Long id) {
+        return workReportQueryService.execute(id);
+    }
+
+    @GetMapping("/my")
+    public WorkReportIdResponse getMyWorkReport() {
+        return myWorkReportQueryService.execute();
     }
 }

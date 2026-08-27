@@ -66,6 +66,7 @@ public class WorkReport {
     public void approve(){
         this.status = Status.APPROVED;
     }
+
     public void reject(String rejectionReason){
         this.status = Status.REJECTED;
         this.rejectionReason = rejectionReason;
