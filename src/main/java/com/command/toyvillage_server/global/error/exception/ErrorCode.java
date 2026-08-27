@@ -69,6 +69,8 @@ public enum ErrorCode {
     // reservation
     RESERVATION_NOT_FOUND(404, "존재하지 않는 단체예약 목록입니다."),
     RESERVATION_PERMISSION_NOT_FOUND(404, "존재하지 않는 단체예약 조회 권한입니다."),
+    RESERVATION_INVALID_TIME(400, "퇴장 시간은 입장 시간보다 빠를 수 없습니다."),
+    RESERVATION_INVALID_DATE(400, "사전답사일은 방문일보다 늦을 수 없습니다."),
 
     // app admin
     APP_ADMIN_NOT_FOUND(404, "존재하지 않는 앱 관리자입니다."),

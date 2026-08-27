@@ -7,6 +7,9 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -14,6 +17,17 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     Optional<Reservation> findById(Long id);
 
     int countByStatus(ReservationStatus status);
+
+    @Query("""
+        select r from Reservation r
+        where (:status is null or r.status = :status)
+          and (:title is null or lower(r.title) like lower(concat('%', :title, '%')))
+        """)
+    Page<Reservation> search(
+        @Param("status") ReservationStatus status,
+        @Param("title") String title,
+        Pageable pageable
+    );
 
     @Modifying
     @Query("""
