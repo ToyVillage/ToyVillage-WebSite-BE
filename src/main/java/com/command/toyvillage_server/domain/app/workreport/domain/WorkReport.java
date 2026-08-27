@@ -22,8 +22,8 @@ public class WorkReport {
     @Column(name = "work_report_id",nullable = false)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "task_id")
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "task_id", nullable = false, unique = true)
     private Task task;
 
     @OneToOne(fetch = FetchType.LAZY)

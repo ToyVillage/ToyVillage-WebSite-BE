@@ -10,4 +10,5 @@ import java.util.Optional;
 public interface WorkReportRepository extends JpaRepository<WorkReport, Long> {
     Optional<WorkReport> findByTask_IdAndTask_Assignee_Id(Long taskId, Long taskAssigneeId);
     List<WorkReport> findAllByStatus(Status status);
+    boolean existsByTask_Id(Long taskId);
 }
