@@ -28,7 +28,7 @@ public class WorkReportController {
     private final MyWorkReportQueryService myWorkReportQueryService;
 
     @PostMapping("/{id}")
-    public void createWorkReport(@PathVariable Long id, @RequestBody WorkReportRequest workReportRequest) {
+    public void createWorkReport(@PathVariable Long id, @Valid @RequestBody WorkReportRequest workReportRequest) {
         workReportCreateService.execute(id,workReportRequest);
     }
 
@@ -44,7 +44,7 @@ public class WorkReportController {
     }
 
     @PutMapping("/{id}")
-    public void updateWorkReport(@PathVariable Long id, @RequestBody WorkReportRequest workReportRequest) {
+    public void updateWorkReport(@PathVariable Long id, @Valid @RequestBody WorkReportRequest workReportRequest) {
         workReportUpdateService.execute(id , workReportRequest);
     }
 
