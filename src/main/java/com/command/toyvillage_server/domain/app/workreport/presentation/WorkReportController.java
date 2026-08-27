@@ -1,7 +1,10 @@
 package com.command.toyvillage_server.domain.app.workreport.presentation;
 
+import com.command.toyvillage_server.domain.app.workreport.domain.Status;
 import com.command.toyvillage_server.domain.app.workreport.presentation.dto.request.WorkRejectRequest;
 import com.command.toyvillage_server.domain.app.workreport.presentation.dto.request.WorkReportRequest;
+import com.command.toyvillage_server.domain.app.workreport.presentation.dto.response.WorkReportAllResponse;
+import com.command.toyvillage_server.domain.app.workreport.presentation.dto.response.WorkReportDetailResponse;
 import com.command.toyvillage_server.domain.app.workreport.presentation.dto.response.WorkReportResponse;
 import com.command.toyvillage_server.domain.app.workreport.service.*;
 import com.command.toyvillage_server.domain.app.workreport.service.WorkApproveService;
@@ -12,6 +15,8 @@ import com.command.toyvillage_server.global.common.response.MessageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,6 +29,8 @@ public class WorkReportController {
     private final WorkReportUpdateService workReportUpdateService;
     private final WorkReportDeleteService workReportDeleteService;
     private final WorkReportQueryService workReportQueryService;
+    private final WorkReportAllQueryService workReportAllQueryService;
+    private final WorkReportDetailQueryService workReportDetailQueryService;
 
     @PostMapping("/{id}")
     public void createWorkReport(@PathVariable Long id, @Valid @RequestBody WorkReportRequest workReportRequest) {
@@ -54,5 +61,14 @@ public class WorkReportController {
     @GetMapping("/{id}")
     public WorkReportResponse getWorkReport(@PathVariable Long id) {
         return workReportQueryService.execute(id);
+    }
+
+    @GetMapping("/detail/{id}")
+    public WorkReportDetailResponse getWorkReportDetail(@PathVariable Long id) {
+        return workReportDetailQueryService.execute(id);
+    }
+    @GetMapping
+    public List<WorkReportAllResponse> getWorkReportDetails(@RequestParam(required = false)Status status) {
+        return workReportAllQueryService.execute(status);
     }
 }

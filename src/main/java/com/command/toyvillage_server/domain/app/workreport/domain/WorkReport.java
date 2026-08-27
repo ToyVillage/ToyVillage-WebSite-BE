@@ -1,5 +1,6 @@
 package com.command.toyvillage_server.domain.app.workreport.domain;
 
+import com.command.toyvillage_server.domain.app.auth.admin.domain.AppAdmin;
 import com.command.toyvillage_server.domain.app.task.domain.Task;
 import com.command.toyvillage_server.domain.web.file.domain.File;
 import jakarta.persistence.*;
@@ -24,6 +25,9 @@ public class WorkReport {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "task_id")
     private Task task;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private AppAdmin appAdmin;
 
     @Column(name = "content",nullable = false)
     private String content;
