@@ -1,7 +1,7 @@
-package com.command.toyvillage_server.domain.app.work_report.presentation.dto.response;
+package com.command.toyvillage_server.domain.app.workreport.presentation.dto.response;
 
-import com.command.toyvillage_server.domain.app.work_report.domain.Status;
-import com.command.toyvillage_server.domain.app.work_report.domain.WorkReport;
+import com.command.toyvillage_server.domain.app.workreport.domain.Status;
+import com.command.toyvillage_server.domain.app.workreport.domain.WorkReport;
 import com.command.toyvillage_server.domain.web.file.presentation.dto.response.FileResponse;
 import lombok.Builder;
 

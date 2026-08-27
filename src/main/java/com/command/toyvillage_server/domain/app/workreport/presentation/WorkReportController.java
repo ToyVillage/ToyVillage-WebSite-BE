@@ -1,14 +1,13 @@
-package com.command.toyvillage_server.domain.app.work_report.presentation;
+package com.command.toyvillage_server.domain.app.workreport.presentation;
 
-import com.command.toyvillage_server.domain.app.work_report.presentation.dto.request.WorkRejectRequest;
-import com.command.toyvillage_server.domain.app.work_report.presentation.dto.request.WorkReportRequest;
-import com.command.toyvillage_server.domain.app.work_report.presentation.dto.response.WorkReportIdResponse;
-import com.command.toyvillage_server.domain.app.work_report.presentation.dto.response.WorkReportResponse;
-import com.command.toyvillage_server.domain.app.work_report.service.*;
-import com.command.toyvillage_server.domain.app.work_report.service.WorkApproveService;
-import com.command.toyvillage_server.domain.app.work_report.service.WorkRejectService;
-import com.command.toyvillage_server.domain.app.work_report.service.WorkReportCreateService;
-import com.command.toyvillage_server.domain.app.work_report.service.WorkReportUpdateService;
+import com.command.toyvillage_server.domain.app.workreport.presentation.dto.request.WorkRejectRequest;
+import com.command.toyvillage_server.domain.app.workreport.presentation.dto.request.WorkReportRequest;
+import com.command.toyvillage_server.domain.app.workreport.presentation.dto.response.WorkReportResponse;
+import com.command.toyvillage_server.domain.app.workreport.service.*;
+import com.command.toyvillage_server.domain.app.workreport.service.WorkApproveService;
+import com.command.toyvillage_server.domain.app.workreport.service.WorkRejectService;
+import com.command.toyvillage_server.domain.app.workreport.service.WorkReportCreateService;
+import com.command.toyvillage_server.domain.app.workreport.service.WorkReportUpdateService;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +24,6 @@ public class WorkReportController {
     private final WorkReportUpdateService workReportUpdateService;
     private final WorkReportDeleteService workReportDeleteService;
     private final WorkReportQueryService workReportQueryService;
-    private final MyWorkReportQueryService myWorkReportQueryService;
 
     @PostMapping("/{id}")
     public void createWorkReport(@PathVariable Long id, @Valid @RequestBody WorkReportRequest workReportRequest) {
@@ -56,10 +54,5 @@ public class WorkReportController {
     @GetMapping("/{id}")
     public WorkReportResponse getWorkReport(@PathVariable Long id) {
         return workReportQueryService.execute(id);
-    }
-
-    @GetMapping("/my")
-    public WorkReportIdResponse getMyWorkReport(@RequestParam Long id) {
-        return myWorkReportQueryService.execute(id);
     }
 }

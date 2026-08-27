@@ -1,6 +1,6 @@
-package com.command.toyvillage_server.domain.app.work_report.domain.repository;
+package com.command.toyvillage_server.domain.app.workreport.domain.repository;
 
-import com.command.toyvillage_server.domain.app.work_report.domain.WorkReport;
+import com.command.toyvillage_server.domain.app.workreport.domain.WorkReport;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package com.command.toyvillage_server.domain.app.work_report.exception;
+package com.command.toyvillage_server.domain.app.workreport.exception;
 
 import com.command.toyvillage_server.global.error.exception.ErrorCode;
 import com.command.toyvillage_server.global.error.exception.ToyVillageException;

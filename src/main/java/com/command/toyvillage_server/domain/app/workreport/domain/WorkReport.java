@@ -1,4 +1,4 @@
-package com.command.toyvillage_server.domain.app.work_report.domain;
+package com.command.toyvillage_server.domain.app.workreport.domain;
 
 import com.command.toyvillage_server.domain.app.task.domain.Task;
 import com.command.toyvillage_server.domain.web.file.domain.File;

@@ -1,8 +1,8 @@
-package com.command.toyvillage_server.domain.app.work_report.service;
+package com.command.toyvillage_server.domain.app.workreport.service;
 
-import com.command.toyvillage_server.domain.app.work_report.domain.WorkReport;
-import com.command.toyvillage_server.domain.app.work_report.domain.repository.WorkReportRepository;
-import com.command.toyvillage_server.domain.app.work_report.exception.WorkNotFoundException;
+import com.command.toyvillage_server.domain.app.workreport.domain.WorkReport;
+import com.command.toyvillage_server.domain.app.workreport.domain.repository.WorkReportRepository;
+import com.command.toyvillage_server.domain.app.workreport.exception.WorkNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
