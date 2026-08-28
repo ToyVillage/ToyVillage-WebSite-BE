@@ -15,9 +15,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderBy;
 import jakarta.persistence.Table;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +24,8 @@ import java.util.List;
 @Entity
 @Table(name = "tbl_work_log_question")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class WorkLogQuestion {
 
     @Id
@@ -72,7 +72,12 @@ public class WorkLogQuestion {
         Integer questionOrder,
         boolean required
     ) {
-        return new WorkLogQuestion(question, questionType, questionOrder, required);
+        return WorkLogQuestion.builder()
+            .question(question)
+            .questionType(questionType)
+            .questionOrder(questionOrder)
+            .required(required)
+            .build();
     }
 
     public void addOption(WorkLogQuestionOption option) {
