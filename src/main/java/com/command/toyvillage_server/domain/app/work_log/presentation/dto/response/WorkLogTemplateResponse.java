@@ -2,7 +2,6 @@ package com.command.toyvillage_server.domain.app.work_log.presentation.dto.respo
 
 import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogTemplate;
 import lombok.Builder;
-
 import java.util.List;
 
 @Builder
