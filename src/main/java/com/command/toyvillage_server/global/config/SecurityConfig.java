@@ -125,6 +125,16 @@ public class SecurityConfig {
                             .hasAnyRole("APP_ADMIN", "EMPLOYEE")
                     .requestMatchers("/documents", "/documents/**").hasRole("APP_ADMIN")
 
+                    // work report
+                    .requestMatchers(HttpMethod.PATCH,
+                            "/work-report/approve/**", "/work-report/reject/**")
+                            .hasRole("APP_ADMIN")
+                    .requestMatchers(HttpMethod.GET,
+                            "/work-report", "/work-report/detail/**")
+                            .hasRole("APP_ADMIN")
+                    .requestMatchers("/work-report", "/work-report/**")
+                            .hasRole("EMPLOYEE")
+
                     .anyRequest().authenticated()
                 )
                 .with(new SecurityFilterConfig(jwtTokenProvider, objectMapper), Customizer.withDefaults())
