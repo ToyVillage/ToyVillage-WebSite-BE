@@ -9,14 +9,14 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @Entity
 @Table(name = "tbl_work_log_section")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class WorkLogSection {
 
     @Id
@@ -40,7 +40,10 @@ public class WorkLogSection {
     }
 
     public static WorkLogSection create(String sectionName, Integer sectionOrder) {
-        return new WorkLogSection(sectionName, sectionOrder);
+        return WorkLogSection.builder()
+            .sectionName(sectionName)
+            .sectionOrder(sectionOrder)
+            .build();
     }
 
     void setTemplate(WorkLogTemplate template) {
