@@ -29,7 +29,7 @@ public class WorkReport {
     @OneToOne(fetch = FetchType.LAZY)
     private AppAdmin appAdmin;
 
-    @Column(name = "content",nullable = false)
+    @Column(name = "content",nullable = false,length = 1024)
     private String content;
 
     @Column(name = "note")
