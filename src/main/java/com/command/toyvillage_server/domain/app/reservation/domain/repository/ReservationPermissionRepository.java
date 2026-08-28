@@ -16,6 +16,8 @@ public interface ReservationPermissionRepository extends JpaRepository<Reservati
 
     List<ReservationPermission> findAllByReservation_Id(Long reservationId);
 
+    void deleteAllByReservation_Id(Long reservationId);
+
     Optional<ReservationPermission> findByReservation_IdAndAppAdmin_Id(
             Long reservationId,
             Long appAdminId

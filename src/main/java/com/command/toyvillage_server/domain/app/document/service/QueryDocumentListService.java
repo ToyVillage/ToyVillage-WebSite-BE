@@ -20,7 +20,7 @@ public class QueryDocumentListService {
     private final DocumentRepository documentRepository;
 
     @Transactional(readOnly = true)
-    public List<DocumentListResponse> execute(String keyword, List<DocumentType> types, Pageable p) {
+    public DocumentListResponse execute(String keyword, List<DocumentType> types, Pageable p) {
         Pageable pageable = PageRequest.of(
             p.getPageNumber(),
             p.getPageSize(),
@@ -37,8 +37,6 @@ public class QueryDocumentListService {
             ? documentRepository.getAllByTitleContainsIgnoreCase(keyword, pageable)
             : documentRepository.getAllByTitleContainsIgnoreCaseAndTypeIn(keyword, types, pageable);
 
-        return documents
-            .map(DocumentListResponse::from)
-            .toList();
+        return DocumentListResponse.from(documents);
     }
 }

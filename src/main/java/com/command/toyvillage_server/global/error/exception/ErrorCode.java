@@ -69,6 +69,8 @@ public enum ErrorCode {
     // reservation
     RESERVATION_NOT_FOUND(404, "존재하지 않는 단체예약 목록입니다."),
     RESERVATION_PERMISSION_NOT_FOUND(404, "존재하지 않는 단체예약 조회 권한입니다."),
+    RESERVATION_INVALID_TIME(400, "퇴장 시간은 입장 시간보다 빠를 수 없습니다."),
+    RESERVATION_INVALID_DATE(400, "사전답사일은 방문일보다 늦을 수 없습니다."),
 
     // app admin
     APP_ADMIN_NOT_FOUND(404, "존재하지 않는 앱 관리자입니다."),
@@ -96,7 +98,13 @@ public enum ErrorCode {
     OPEN_TIME_INVALID_PERIOD(400, "운영 종료시간은 운영 시작시간보다 빠를 수 없습니다."),
 
     // team
-    TEAM_NOT_FOUND(404, "존재하지 않는 팀입니다.");
+    TEAM_NOT_FOUND(404, "존재하지 않는 팀입니다."),
+
+    // work
+    WORK_NOT_FOUND(404, "존재하지 않는 업무관리입니다."),
+    WORK_REPORT_ALREADY_EXISTS(409, "해당 업무에 대한 업무 보고가 이미 존재합니다."),
+    WORK_ALREADY_APPROVED(409, "이미 승인된 업무관리입니다."),
+    WORK_ALREADY_REJECTED(409, "이미 반려된 업무관리입니다.");
     private final int statusCode;
     private final String errorMessage;
 }
