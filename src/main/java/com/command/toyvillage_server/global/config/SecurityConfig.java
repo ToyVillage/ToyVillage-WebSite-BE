@@ -125,6 +125,15 @@ public class SecurityConfig {
                             .hasAnyRole("APP_ADMIN", "EMPLOYEE")
                     .requestMatchers("/documents", "/documents/**").hasRole("APP_ADMIN")
 
+                    // work log
+                    .requestMatchers(HttpMethod.POST, "/work-log/employee/**").hasRole("EMPLOYEE")
+                    .requestMatchers(HttpMethod.PATCH, "/work-log/employee/**").hasRole("EMPLOYEE")
+                    .requestMatchers(HttpMethod.DELETE, "/work-log/employee/**").hasRole("EMPLOYEE")
+                    .requestMatchers(HttpMethod.GET, "/work-log/employee").hasRole("EMPLOYEE")
+                    .requestMatchers(HttpMethod.GET, "/work-log").hasRole("APP_ADMIN")
+                    .requestMatchers(HttpMethod.POST, "/work-log/template").hasRole("APP_ADMIN")
+                    .requestMatchers(HttpMethod.GET, "/work-log/**")
+                            .hasAnyRole("APP_ADMIN", "EMPLOYEE")
                     // work report
                     .requestMatchers(HttpMethod.PATCH,
                             "/work-report/approve/**", "/work-report/reject/**")

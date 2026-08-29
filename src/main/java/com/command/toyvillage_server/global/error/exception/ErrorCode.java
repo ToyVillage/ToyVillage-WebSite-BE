@@ -78,6 +78,16 @@ public enum ErrorCode {
 
     //document
     DOCUMENT_NOT_FOUND(404, "존재하지 않는 자료입니다."),
+
+    // work log
+    WORK_LOG_NOT_FOUND(404, "존재하지 않는 업무일지입니다."),
+    WORK_LOG_TEMPLATE_NOT_FOUND(404, "존재하지 않는 업무일지 입니다."),
+    WORK_LOG_TEMPLATE_EXIST(409, "이미 존재하는 업무일지 템플릿 제목입니다."),
+    WORK_LOG_SECTION_NOT_FOUND(404, "존재하지 않는 업무일지 구역입니다."),
+    WORK_LOG_QUESTION_NOT_FOUND(404, "존재하지 않는 업무일지 질문입니다."),
+    WORK_LOG_ANSWER_REQUIRED(400, "필수 질문에 답변하지 않았습니다."),
+    WORK_LOG_OPTION_REQUIRED(400, "해당 질문 타입은 보기를 하나 이상 등록해야 합니다."),
+    WORK_LOG_FORBIDDEN(403, "본인이 작성한 업무일지만 수정할 수 있습니다."),
   
     // close day
     CLOSE_DAY_NOT_FOUND(404, "존재하지 않는 휴관일입니다."),
