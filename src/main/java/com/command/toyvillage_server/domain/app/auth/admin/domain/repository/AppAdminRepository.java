@@ -13,4 +13,6 @@ public interface AppAdminRepository extends JpaRepository<AppAdmin, Long> {
     boolean existsByUsername(String username);
 
     List<AppAdmin> findByRoleAndNameContainingOrderByNameAsc(AppAdminRole role, String name);
+
+    List<AppAdmin> findAllByRoleOrderByIdAsc(AppAdminRole role);
 }

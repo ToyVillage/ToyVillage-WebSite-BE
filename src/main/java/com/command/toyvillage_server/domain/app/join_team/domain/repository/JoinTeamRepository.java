@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface JoinTeamRepository extends JpaRepository<JoinTeam, Long> {
     Optional<JoinTeam> findByAppAdmin_Id(Long appAdminId);
+
+    boolean existsByAppAdmin_IdAndTeam_Id(Long appAdminId, Long teamId);
 }
