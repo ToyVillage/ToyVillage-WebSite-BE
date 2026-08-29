@@ -1,6 +1,7 @@
 package com.command.toyvillage_server.domain.app.task.domain;
 
 import com.command.toyvillage_server.domain.app.auth.admin.domain.AppAdmin;
+import com.command.toyvillage_server.domain.app.task.exception.TaskTargetInvalidException;
 import com.command.toyvillage_server.domain.app.team.domain.Team;
 import com.command.toyvillage_server.domain.web.file.domain.File;
 import jakarta.persistence.*;
@@ -74,6 +75,8 @@ public class Task {
             TaskPriority priority,
             List<File> files
     ) {
+        validateTarget(assigneeType, assignee, assigneeTeam);
+
         this.title = title;
         this.content = content;
         this.assigneeType = assigneeType;
@@ -82,6 +85,32 @@ public class Task {
         this.finishDate = finishDate;
         this.priority = priority;
         this.files = files == null ? new ArrayList<>() : new ArrayList<>(files);
+    }
+
+    private static void validateTarget(TaskAssigneeType assigneeType, AppAdmin assignee, Team assigneeTeam) {
+        boolean valid = switch (assigneeType) {
+            case ALL -> assignee == null && assigneeTeam == null;
+            case EMPLOYEE -> assignee != null && assigneeTeam == null;
+            case TEAM -> assignee == null && assigneeTeam != null;
+        };
+
+        if (!valid) {
+            throw TaskTargetInvalidException.EXCEPTION;
+        }
+    }
+
+    public Long getAssigneeId() {
+        if (assigneeTeam != null) {
+            return assigneeTeam.getId();
+        }
+        return assignee == null ? null : assignee.getId();
+    }
+
+    public String getAssigneeName() {
+        if (assigneeTeam != null) {
+            return assigneeTeam.getName();
+        }
+        return assignee == null ? null : assignee.getName();
     }
 
     public void update(
@@ -94,6 +123,8 @@ public class Task {
             TaskPriority priority,
             List<File> files
     ) {
+        validateTarget(assigneeType, assignee, assigneeTeam);
+
         this.title = title;
         this.content = content;
         this.assigneeType = assigneeType;
