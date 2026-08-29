@@ -46,14 +46,14 @@ public class ReservationController {
     private final ReservationAdminDeleteService reservationAdminDeleteService;
     private final ReservationAdminEmployeeQueryListService reservationAdminEmployeeQueryListService;
 
-    @GetMapping("/employee")
-    public List<ReservationListResponse> getList() {
-        return reservationQueryListService.execute();
-    }
-
     @GetMapping("/employee/{id}")
     public ReservationResponse getDetail(@PathVariable Long id) {
         return reservationQueryService.execute(id);
+    }
+
+    @GetMapping("/employee")
+    public List<ReservationListResponse> getList() {
+        return reservationQueryListService.execute();
     }
 
     @GetMapping
@@ -66,17 +66,40 @@ public class ReservationController {
         return reservationAdminQueryListService.execute(status, title, sort, pageable);
     }
 
+    @GetMapping("/{id}")
+    public ReservationAdminQueryResponse getReservationDetail(@PathVariable Long id) {
+        return reservationAdminQueryService.execute(id);
+    }
+
+    @PostMapping("/permission/{reservationId}/{appAdminId}")
+    public void setReservationPermission(
+        @PathVariable Long reservationId,
+        @PathVariable Long appAdminId,
+        @RequestBody boolean reservationPermission
+    ) {
+        reservationAdminPermissionSettingService.execute(reservationId, appAdminId, reservationPermission);
+    }
+
+    @DeleteMapping("/permission/{reservationId}/{appAdminId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletePermission(
+        @PathVariable Long reservationId,
+        @PathVariable Long appAdminId
+    ) {
+        reservationAdminPermissionDeleteService.execute(reservationId, appAdminId);
+    }
+
+    @GetMapping("/permission/{reservationId}")
+    public List<ReservationPermissionResponse> getPermissionList(@PathVariable Long reservationId) {
+        return reservationAdminPermissionQueryListService.execute(reservationId);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public MessageResponse createReservation(@RequestBody @Valid ReservationRequest request) {
         reservationAdminCreateService.execute(request);
 
         return MessageResponse.of("단체예약 생성이 완료되었습니다.");
-    }
-
-    @GetMapping("/{id}")
-    public ReservationAdminQueryResponse getReservationDetail(@PathVariable Long id) {
-        return reservationAdminQueryService.execute(id);
     }
 
     @PatchMapping("/{reservationId}")
@@ -101,28 +124,5 @@ public class ReservationController {
         @PathVariable Long reservationId
     ) {
         return reservationAdminEmployeeQueryListService.execute(reservationId);
-    }
-
-    @PostMapping("/permission/{reservationId}/{appAdminId}")
-    public void setReservationPermission(
-        @PathVariable Long reservationId,
-        @PathVariable Long appAdminId,
-        @RequestBody boolean reservationPermission
-    ) {
-        reservationAdminPermissionSettingService.execute(reservationId, appAdminId, reservationPermission);
-    }
-
-    @GetMapping("/permission/{reservationId}")
-    public List<ReservationPermissionResponse> getPermissionList(@PathVariable Long reservationId) {
-        return reservationAdminPermissionQueryListService.execute(reservationId);
-    }
-
-    @DeleteMapping("/permission/{reservationId}/{appAdminId}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePermission(
-        @PathVariable Long reservationId,
-        @PathVariable Long appAdminId
-    ) {
-        reservationAdminPermissionDeleteService.execute(reservationId, appAdminId);
     }
 }
