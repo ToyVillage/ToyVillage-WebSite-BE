@@ -57,6 +57,10 @@ public class AppAdmin {
                 .build();
     }
 
+    public boolean isAppAdmin() {
+        return role == AppAdminRole.APP_ADMIN;
+    }
+
     public void changePassword(String encodedPassword) {
         this.password = encodedPassword;
     }
