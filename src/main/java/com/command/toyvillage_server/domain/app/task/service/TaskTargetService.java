@@ -35,8 +35,14 @@ public class TaskTargetService {
         if (assigneeId == null) {
             throw TaskTargetInvalidException.EXCEPTION;
         }
-        return appAdminRepository.findById(assigneeId)
+        AppAdmin employee = appAdminRepository.findById(assigneeId)
                 .orElseThrow(() -> AppAdminNotFoundException.EXCEPTION);
+
+        if (employee.isAppAdmin()) {
+            throw TaskTargetInvalidException.EXCEPTION;
+        }
+
+        return employee;
     }
 
     private Team findTeam(Long assigneeId) {
