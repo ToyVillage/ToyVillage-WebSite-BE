@@ -67,7 +67,7 @@ public class SecurityConfig {
                     .requestMatchers("/app/admin", "/app/admin/**").hasRole("APP_ADMIN")
 
                     // task
-                    .requestMatchers(HttpMethod.GET, "/tasks", "/tasks/**")
+                    .requestMatchers(HttpMethod.GET, "/tasks/*")
                             .hasAnyRole("APP_ADMIN", "EMPLOYEE")
                     .requestMatchers("/tasks", "/tasks/**")
                             .hasRole("APP_ADMIN")

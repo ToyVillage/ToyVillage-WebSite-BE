@@ -5,6 +5,7 @@ import com.command.toyvillage_server.domain.app.task.presentation.dto.response.T
 import com.command.toyvillage_server.domain.app.task.presentation.dto.response.TaskListResponse;
 import com.command.toyvillage_server.domain.app.task.service.CreateTaskService;
 import com.command.toyvillage_server.domain.app.task.service.DeleteTaskService;
+import com.command.toyvillage_server.domain.app.task.service.QueryMyTaskListService;
 import com.command.toyvillage_server.domain.app.task.service.QueryTaskDetailService;
 import com.command.toyvillage_server.domain.app.task.service.QueryTaskListService;
 import com.command.toyvillage_server.domain.app.task.service.UpdateTaskService;
@@ -32,6 +33,7 @@ import java.net.URI;
 public class TaskController {
     private final CreateTaskService createTaskService;
     private final QueryTaskListService queryTaskListService;
+    private final QueryMyTaskListService queryMyTaskListService;
     private final QueryTaskDetailService queryTaskDetailService;
     private final UpdateTaskService updateTaskService;
     private final DeleteTaskService deleteTaskService;
@@ -49,6 +51,14 @@ public class TaskController {
             Pageable pageable
     ) {
         return queryTaskListService.execute(pageable);
+    }
+
+    @GetMapping("/my")
+    public TaskListResponse getMyList(
+            @PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.DESC)
+            Pageable pageable
+    ) {
+        return queryMyTaskListService.execute(pageable);
     }
 
     @GetMapping("/{id}")
