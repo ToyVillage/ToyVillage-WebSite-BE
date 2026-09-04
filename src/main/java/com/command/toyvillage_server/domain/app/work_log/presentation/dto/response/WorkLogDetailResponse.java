@@ -13,7 +13,7 @@ public record WorkLogDetailResponse(
     Long templateId,
     String templateTitle,
     String writerName,
-    LocalDateTime writeAt,
+    LocalDate writeAt,
     List<WorkLogSectionAnswerResponse> sections
 ) {
     public static WorkLogDetailResponse of(

@@ -9,7 +9,6 @@ import lombok.Builder;
 public record WorkLogAnswerResponse(
     Long questionId,
     String question,
-    QuestionType questionType,
     String answerText,
     FileResponse file
 ) {
@@ -17,7 +16,6 @@ public record WorkLogAnswerResponse(
         return WorkLogAnswerResponse.builder()
             .questionId(answer.getQuestion().getId())
             .question(answer.getQuestion().getQuestion())
-            .questionType(answer.getQuestion().getQuestionType())
             .answerText(answer.getAnswerText())
             .file(answer.getFile() == null ? null : FileResponse.from(answer.getFile()))
             .build();

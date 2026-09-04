@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class WorkLogTemplateEmployeeQueryService {
+public class WorkLogTemplateQueryService {
     private final WorkLogTemplateRepository workLogTemplateRepository;
 
     @Transactional(readOnly = true)

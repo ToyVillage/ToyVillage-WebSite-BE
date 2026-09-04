@@ -12,7 +12,7 @@ import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLo
 import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogAdminQueryService;
 import com.command.toyvillage_server.domain.app.work_log.service.template.WorkLogTemplateAdminCreateService;
 import com.command.toyvillage_server.domain.app.work_log.service.template.WorkLogTemplateQueryListService;
-import com.command.toyvillage_server.domain.app.work_log.service.template.WorkLogTemplateEmployeeQueryService;
+import com.command.toyvillage_server.domain.app.work_log.service.template.WorkLogTemplateQueryService;
 import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogEmployeeUpdateService;
 import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogEmployeeWriteService;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
@@ -35,7 +35,7 @@ import java.time.LocalDate;
 public class WorkLogController {
     private final WorkLogTemplateAdminCreateService workLogTemplateAdminCreateService;
     private final WorkLogTemplateQueryListService workLogTemplateQueryListService;
-    private final WorkLogTemplateEmployeeQueryService workLogTemplateEmployeeQueryService;
+    private final WorkLogTemplateQueryService workLogTemplateQueryService;
     private final WorkLogEmployeeWriteService workLogEmployeeWriteService;
     private final WorkLogEmployeeUpdateService workLogEmployeeUpdateService;
     private final WorkLogEmployeeDeleteService workLogEmployeeDeleteService;
@@ -71,7 +71,7 @@ public class WorkLogController {
     public WorkLogTemplateResponse getWorkLogTemplateDetail(
         @PathVariable Long workLogTemplateId
     ) {
-        return workLogTemplateEmployeeQueryService.execute(workLogTemplateId);
+        return workLogTemplateQueryService.execute(workLogTemplateId);
     }
 
     @PostMapping("/employee/{workLogTemplateId}")
