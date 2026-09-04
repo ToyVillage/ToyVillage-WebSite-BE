@@ -8,14 +8,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+
 @Service
 @RequiredArgsConstructor
 public class WorkLogAdminQueryListService {
     private final WorkLogRepository workLogRepository;
 
     @Transactional(readOnly = true)
-    public Page<WorkLogListResponse> execute(Pageable pageable) {
-        return workLogRepository.findAll(pageable)
+    public Page<WorkLogListResponse> execute(Pageable pageable, LocalDate date) {
+        return workLogRepository.findByWriteAt(date, pageable)
             .map(WorkLogListResponse::from);
     }
 }

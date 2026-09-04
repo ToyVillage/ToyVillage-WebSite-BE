@@ -9,12 +9,14 @@ import java.time.LocalDateTime;
 @Builder
 public record WorkLogListResponse(
     Long workLogId,
-    LocalDateTime writeAt,
+    String writer,
+    LocalDate writeAt,
     String templateTitle
 ) {
     public static WorkLogListResponse from(WorkLog workLog) {
         return WorkLogListResponse.builder()
             .workLogId(workLog.getId())
+            .writer(workLog.getAppAdmin().getUsername())
             .templateTitle(workLog.getTemplate().getTemplateTitle())
             .writeAt(workLog.getWriteAt())
             .build();
