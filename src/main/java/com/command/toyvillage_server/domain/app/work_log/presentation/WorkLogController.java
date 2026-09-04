@@ -4,7 +4,6 @@ import com.command.toyvillage_server.domain.app.work_log.presentation.dto.reques
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.request.WorkLogWriteRequest;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.response.WorkLogDetailResponse;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.response.WorkLogListResponse;
-import com.command.toyvillage_server.domain.app.work_log.presentation.dto.response.WorkLogTemplateQueryListResponse;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.response.WorkLogTemplateResponse;
 import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogAdminQueryListService;
 import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogEmployeeDeleteService;
@@ -20,6 +19,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -54,8 +54,14 @@ public class WorkLogController {
     }
 
     @GetMapping("/template")
-    public WorkLogTemplateQueryListResponse getWorkLogTemplateList() {
-        return workLogTemplateEmployeeQueryListService.execute();
+    public WorkLogTemplateQueryListResponse getWorkLogTemplateList(
+        @PageableDefault(
+            size = 4,
+            sort = "id",
+            direction = Sort.Direction.DESC
+        ) Pageable pageable
+        ) {
+        return workLogTemplateEmployeeQueryListService.execute(pageable);
     }
 
     @GetMapping("/template/{workLogTemplateId}")
@@ -96,10 +102,10 @@ public class WorkLogController {
 
     @GetMapping
     public Page<WorkLogListResponse> getWorkLogList(
-        @PageableDefault(page = 0, size = 10) Pageable pageable,
+        @PageableDefault(size = 4) Pageable pageable,
         @RequestParam("date") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date
     ) {
-        return workLogAdminQueryListService.execute(pageable, date);
+        return workLogAdminQueryListService.execute(date, pageable);
     }
 
     @GetMapping("/employee")
