@@ -13,5 +13,7 @@ public interface WorkLogTemplateRepository extends JpaRepository<WorkLogTemplate
 
     Optional<WorkLogTemplate> findByIdAndDeleteYnFalse(Long workLogTemplateId);
 
-    Page<WorkLogTemplate> findAllByDeleteYnFalseAndCreatedAtOrderByIdDesc(Pageable pageable, LocalDate createdAt);
+    Page<WorkLogTemplate> findAllByDeleteYnFalse(Pageable pageable);
+
+    Page<WorkLogTemplate> findAllByDeleteYnFalseAndCreatedAt(Pageable pageable, LocalDate createdAt);
 }

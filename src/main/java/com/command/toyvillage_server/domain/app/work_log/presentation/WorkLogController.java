@@ -6,15 +6,16 @@ import com.command.toyvillage_server.domain.app.work_log.presentation.dto.respon
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.response.WorkLogListResponse;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.response.WorkLogTemplateQueryListObjectResponse;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.response.WorkLogTemplateResponse;
-import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogAdminQueryListService;
-import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogEmployeeDeleteService;
-import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogEmployeeQueryListService;
-import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogAdminQueryService;
 import com.command.toyvillage_server.domain.app.work_log.service.template.WorkLogTemplateAdminCreateService;
+import com.command.toyvillage_server.domain.app.work_log.service.template.WorkLogTemplateAdminDeleteService;
 import com.command.toyvillage_server.domain.app.work_log.service.template.WorkLogTemplateQueryListService;
 import com.command.toyvillage_server.domain.app.work_log.service.template.WorkLogTemplateQueryService;
+import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogAdminQueryListService;
+import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogDeleteService;
+import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogEmployeeQueryListService;
 import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogEmployeeUpdateService;
 import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogEmployeeWriteService;
+import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogQueryService;
 import com.command.toyvillage_server.global.common.response.MessageResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -34,14 +35,17 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 public class WorkLogController {
     private final WorkLogTemplateAdminCreateService workLogTemplateAdminCreateService;
+    private final WorkLogTemplateAdminDeleteService workLogTemplateAdminDeleteService;
     private final WorkLogTemplateQueryListService workLogTemplateQueryListService;
     private final WorkLogTemplateQueryService workLogTemplateQueryService;
     private final WorkLogEmployeeWriteService workLogEmployeeWriteService;
     private final WorkLogEmployeeUpdateService workLogEmployeeUpdateService;
-    private final WorkLogEmployeeDeleteService workLogEmployeeDeleteService;
-    private final WorkLogAdminQueryListService workLogAdminQueryListService;
     private final WorkLogEmployeeQueryListService workLogEmployeeQueryListService;
-    private final WorkLogAdminQueryService workLogAdminQueryService;
+    private final WorkLogAdminQueryListService workLogAdminQueryListService;
+    private final WorkLogQueryService workLogQueryService;
+    private final WorkLogDeleteService workLogDeleteService;
+
+    // 업무일지 양식
 
     @PostMapping("/template")
     public ResponseEntity<MessageResponse> createWorkLogTemplate(
@@ -61,20 +65,27 @@ public class WorkLogController {
             sort = "id",
             direction = Sort.Direction.DESC
         ) Pageable pageable,
-        @RequestParam("date")
+        @RequestParam(value = "date", required = false)
         @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date
-        ) {
+    ) {
         return workLogTemplateQueryListService.execute(pageable, date);
     }
 
     @GetMapping("/template/{workLogTemplateId}")
-    public WorkLogTemplateResponse getWorkLogTemplateDetail(
-        @PathVariable Long workLogTemplateId
-    ) {
+    public WorkLogTemplateResponse getWorkLogTemplateDetail(@PathVariable Long workLogTemplateId) {
         return workLogTemplateQueryService.execute(workLogTemplateId);
     }
 
-    @PostMapping("/employee/{workLogTemplateId}")
+    @DeleteMapping("/template/{workLogTemplateId}")
+    public MessageResponse deleteWorkLogTemplate(@PathVariable Long workLogTemplateId) {
+        workLogTemplateAdminDeleteService.execute(workLogTemplateId);
+
+        return MessageResponse.of("업무일지 양식 삭제 성공");
+    }
+
+    // 업무일지
+
+    @PostMapping("/{workLogTemplateId}")
     public ResponseEntity<MessageResponse> writeWorkLog(
         @PathVariable Long workLogTemplateId,
         @RequestBody @Valid WorkLogWriteRequest request
@@ -84,23 +95,6 @@ public class WorkLogController {
         return ResponseEntity
             .status(HttpStatus.CREATED)
             .body(MessageResponse.of("업무일지 작성 성공"));
-    }
-
-    @PatchMapping("/employee/{workLogId}")
-    public MessageResponse updateWorkLog(
-        @PathVariable Long workLogId,
-        @RequestBody @Valid WorkLogWriteRequest request
-    ) {
-        workLogEmployeeUpdateService.execute(workLogId, request);
-
-        return MessageResponse.of("업무일지 수정 성공");
-    }
-
-    @DeleteMapping("/employee/{workLogId}")
-    public MessageResponse deleteWorkLog(@PathVariable Long workLogId) {
-        workLogEmployeeDeleteService.execute(workLogId);
-
-        return MessageResponse.of("업무일지 삭제 성공");
     }
 
     @GetMapping
@@ -113,13 +107,30 @@ public class WorkLogController {
 
     @GetMapping("/employee")
     public Page<WorkLogListResponse> getEmployeeWorkLogList(
-        @PageableDefault(page = 0, size = 10) Pageable pageable
+        @PageableDefault(size = 10) Pageable pageable
     ) {
         return workLogEmployeeQueryListService.execute(pageable);
     }
 
     @GetMapping("/{workLogId}")
     public WorkLogDetailResponse getWorkLogDetail(@PathVariable Long workLogId) {
-        return workLogAdminQueryService.execute(workLogId);
+        return workLogQueryService.execute(workLogId);
+    }
+
+    @PatchMapping("/{workLogId}")
+    public MessageResponse updateWorkLog(
+        @PathVariable Long workLogId,
+        @RequestBody @Valid WorkLogWriteRequest request
+    ) {
+        workLogEmployeeUpdateService.execute(workLogId, request);
+
+        return MessageResponse.of("업무일지 수정 성공");
+    }
+
+    @DeleteMapping("/{workLogId}")
+    public MessageResponse deleteWorkLog(@PathVariable Long workLogId) {
+        workLogDeleteService.execute(workLogId);
+
+        return MessageResponse.of("업무일지 삭제 성공");
     }
 }

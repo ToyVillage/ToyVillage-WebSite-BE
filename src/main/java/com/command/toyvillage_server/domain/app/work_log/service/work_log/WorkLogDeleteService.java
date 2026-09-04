@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class WorkLogEmployeeDeleteService {
+public class WorkLogDeleteService {
     private final WorkLogRepository workLogRepository;
 
     @Transactional
@@ -28,7 +28,7 @@ public class WorkLogEmployeeDeleteService {
         WorkLog workLog = workLogRepository.findById(workLogId)
             .orElseThrow(() -> WorkLogNotFoundException.EXCEPTION);
 
-        if (!workLog.isWrittenBy(appAdminDetails.getId())) {
+        if (!appAdminDetails.isAdmin() && !workLog.isWrittenBy(appAdminDetails.getId())) {
             throw WorkLogForbiddenException.EXCEPTION;
         }
 

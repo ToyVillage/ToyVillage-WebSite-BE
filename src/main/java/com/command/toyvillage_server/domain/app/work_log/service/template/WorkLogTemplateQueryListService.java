@@ -1,5 +1,6 @@
 package com.command.toyvillage_server.domain.app.work_log.service.template;
 
+import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogTemplate;
 import com.command.toyvillage_server.domain.app.work_log.domain.repository.WorkLogTemplateRepository;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.response.WorkLogTemplateQueryListObjectResponse;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +17,11 @@ public class WorkLogTemplateQueryListService {
     private final WorkLogTemplateRepository workLogTemplateRepository;
 
     @Transactional(readOnly = true)
-    public Page<WorkLogTemplateQueryListObjectResponse> execute(Pageable p, LocalDate createdAt) {
-        return workLogTemplateRepository.findAllByDeleteYnFalseAndCreatedAtOrderByIdDesc(p, createdAt)
-            .map(WorkLogTemplateQueryListObjectResponse::from);
+    public Page<WorkLogTemplateQueryListObjectResponse> execute(Pageable pageable, LocalDate createdAt) {
+        Page<WorkLogTemplate> templates = createdAt == null
+            ? workLogTemplateRepository.findAllByDeleteYnFalse(pageable)
+            : workLogTemplateRepository.findAllByDeleteYnFalseAndCreatedAt(pageable, createdAt);
+
+        return templates.map(WorkLogTemplateQueryListObjectResponse::from);
     }
 }
