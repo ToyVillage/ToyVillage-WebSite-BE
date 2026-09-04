@@ -8,14 +8,16 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+
 @Service
 @RequiredArgsConstructor
-public class WorkLogTemplateEmployeeQueryListService {
+public class WorkLogTemplateQueryListService {
     private final WorkLogTemplateRepository workLogTemplateRepository;
 
     @Transactional(readOnly = true)
-    public Page<WorkLogTemplateQueryListObjectResponse> execute(Pageable p) {
-        return workLogTemplateRepository.findAllByOrderByIdDesc(p)
+    public Page<WorkLogTemplateQueryListObjectResponse> execute(Pageable p, LocalDate createdAt) {
+        return workLogTemplateRepository.findAllByDeleteYnFalseAndCreatedAtOrderByIdDesc(p, createdAt)
             .map(WorkLogTemplateQueryListObjectResponse::from);
     }
 }

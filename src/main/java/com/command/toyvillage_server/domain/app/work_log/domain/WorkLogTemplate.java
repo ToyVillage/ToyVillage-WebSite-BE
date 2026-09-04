@@ -19,7 +19,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import java.time.LocalDateTime;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -43,7 +44,7 @@ public class WorkLogTemplate {
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
 
     @OrderBy("questionOrder asc")
     @OneToMany(mappedBy = "template", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -53,12 +54,16 @@ public class WorkLogTemplate {
     @OneToMany(mappedBy = "template", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WorkLogSection> sections = new ArrayList<>();
 
-    private WorkLogTemplate(String templateTitle) {
+    @Column(name = "delete_yn", nullable = false)
+    private boolean deleteYn;
+
+    private WorkLogTemplate(String templateTitle, boolean deleteYn) {
         this.templateTitle = templateTitle;
+        this.deleteYn = deleteYn;
     }
 
     public static WorkLogTemplate create(String templateTitle) {
-        return new WorkLogTemplate(templateTitle);
+        return new WorkLogTemplate(templateTitle, false);
     }
 
     public void addQuestion(WorkLogQuestion question) {
@@ -88,6 +93,10 @@ public class WorkLogTemplate {
                     throw WorkLogAnswerRequiredException.EXCEPTION;
                 }
             }));
+    }
+
+    public void changeDeleteYn() {
+        this.deleteYn = true;
     }
 
     private WorkLogSection findSection(Long sectionId) {

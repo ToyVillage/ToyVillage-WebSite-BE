@@ -4,13 +4,14 @@ import com.command.toyvillage_server.domain.app.work_log.presentation.dto.reques
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.request.WorkLogWriteRequest;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.response.WorkLogDetailResponse;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.response.WorkLogListResponse;
+import com.command.toyvillage_server.domain.app.work_log.presentation.dto.response.WorkLogTemplateQueryListObjectResponse;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.response.WorkLogTemplateResponse;
 import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogAdminQueryListService;
 import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogEmployeeDeleteService;
 import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogEmployeeQueryListService;
 import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogAdminQueryService;
 import com.command.toyvillage_server.domain.app.work_log.service.template.WorkLogTemplateAdminCreateService;
-import com.command.toyvillage_server.domain.app.work_log.service.template.WorkLogTemplateEmployeeQueryListService;
+import com.command.toyvillage_server.domain.app.work_log.service.template.WorkLogTemplateQueryListService;
 import com.command.toyvillage_server.domain.app.work_log.service.template.WorkLogTemplateEmployeeQueryService;
 import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogEmployeeUpdateService;
 import com.command.toyvillage_server.domain.app.work_log.service.work_log.WorkLogEmployeeWriteService;
@@ -33,7 +34,7 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 public class WorkLogController {
     private final WorkLogTemplateAdminCreateService workLogTemplateAdminCreateService;
-    private final WorkLogTemplateEmployeeQueryListService workLogTemplateEmployeeQueryListService;
+    private final WorkLogTemplateQueryListService workLogTemplateQueryListService;
     private final WorkLogTemplateEmployeeQueryService workLogTemplateEmployeeQueryService;
     private final WorkLogEmployeeWriteService workLogEmployeeWriteService;
     private final WorkLogEmployeeUpdateService workLogEmployeeUpdateService;
@@ -54,14 +55,16 @@ public class WorkLogController {
     }
 
     @GetMapping("/template")
-    public WorkLogTemplateQueryListResponse getWorkLogTemplateList(
+    public Page<WorkLogTemplateQueryListObjectResponse> getWorkLogTemplateList(
         @PageableDefault(
             size = 4,
             sort = "id",
             direction = Sort.Direction.DESC
-        ) Pageable pageable
+        ) Pageable pageable,
+        @RequestParam("date")
+        @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate date
         ) {
-        return workLogTemplateEmployeeQueryListService.execute(pageable);
+        return workLogTemplateQueryListService.execute(pageable, date);
     }
 
     @GetMapping("/template/{workLogTemplateId}")
