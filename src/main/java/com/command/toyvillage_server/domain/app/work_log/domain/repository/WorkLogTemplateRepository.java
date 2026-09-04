@@ -6,9 +6,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
 public interface WorkLogTemplateRepository extends JpaRepository<WorkLogTemplate, Long> {
     boolean existsByTemplateTitle(String templateTitle);
+
+    Optional<WorkLogTemplate> findByIdAndDeleteYnFalse(Long workLogTemplateId);
 
     Page<WorkLogTemplate> findAllByDeleteYnFalseAndCreatedAtOrderByIdDesc(Pageable pageable, LocalDate createdAt);
 }

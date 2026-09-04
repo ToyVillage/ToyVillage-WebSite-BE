@@ -5,6 +5,7 @@ import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogSection;
 import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogTemplate;
 import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogQuestion;
 import com.command.toyvillage_server.domain.app.work_log.domain.repository.WorkLogTemplateRepository;
+import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogEtcOptionDuplicatedException;
 import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogOptionRequiredException;
 import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogTemplateAlreadyExistsException;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.request.WorkLogQuestionOptionRequest;
@@ -63,6 +64,10 @@ public class WorkLogTemplateAdminCreateService {
 
         if (request.questionType().isOptionRequired() && options.isEmpty()) {
             throw WorkLogOptionRequiredException.EXCEPTION;
+        }
+
+        if (options.stream().filter(WorkLogQuestionOptionRequest::etcOption).count() > 1) {
+            throw WorkLogEtcOptionDuplicatedException.EXCEPTION;
         }
 
         for (int number = 0; number < options.size(); number++) {

@@ -5,18 +5,26 @@ import com.command.toyvillage_server.domain.app.work_log.domain.enums.QuestionTy
 import com.command.toyvillage_server.domain.web.file.presentation.dto.response.FileResponse;
 import lombok.Builder;
 
+import java.util.List;
+
 @Builder
 public record WorkLogAnswerResponse(
     Long questionId,
     String question,
+    QuestionType questionType,
     String answerText,
+    List<WorkLogAnswerOptionResponse> options,
     FileResponse file
 ) {
     public static WorkLogAnswerResponse from(WorkLogAnswer answer) {
         return WorkLogAnswerResponse.builder()
             .questionId(answer.getQuestion().getId())
             .question(answer.getQuestion().getQuestion())
+            .questionType(answer.getQuestion().getQuestionType())
             .answerText(answer.getAnswerText())
+            .options(answer.getSelectedOptions().stream()
+                .map(WorkLogAnswerOptionResponse::from)
+                .toList())
             .file(answer.getFile() == null ? null : FileResponse.from(answer.getFile()))
             .build();
     }

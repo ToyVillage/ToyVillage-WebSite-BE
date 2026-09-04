@@ -1,6 +1,7 @@
 package com.command.toyvillage_server.domain.app.work_log.domain;
 
 import com.command.toyvillage_server.domain.app.work_log.domain.enums.QuestionType;
+import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogQuestionOptionNotFoundException;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -83,6 +84,13 @@ public class WorkLogQuestion {
     public void addOption(WorkLogQuestionOption option) {
         options.add(option);
         option.setQuestion(this);
+    }
+
+    public WorkLogQuestionOption findOption(Long optionId) {
+        return options.stream()
+            .filter(option -> option.getId().equals(optionId))
+            .findFirst()
+            .orElseThrow(() -> WorkLogQuestionOptionNotFoundException.EXCEPTION);
     }
 
     void setTemplate(WorkLogTemplate template) {
