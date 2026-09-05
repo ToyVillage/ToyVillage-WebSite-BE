@@ -53,7 +53,7 @@ public class WorkLogQuestion {
 
     @OrderBy("number asc")
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<WorkLogQuestionOption> options = new ArrayList<>();
+    private List<WorkLogQuestionOption> options;
 
     private WorkLogQuestion(
         String question,
@@ -78,6 +78,7 @@ public class WorkLogQuestion {
             .questionType(questionType)
             .questionOrder(questionOrder)
             .required(required)
+            .options(new ArrayList<>())
             .build();
     }
 
