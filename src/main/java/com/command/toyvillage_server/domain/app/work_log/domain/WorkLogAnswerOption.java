@@ -37,7 +37,7 @@ public class WorkLogAnswerOption {
     @Column(name = "etc_text", length = 500)
     private String etcText;
 
-    @Builder(access = AccessLevel.PACKAGE)
+    @Builder
     private WorkLogAnswerOption(WorkLogAnswer answer, WorkLogQuestionOption option, String etcText) {
         if (option.isEtcOption() && (etcText == null || etcText.isBlank())) {
             throw WorkLogEtcAnswerRequiredException.EXCEPTION;
