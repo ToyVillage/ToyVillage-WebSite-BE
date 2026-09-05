@@ -34,11 +34,6 @@ public class WorkLogSection {
     @Column(name = "section_order", nullable = false)
     private Integer sectionOrder;
 
-    private WorkLogSection(String sectionName, Integer sectionOrder) {
-        this.sectionName = sectionName;
-        this.sectionOrder = sectionOrder;
-    }
-
     public static WorkLogSection create(String sectionName, Integer sectionOrder) {
         return WorkLogSection.builder()
             .sectionName(sectionName)
