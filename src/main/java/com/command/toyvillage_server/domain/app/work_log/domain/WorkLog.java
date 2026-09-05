@@ -47,7 +47,7 @@ public class WorkLog {
     @Column(name = "write_at", nullable = false, updatable = false)
     private LocalDate writeAt;
 
-    @OneToMany(mappedBy = "work_log", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "workLog", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WorkLogAnswer> answers = new ArrayList<>();
 
     private WorkLog(WorkLogTemplate template, AppAdmin appAdmin) {
