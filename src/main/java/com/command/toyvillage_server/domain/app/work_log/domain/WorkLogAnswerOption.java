@@ -11,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -36,17 +37,14 @@ public class WorkLogAnswerOption {
     @Column(name = "etc_text", length = 500)
     private String etcText;
 
+    @Builder(access = AccessLevel.PACKAGE)
     private WorkLogAnswerOption(WorkLogAnswer answer, WorkLogQuestionOption option, String etcText) {
-        this.answer = answer;
-        this.option = option;
-        this.etcText = etcText;
-    }
-
-    static WorkLogAnswerOption create(WorkLogAnswer answer, WorkLogQuestionOption option, String etcText) {
         if (option.isEtcOption() && (etcText == null || etcText.isBlank())) {
             throw WorkLogEtcAnswerRequiredException.EXCEPTION;
         }
 
-        return new WorkLogAnswerOption(answer, option, option.isEtcOption() ? etcText : null);
+        this.answer = answer;
+        this.option = option;
+        this.etcText = option.isEtcOption() ? etcText : null;
     }
 }

@@ -10,6 +10,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -37,14 +38,11 @@ public class WorkLogQuestionOption {
     @Column(name = "etc_option", nullable = false)
     private boolean etcOption;
 
+    @Builder
     private WorkLogQuestionOption(Integer number, String content, boolean etcOption) {
         this.number = number;
         this.content = content;
         this.etcOption = etcOption;
-    }
-
-    public static WorkLogQuestionOption create(Integer number, String content, boolean etcOption) {
-        return new WorkLogQuestionOption(number, content, etcOption);
     }
 
     void setQuestion(WorkLogQuestion question) {

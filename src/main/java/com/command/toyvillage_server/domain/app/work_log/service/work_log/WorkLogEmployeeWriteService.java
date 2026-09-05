@@ -51,7 +51,10 @@ public class WorkLogEmployeeWriteService {
 
         template.validateRequiredAnswered(answers);
 
-        WorkLog workLog = WorkLog.create(template, appAdmin);
+        WorkLog workLog = WorkLog.builder()
+            .template(template)
+            .appAdmin(appAdmin)
+            .build();
         answers.forEach(workLog::addAnswer);
 
         workLogRepository.save(workLog);

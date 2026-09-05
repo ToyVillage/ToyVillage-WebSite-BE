@@ -14,6 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -53,6 +54,7 @@ public class WorkLogAnswer {
     @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WorkLogAnswerOption> selectedOptions = new ArrayList<>();
 
+    @Builder
     private WorkLogAnswer(
         WorkLogSection section,
         WorkLogQuestion question,
@@ -65,21 +67,16 @@ public class WorkLogAnswer {
         this.file = file;
     }
 
-    public static WorkLogAnswer create(
-        WorkLogSection section,
-        WorkLogQuestion question,
-        String answerText,
-        File file
-    ) {
-        return new WorkLogAnswer(section, question, answerText, file);
-    }
-
     public void selectOption(Long optionId, String etcText) {
         if (!question.getQuestionType().isMultipleSelectable() && !selectedOptions.isEmpty()) {
             throw WorkLogSingleOptionOnlyException.EXCEPTION;
         }
 
-        selectedOptions.add(WorkLogAnswerOption.create(this, question.findOption(optionId), etcText));
+        selectedOptions.add(WorkLogAnswerOption.builder()
+            .answer(this)
+            .option(question.findOption(optionId))
+            .etcText(etcText)
+            .build());
     }
 
     public boolean isFilled() {

@@ -14,6 +14,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -50,13 +51,10 @@ public class WorkLog {
     @OneToMany(mappedBy = "workLog", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WorkLogAnswer> answers = new ArrayList<>();
 
+    @Builder
     private WorkLog(WorkLogTemplate template, AppAdmin appAdmin) {
         this.template = template;
         this.appAdmin = appAdmin;
-    }
-
-    public static WorkLog create(WorkLogTemplate template, AppAdmin appAdmin) {
-        return new WorkLog(template, appAdmin);
     }
 
     public void addAnswer(WorkLogAnswer answer) {

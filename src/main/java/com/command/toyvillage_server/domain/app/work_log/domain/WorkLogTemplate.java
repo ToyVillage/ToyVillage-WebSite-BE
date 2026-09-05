@@ -15,6 +15,7 @@ import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogQuesti
 import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogSectionNotFoundException;
 import com.command.toyvillage_server.domain.web.file.domain.File;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
@@ -57,13 +58,10 @@ public class WorkLogTemplate {
     @Column(name = "delete_yn", nullable = false)
     private boolean deleteYn;
 
-    private WorkLogTemplate(String templateTitle, boolean deleteYn) {
+    @Builder
+    private WorkLogTemplate(String templateTitle) {
         this.templateTitle = templateTitle;
-        this.deleteYn = deleteYn;
-    }
-
-    public static WorkLogTemplate create(String templateTitle) {
-        return new WorkLogTemplate(templateTitle, false);
+        this.deleteYn = false;
     }
 
     public void addQuestion(WorkLogQuestion question) {
@@ -77,7 +75,12 @@ public class WorkLogTemplate {
     }
 
     public WorkLogAnswer createAnswer(Long sectionId, Long questionId, String answerText, File file) {
-        return WorkLogAnswer.create(findSection(sectionId), findQuestion(questionId), answerText, file);
+        return WorkLogAnswer.builder()
+            .section(findSection(sectionId))
+            .question(findQuestion(questionId))
+            .answerText(answerText)
+            .file(file)
+            .build();
     }
 
     public void validateRequiredAnswered(List<WorkLogAnswer> answers) {

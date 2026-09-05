@@ -25,8 +25,6 @@ import java.util.List;
 @Entity
 @Table(name = "tbl_work_log_question")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
 public class WorkLogQuestion {
 
     @Id
@@ -55,6 +53,7 @@ public class WorkLogQuestion {
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WorkLogQuestionOption> options;
 
+    @Builder
     private WorkLogQuestion(
         String question,
         QuestionType questionType,
@@ -65,21 +64,7 @@ public class WorkLogQuestion {
         this.questionType = questionType;
         this.questionOrder = questionOrder;
         this.required = required;
-    }
-
-    public static WorkLogQuestion create(
-        String question,
-        QuestionType questionType,
-        Integer questionOrder,
-        boolean required
-    ) {
-        return WorkLogQuestion.builder()
-            .question(question)
-            .questionType(questionType)
-            .questionOrder(questionOrder)
-            .required(required)
-            .options(new ArrayList<>())
-            .build();
+        this.options = new ArrayList<>();
     }
 
     public void addOption(WorkLogQuestionOption option) {
