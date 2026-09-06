@@ -5,6 +5,7 @@ import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogSection;
 import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogTemplate;
 import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogQuestion;
 import com.command.toyvillage_server.domain.app.work_log.domain.repository.WorkLogTemplateRepository;
+import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogEtcOptionDuplicatedException;
 import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogOptionRequiredException;
 import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogTemplateAlreadyExistsException;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.request.WorkLogQuestionOptionRequest;
@@ -27,7 +28,9 @@ public class WorkLogTemplateAdminCreateService {
             throw WorkLogTemplateAlreadyExistsException.EXCEPTION;
         }
 
-        WorkLogTemplate template = WorkLogTemplate.create(request.templateTitle());
+        WorkLogTemplate template = WorkLogTemplate.builder()
+            .templateTitle(request.templateTitle())
+            .build();
 
         addSections(template, request.sections());
         addQuestions(template, request.questions());
@@ -37,7 +40,10 @@ public class WorkLogTemplateAdminCreateService {
 
     private void addSections(WorkLogTemplate template, List<String> sectionNames) {
         for (int order = 0; order < sectionNames.size(); order++) {
-            template.addSection(WorkLogSection.create(sectionNames.get(order), order));
+            template.addSection(WorkLogSection.builder()
+                .sectionName(sectionNames.get(order))
+                .sectionOrder(order)
+                .build());
         }
     }
 
@@ -45,12 +51,12 @@ public class WorkLogTemplateAdminCreateService {
         for (int order = 0; order < questions.size(); order++) {
             WorkLogQuestionRequest questionRequest = questions.get(order);
 
-            WorkLogQuestion question = WorkLogQuestion.create(
-                questionRequest.question(),
-                questionRequest.questionType(),
-                order,
-                questionRequest.required()
-            );
+            WorkLogQuestion question = WorkLogQuestion.builder()
+                .question(questionRequest.question())
+                .questionType(questionRequest.questionType())
+                .questionOrder(order)
+                .required(questionRequest.required())
+                .build();
 
             addChoices(question, questionRequest);
 
@@ -65,12 +71,16 @@ public class WorkLogTemplateAdminCreateService {
             throw WorkLogOptionRequiredException.EXCEPTION;
         }
 
+        if (options.stream().filter(WorkLogQuestionOptionRequest::etcOption).count() > 1) {
+            throw WorkLogEtcOptionDuplicatedException.EXCEPTION;
+        }
+
         for (int number = 0; number < options.size(); number++) {
-            question.addOption(WorkLogQuestionOption.create(
-                number,
-                options.get(number).content(),
-                options.get(number).etcOption()
-            ));
+            question.addOption(WorkLogQuestionOption.builder()
+                .number(number)
+                .content(options.get(number).content())
+                .etcOption(options.get(number).etcOption())
+                .build());
         }
     }
 }

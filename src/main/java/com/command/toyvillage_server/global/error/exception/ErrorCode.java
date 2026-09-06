@@ -87,7 +87,11 @@ public enum ErrorCode {
     WORK_LOG_QUESTION_NOT_FOUND(404, "존재하지 않는 업무일지 질문입니다."),
     WORK_LOG_ANSWER_REQUIRED(400, "필수 질문에 답변하지 않았습니다."),
     WORK_LOG_OPTION_REQUIRED(400, "해당 질문 타입은 보기를 하나 이상 등록해야 합니다."),
-    WORK_LOG_FORBIDDEN(403, "본인이 작성한 업무일지만 수정할 수 있습니다."),
+    WORK_LOG_FORBIDDEN(403, "본인이 작성한 업무일지만 접근할 수 있습니다."),
+    WORK_LOG_QUESTION_OPTION_NOT_FOUND(404, "존재하지 않는 업무일지 보기입니다."),
+    WORK_LOG_SINGLE_OPTION_ONLY(400, "이 질문은 보기를 하나만 선택할 수 있습니다."),
+    WORK_LOG_ETC_ANSWER_REQUIRED(400, "기타를 선택한 경우 내용을 직접 입력해야 합니다."),
+    WORK_LOG_ETC_OPTION_DUPLICATED(400, "기타 보기는 질문당 하나만 등록할 수 있습니다."),
   
     // close day
     CLOSE_DAY_NOT_FOUND(404, "존재하지 않는 휴관일입니다."),

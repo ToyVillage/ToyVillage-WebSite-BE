@@ -1,6 +1,8 @@
 package com.command.toyvillage_server.domain.app.work_log.domain;
 
+import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogSingleOptionOnlyException;
 import com.command.toyvillage_server.domain.web.file.domain.File;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -9,10 +11,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -44,6 +51,10 @@ public class WorkLogAnswer {
     @JoinColumn(name = "file_id")
     private File file;
 
+    @OneToMany(mappedBy = "answer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<WorkLogAnswerOption> selectedOptions = new ArrayList<>();
+
+    @Builder
     private WorkLogAnswer(
         WorkLogSection section,
         WorkLogQuestion question,
@@ -56,17 +67,22 @@ public class WorkLogAnswer {
         this.file = file;
     }
 
-    public static WorkLogAnswer create(
-        WorkLogSection section,
-        WorkLogQuestion question,
-        String answerText,
-        File file
-    ) {
-        return new WorkLogAnswer(section, question, answerText, file);
+    public void selectOption(Long optionId, String etcText) {
+        if (!question.getQuestionType().isMultipleSelectable() && !selectedOptions.isEmpty()) {
+            throw WorkLogSingleOptionOnlyException.EXCEPTION;
+        }
+
+        selectedOptions.add(WorkLogAnswerOption.builder()
+            .answer(this)
+            .option(question.findOption(optionId))
+            .etcText(etcText)
+            .build());
     }
 
     public boolean isFilled() {
-        return file != null || (answerText != null && !answerText.isBlank());
+        return file != null
+            || !selectedOptions.isEmpty()
+            || (answerText != null && !answerText.isBlank());
     }
 
     void setWorkLog(WorkLog workLog) {

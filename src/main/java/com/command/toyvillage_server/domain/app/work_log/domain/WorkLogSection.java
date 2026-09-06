@@ -15,8 +15,6 @@ import lombok.*;
 @Entity
 @Table(name = "tbl_work_log_section")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
 public class WorkLogSection {
 
     @Id
@@ -34,16 +32,10 @@ public class WorkLogSection {
     @Column(name = "section_order", nullable = false)
     private Integer sectionOrder;
 
+    @Builder
     private WorkLogSection(String sectionName, Integer sectionOrder) {
         this.sectionName = sectionName;
         this.sectionOrder = sectionOrder;
-    }
-
-    public static WorkLogSection create(String sectionName, Integer sectionOrder) {
-        return WorkLogSection.builder()
-            .sectionName(sectionName)
-            .sectionOrder(sectionOrder)
-            .build();
     }
 
     void setTemplate(WorkLogTemplate template) {

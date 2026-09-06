@@ -15,11 +15,13 @@ import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogQuesti
 import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogSectionNotFoundException;
 import com.command.toyvillage_server.domain.web.file.domain.File;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import java.time.LocalDateTime;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -43,7 +45,7 @@ public class WorkLogTemplate {
 
     @CreatedDate
     @Column(name = "created_at", nullable = false, updatable = false)
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
 
     @OrderBy("questionOrder asc")
     @OneToMany(mappedBy = "template", cascade = CascadeType.ALL, orphanRemoval = true)
@@ -53,12 +55,13 @@ public class WorkLogTemplate {
     @OneToMany(mappedBy = "template", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WorkLogSection> sections = new ArrayList<>();
 
+    @Column(name = "delete_yn", nullable = false)
+    private boolean deleteYn;
+
+    @Builder
     private WorkLogTemplate(String templateTitle) {
         this.templateTitle = templateTitle;
-    }
-
-    public static WorkLogTemplate create(String templateTitle) {
-        return new WorkLogTemplate(templateTitle);
+        this.deleteYn = false;
     }
 
     public void addQuestion(WorkLogQuestion question) {
@@ -72,7 +75,12 @@ public class WorkLogTemplate {
     }
 
     public WorkLogAnswer createAnswer(Long sectionId, Long questionId, String answerText, File file) {
-        return WorkLogAnswer.create(findSection(sectionId), findQuestion(questionId), answerText, file);
+        return WorkLogAnswer.builder()
+            .section(findSection(sectionId))
+            .question(findQuestion(questionId))
+            .answerText(answerText)
+            .file(file)
+            .build();
     }
 
     public void validateRequiredAnswered(List<WorkLogAnswer> answers) {
@@ -88,6 +96,10 @@ public class WorkLogTemplate {
                     throw WorkLogAnswerRequiredException.EXCEPTION;
                 }
             }));
+    }
+
+    public void changeDeleteYn() {
+        this.deleteYn = true;
     }
 
     private WorkLogSection findSection(Long sectionId) {

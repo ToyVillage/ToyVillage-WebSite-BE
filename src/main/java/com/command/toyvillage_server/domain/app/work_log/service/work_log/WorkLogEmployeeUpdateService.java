@@ -7,6 +7,7 @@ import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogTemplate;
 import com.command.toyvillage_server.domain.app.work_log.domain.repository.WorkLogRepository;
 import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogForbiddenException;
 import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogNotFoundException;
+import com.command.toyvillage_server.domain.app.work_log.presentation.dto.request.WorkLogAnswerRequest;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.request.WorkLogWriteRequest;
 import com.command.toyvillage_server.domain.web.file.domain.File;
 import com.command.toyvillage_server.domain.web.file.domain.repository.FileRepository;
@@ -44,17 +45,25 @@ public class WorkLogEmployeeUpdateService {
         WorkLogTemplate template = workLog.getTemplate();
 
         List<WorkLogAnswer> answers = request.answers().stream()
-            .map(answer -> template.createAnswer(
-                answer.sectionId(),
-                answer.questionId(),
-                answer.answerText(),
-                findFile(answer.fileId())
-            ))
+            .map(answer -> createAnswer(template, answer))
             .toList();
 
         template.validateRequiredAnswered(answers);
 
         workLog.replaceAnswers(answers);
+    }
+
+    private WorkLogAnswer createAnswer(WorkLogTemplate template, WorkLogAnswerRequest request) {
+        WorkLogAnswer answer = template.createAnswer(
+            request.sectionId(),
+            request.questionId(),
+            request.answerText(),
+            findFile(request.fileId())
+        );
+
+        request.options().forEach(option -> answer.selectOption(option.optionId(), option.etcText()));
+
+        return answer;
     }
 
     private File findFile(Long fileId) {

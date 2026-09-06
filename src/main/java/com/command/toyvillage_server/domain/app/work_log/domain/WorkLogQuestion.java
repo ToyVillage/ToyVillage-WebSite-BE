@@ -1,6 +1,7 @@
 package com.command.toyvillage_server.domain.app.work_log.domain;
 
 import com.command.toyvillage_server.domain.app.work_log.domain.enums.QuestionType;
+import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogQuestionOptionNotFoundException;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,8 +25,6 @@ import java.util.List;
 @Entity
 @Table(name = "tbl_work_log_question")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
-@Builder
 public class WorkLogQuestion {
 
     @Id
@@ -52,8 +51,9 @@ public class WorkLogQuestion {
 
     @OrderBy("number asc")
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<WorkLogQuestionOption> options = new ArrayList<>();
+    private List<WorkLogQuestionOption> options;
 
+    @Builder
     private WorkLogQuestion(
         String question,
         QuestionType questionType,
@@ -64,25 +64,19 @@ public class WorkLogQuestion {
         this.questionType = questionType;
         this.questionOrder = questionOrder;
         this.required = required;
-    }
-
-    public static WorkLogQuestion create(
-        String question,
-        QuestionType questionType,
-        Integer questionOrder,
-        boolean required
-    ) {
-        return WorkLogQuestion.builder()
-            .question(question)
-            .questionType(questionType)
-            .questionOrder(questionOrder)
-            .required(required)
-            .build();
+        this.options = new ArrayList<>();
     }
 
     public void addOption(WorkLogQuestionOption option) {
         options.add(option);
         option.setQuestion(this);
+    }
+
+    public WorkLogQuestionOption findOption(Long optionId) {
+        return options.stream()
+            .filter(option -> option.getId().equals(optionId))
+            .findFirst()
+            .orElseThrow(() -> WorkLogQuestionOptionNotFoundException.EXCEPTION);
     }
 
     void setTemplate(WorkLogTemplate template) {

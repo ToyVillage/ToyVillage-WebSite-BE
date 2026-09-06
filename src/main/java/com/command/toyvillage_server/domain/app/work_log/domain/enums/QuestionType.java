@@ -6,17 +6,21 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Getter
 public enum QuestionType {
-    SHORT_TEXT("주관식", false),
-    LONG_TEXT("장문형", false),
-    MULTIPLE_CHOICE("객관식", true),
-    CHECK_BOX("체크박스", true),
-    DROP_DOWN("드롭다운", true),
-    FILE_UPLOAD("파일 업로드", false);
+    SHORT_TEXT("주관식", false, false),
+    LONG_TEXT("장문형", false, false),
+    MULTIPLE_CHOICE("객관식", true, false),
+    CHECK_BOX("체크박스", true, true),
+    FILE_UPLOAD("파일 업로드", false, false);
 
     private final String description;
     private final boolean optionRequired;
+    private final boolean multipleSelectable;
 
     public boolean isOptionRequired() {
         return optionRequired;
+    }
+
+    public boolean isMultipleSelectable() {
+        return multipleSelectable;
     }
 }

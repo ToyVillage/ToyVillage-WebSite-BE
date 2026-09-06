@@ -9,6 +9,7 @@ import com.command.toyvillage_server.domain.app.work_log.domain.WorkLogTemplate;
 import com.command.toyvillage_server.domain.app.work_log.domain.repository.WorkLogRepository;
 import com.command.toyvillage_server.domain.app.work_log.domain.repository.WorkLogTemplateRepository;
 import com.command.toyvillage_server.domain.app.work_log.exception.WorkLogTemplateNotFoundException;
+import com.command.toyvillage_server.domain.app.work_log.presentation.dto.request.WorkLogAnswerRequest;
 import com.command.toyvillage_server.domain.app.work_log.presentation.dto.request.WorkLogWriteRequest;
 import com.command.toyvillage_server.domain.web.file.domain.File;
 import com.command.toyvillage_server.domain.web.file.domain.repository.FileRepository;
@@ -41,24 +42,35 @@ public class WorkLogEmployeeWriteService {
         AppAdmin appAdmin = appAdminRepository.findById(appAdminDetails.getId())
             .orElseThrow(() -> AppAdminNotFoundException.EXCEPTION);
 
-        WorkLogTemplate template = workLogTemplateRepository.findById(workLogTemplateId)
+        WorkLogTemplate template = workLogTemplateRepository.findByIdAndDeleteYnFalse(workLogTemplateId)
             .orElseThrow(() -> WorkLogTemplateNotFoundException.EXCEPTION);
 
         List<WorkLogAnswer> answers = request.answers().stream()
-            .map(answer -> template.createAnswer(
-                answer.sectionId(),
-                answer.questionId(),
-                answer.answerText(),
-                findFile(answer.fileId())
-            ))
+            .map(answer -> createAnswer(template, answer))
             .toList();
 
         template.validateRequiredAnswered(answers);
 
-        WorkLog workLog = WorkLog.create(template, appAdmin);
+        WorkLog workLog = WorkLog.builder()
+            .template(template)
+            .appAdmin(appAdmin)
+            .build();
         answers.forEach(workLog::addAnswer);
 
         workLogRepository.save(workLog);
+    }
+
+    private WorkLogAnswer createAnswer(WorkLogTemplate template, WorkLogAnswerRequest request) {
+        WorkLogAnswer answer = template.createAnswer(
+            request.sectionId(),
+            request.questionId(),
+            request.answerText(),
+            findFile(request.fileId())
+        );
+
+        request.options().forEach(option -> answer.selectOption(option.optionId(), option.etcText()));
+
+        return answer;
     }
 
     private File findFile(Long fileId) {
